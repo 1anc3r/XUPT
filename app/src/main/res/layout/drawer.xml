@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <group
+        android:id="@+id/navigation_group_1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navigation_item_1"
+            android:checked="true"
+            android:icon="@mipmap/ic_dashboard_black_24dp"
+            android:title="教务处" />
+
+        <item
+            android:id="@+id/navigation_item_2"
+            android:icon="@mipmap/ic_local_florist_black_24dp"
+            android:title="图书馆" />
+
+        <item
+            android:id="@+id/navigation_item_3"
+            android:icon="@mipmap/ic_face_black_24dp"
+            android:title="四六级" />
+
+    </group>
+
+    <group
+        android:id="@+id/navigation_group_2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navigation_item_day"
+            android:icon="@mipmap/ic_wb_sunny_black_24dp"
+            android:title="白天模式" />
+
+        <item
+            android:id="@+id/navigation_item_night"
+            android:icon="@mipmap/ic_brightness_2_black_24dp"
+            android:title="夜间模式" />
+
+    </group>
+
+</menu>

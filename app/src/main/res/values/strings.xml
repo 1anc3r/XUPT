@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">XUPT</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="bottomsheetdialog">BottomSheetDialog</string>
+    <string name="page1">课表</string>
+    <string name="page2">成绩</string>
+    <string name="page3">信息</string>
+
+    <string name="tilte_1">英语四六级考试成绩查询</string>
+    <string name="title_2">查询结果</string>
+    <string name="title_3">提示</string>
+    <string name="id_1">准考证号</string>
+    <string name="id_2">准考证号：</string>
+    <string name="hint_1">请输入15位准考证号&#160;&#160;</string>
+    <string name="hint_2">请输入姓名的前3个字</string>
+    <string name="name_1">姓名</string>
+    <string name="name_2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;姓名：</string>
+    <string name="name_3">姓名：</string>
+    <string name="query">查询</string>
+    <string name="school">学校：</string>
+    <string name="type">考试类别：</string>
+    <string name="time">考试时间：</string>
+    <string name="sum_1">&#160;您的成绩总分：</string>
+    <string name="sum_2">总分：</string>
+    <string name="hear">听力：</string>
+    <string name="read">阅读：</string>
+    <string name="synthesize">综合：</string>
+    <string name="write">写作：</string>
+    <string name="querying">查询中，请稍候...</string>
+    <string name="tips_1">请输入15位准考证号</string>
+    <string name="tips_2">请输入姓名</string>
+    <string name="tips_3">无法找到对应的分数，请确认你输入的准考证号及姓名无误</string>
+    <string name="tips_4">姓名输入有误</string>
+    <string name="tips_5">网络异常，请检查网络设置</string>
+    <string name="yes">确定</string>
+</resources>

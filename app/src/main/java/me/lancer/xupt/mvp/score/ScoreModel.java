@@ -1,0 +1,236 @@
+package me.lancer.xupt.mvp.score;
+
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.lancer.xupt.util.ContentGetterSetter;
+
+/**
+ * Created by HuangFangzhi on 2016/12/13.
+ */
+
+public class ScoreModel {
+
+    IScorePresenter presenter;
+
+    String value, number, name, cookie;
+
+    Bundle yearBundle, termBundle;
+
+    public ScoreModel(IScorePresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    public void loadScore(String number, String name, String cookie, boolean refresh) {
+        this.number = number;
+        this.name = name;
+        this.cookie = cookie;
+        ContentGetterSetter contentGetterSetter = new ContentGetterSetter("score_", number);
+        String url = "http://222.24.19.201/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
+        String path = Environment.getExternalStorageDirectory().toString();
+        String content;
+        List<ScoreBean> list;
+        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("!error!") && !refresh) {
+//            yearBundle = getYearBundleFromContent(content);
+//            termBundle = getTermBundleWithYearBundle(yearBundle);
+//            list = getScoreFromBundle(yearBundle, termBundle);
+            list = getScoreFromJson(content);
+            presenter.loadScoreSuccess(list);
+            Log.e("loadScore", "loadScoreSuccess.done");
+        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("!error!") && refresh) {
+            yearBundle = getYearBundleFromContent(content);
+            termBundle = getTermBundleWithYearBundle(yearBundle);
+            list = getScoreFromBundle(yearBundle, termBundle);
+            content = setScoreToJson(list);
+            contentGetterSetter.setContentToFile(path, content);
+            presenter.loadScoreSuccess(list);
+            Log.e("loadScore", "loadScoreSuccess.done");
+        } else {
+            presenter.loadScoreFailure("loadScoreFailure.done");
+            Log.e("loadScore", "loadScoreFailure.done");
+        }
+    }
+
+    public Bundle getYearBundleFromContent(String content) {
+        Bundle yearBundle = new Bundle();
+        Document document = Jsoup.parse(content);
+        Element element = document.getElementById("Form1");
+        Elements elements = element.getElementsByAttributeValue("name", "__VIEWSTATE");
+        for (int j = 0; j < elements.size(); j++) {
+            if (elements.get(j).tag().toString().equals("input")) {
+                value = elements.get(j).attr("value");
+            }
+        }
+        element = document.getElementById("ddlXN");
+        if (element != null) {
+            int i = 0;
+            for (Element element1 : element.getAllElements()) {
+                if (!element1.text().equals("") && element1.tag().toString().equals("option")) {
+                    yearBundle.putString("year" + i, element1.text());
+                    i++;
+                }
+            }
+        }
+        return yearBundle;
+    }
+
+    public Bundle getTermBundleWithYearBundle(Bundle yearBundle) {
+        Bundle termBundle = new Bundle();
+        String url = "http://222.24.19.201/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setFollowRedirects(false);
+        for (int i = 0; i < yearBundle.size(); i++) {
+            for (int j = 2; j > 0; j--) {
+                Object object;
+                String year = "";
+                String term = "";
+                if ((object = yearBundle.get("year" + i)) != null) {
+                    year = object.toString();
+                    term = String.valueOf(j);
+                }
+                FormEncodingBuilder builder = new FormEncodingBuilder();
+                builder.add("__EVENTTARGET", "")
+                        .add("__EVENTARGUMENT", "")
+                        .add("__VIEWSTATE", value)
+                        .add("hidLanguage", "")
+                        .add("ddlXN", year)
+                        .add("ddlXQ", term)
+                        .add("ddl_kcxz", "")
+                        .add("btn_xq", "%D1%A7%C6%DA%B3%C9%BC%A8");
+                Request request = new Request.Builder().url(url).addHeader("Cookie", cookie).addHeader("Referer", url).post(builder.build()).build();
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    if (response.code() == 200) {
+                        if (response.header("Content-Length").equals("276")) {
+                            return null;
+                        }
+                        BufferedReader reader = new BufferedReader(response.body().charStream());
+                        StringBuilder content = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            content.append(line);
+                        }
+                        reader.close();
+                        if ((object = yearBundle.get("year" + i)) != null) {
+                            termBundle.putString(object.toString() + " " + j, content.toString());
+                        }
+                    } else {
+                        Log.e("termBundle", "!error!----status code:" + response.code());
+                        return null;
+                    }
+                } catch (IOException e) {
+                    Log.e("termBundle", "!error!----exception:" + e.toString());
+                    return null;
+                }
+            }
+        }
+        return termBundle;
+    }
+
+    public List<ScoreBean> getScoreFromBundle(Bundle yearBundle, Bundle termBundle) {
+        List<ScoreBean> scoreList = new ArrayList<>();
+        for (int i = 0; i < yearBundle.size(); i++) {
+            Object object = yearBundle.get("year" + i);
+            for (int j = 2; j > 0; j--) {
+                if (object != null) {
+                    Document document = Jsoup.parse(termBundle.get(object.toString() + " " + j).toString());
+                    Element element = document.getElementById("Datagrid1");
+                    Elements elements = element.getElementsByTag("tr");
+                    for (int k = 1; k < elements.size(); k++) {
+                        ScoreBean item = new ScoreBean();
+                        String year = elements.get(k).getAllElements().get(1).text();
+                        String term = elements.get(k).getAllElements().get(2).text();
+                        String name = elements.get(k).getAllElements().get(4).text();
+                        String property = elements.get(k).getAllElements().get(5).text();
+                        String credit = elements.get(k).getAllElements().get(7).text();
+                        String gpa = elements.get(k).getAllElements().get(8).text();
+                        String value = elements.get(k).getAllElements().get(9).text();
+                        String resit = elements.get(k).getAllElements().get(11).text();
+                        String retake = elements.get(k).getAllElements().get(12).text();
+                        item.setScoreYear(year);
+                        item.setScoreTerm(term);
+                        item.setScoreName(name);
+                        item.setScoreProperty(property);
+                        item.setScoreGPA(gpa);
+                        item.setScoreCredit(credit);
+                        item.setScoreValue(value);
+                        item.setScoreResit(resit);
+                        item.setScoreRetake(retake);
+                        scoreList.add(item);
+                    }
+                }
+            }
+        }
+        return scoreList;
+    }
+
+    public List<ScoreBean> getScoreFromJson(String json) {
+        try {
+            JSONObject jbScore = new JSONObject(json);
+            JSONArray jaScore = (JSONArray) jbScore.get("score");
+            List<ScoreBean> list = new ArrayList<>();
+            for (int i = 0; i < jaScore.length(); i++) {
+                ScoreBean item = new ScoreBean();
+                JSONObject jbItem = (JSONObject) jaScore.get(i);
+                item.setScoreYear((String) jbItem.get("year"));
+                item.setScoreTerm((String) jbItem.get("term"));
+                item.setScoreName((String) jbItem.get("name"));
+                item.setScoreProperty((String) jbItem.get("property"));
+                item.setScoreGPA((String) jbItem.get("gpa"));
+                item.setScoreCredit((String) jbItem.get("credit"));
+                item.setScoreValue((String) jbItem.get("value"));
+                item.setScoreResit((String) jbItem.get("resit"));
+                item.setScoreRetake((String) jbItem.get("retake"));
+                list.add(item);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String setScoreToJson(List<ScoreBean> list) {
+        try {
+            JSONObject jbScore = new JSONObject();
+            JSONArray jaScore = new JSONArray();
+            for (ScoreBean item : list) {
+                JSONObject jbItem = new JSONObject();
+                jbItem.put("year", item.getScoreYear());
+                jbItem.put("term", item.getScoreTerm());
+                jbItem.put("name", item.getScoreName());
+                jbItem.put("property", item.getScoreProperty());
+                jbItem.put("gpa", item.getScoreGPA());
+                jbItem.put("credit", item.getScoreCredit());
+                jbItem.put("value", item.getScoreValue());
+                jbItem.put("resit", item.getScoreResit());
+                jbItem.put("retake", item.getScoreRetake());
+                jaScore.put(jbItem);
+            }
+            jbScore.put("score", jaScore);
+            return jbScore.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "!error!----" + e.toString();
+        }
+    }
+}
