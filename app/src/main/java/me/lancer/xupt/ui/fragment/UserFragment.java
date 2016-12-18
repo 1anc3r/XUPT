@@ -42,6 +42,7 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
                 case 2:
                     Log.e("log", (String) msg.obj);
                 case 3:
+                    app.setUser(false);
                     UserBean bean = (UserBean) msg.obj;
                     tvHead.setText(bean.getUserName());
                     tvNumber.setText(bean.getUserNumber());
@@ -57,7 +58,7 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
     Runnable loadUser = new Runnable() {
         @Override
         public void run() {
-            presenter.loadUser(number, name, cookie, app.isRefresh());
+            presenter.loadUser(number, name, cookie, app.isUser());
         }
     };
 
@@ -99,7 +100,7 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
 
     @Override
     protected UserPresenter onCreatePresenter() {
-        return new UserPresenter(this);
+        return new UserPresenter(UserFragment.this);
     }
 
     @Override

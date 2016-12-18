@@ -1,5 +1,7 @@
 package me.lancer.xupt.mvp.user;
 
+import android.util.Log;
+
 import me.lancer.xupt.mvp.base.IBasePresenter;
 
 /**

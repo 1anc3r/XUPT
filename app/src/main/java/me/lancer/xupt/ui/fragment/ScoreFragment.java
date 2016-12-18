@@ -61,6 +61,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                 case 2:
                     Log.e("log", (String) msg.obj);
                 case 3:
+                    app.setScore(false);
                     cardStackAdapter = new TermAdapter(getActivity(), termList, termMap);
                     cardStackView.setAdapter(cardStackAdapter);
                     new Handler().postDelayed(
@@ -80,7 +81,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
     Runnable loadScore = new Runnable() {
         @Override
         public void run() {
-            presenter.loadScore(number, name, cookie, app.isRefresh());
+            presenter.loadScore(number, name, cookie, app.isScore());
         }
     };
 
@@ -127,7 +128,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
 
     @Override
     protected ScorePresenter onCreatePresenter() {
-        return new ScorePresenter(this);
+        return new ScorePresenter(ScoreFragment.this);
     }
 
     @Override

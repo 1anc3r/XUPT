@@ -42,6 +42,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                 case 2:
                     Log.e("log", (String) msg.obj);
                 case 3:
+                    app.setCourse(false);
                     courseList = (List<CourseBean>) msg.obj;
                     scheduleView.updateSchedule(courseList);
                     break;
@@ -52,7 +53,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
     Runnable loadCourse = new Runnable() {
         @Override
         public void run() {
-            presenter.loadCourse(number, name, cookie, app.isRefresh());
+            presenter.loadCourse(number, name, cookie, app.isCourse());
         }
     };
 
@@ -87,7 +88,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
 
     @Override
     protected CoursePresenter onCreatePresenter() {
-        return new CoursePresenter(this);
+        return new CoursePresenter(CourseFragment.this);
     }
 
     @Override

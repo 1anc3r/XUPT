@@ -13,7 +13,7 @@ import com.wuxiaolong.androidutils.library.SharedPreferencesUtil;
 public class ApplicationInstance extends Application {
 
     private String number, name, cookie;
-    private boolean refresh;
+    private boolean course, score, user;
 
     @Override
     public void onCreate() {
@@ -51,11 +51,27 @@ public class ApplicationInstance extends Application {
         this.cookie = cookie;
     }
 
-    public boolean isRefresh() {
-        return refresh;
+    public boolean isCourse() {
+        return course;
     }
 
-    public void setRefresh(boolean refresh) {
-        this.refresh = refresh;
+    public void setCourse(boolean course) {
+        this.course = course;
+    }
+
+    public boolean isScore() {
+        return score;
+    }
+
+    public void setScore(boolean score) {
+        this.score = score;
+    }
+
+    public boolean isUser() {
+        return user;
+    }
+
+    public void setUser(boolean user) {
+        this.user = user;
     }
 }

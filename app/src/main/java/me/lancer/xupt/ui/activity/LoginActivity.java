@@ -110,11 +110,15 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
         password = sharedPreferences.getString("password", "");
         cetNumber.setText(number);
         etPassword.setText(password);
-        app.setRefresh(true);
+        app.setCourse(true);
+        app.setScore(true);
+        app.setUser(true);
         if (new File(root + "me.lancer.xupt/course_" + number).exists() && new File(root + "me.lancer.xupt/score_" + number).exists() && new File(root + "me.lancer.xupt/user_" + number).exists()) {
             app.setNumber(number);
             app.setName(name);
-            app.setRefresh(false);
+            app.setCourse(false);
+            app.setScore(false);
+            app.setUser(false);
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, MainActivity.class);
             startActivity(intent);

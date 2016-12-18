@@ -114,6 +114,7 @@ public class MainActivity extends BaseActivity {
                     userFile.delete();
                 }
                 startActivity(new Intent(mActivity, LoginActivity.class));
+                finish();
             }
         });
         TextView tvHead = (TextView) view.findViewById(R.id.tv_head);
@@ -134,6 +135,7 @@ public class MainActivity extends BaseActivity {
                     userFile.delete();
                 }
                 startActivity(new Intent(mActivity, LoginActivity.class));
+                finish();
             }
         });
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelected());
