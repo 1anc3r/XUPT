@@ -1,10 +1,10 @@
-package me.lancer.xupt.mvp.main;
+package me.lancer.xupt.mvp.loginedu;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
  */
 
-public interface IMainPresenter {
+public interface ILoginEduPresenter {
 
     void loadCheckCodeSuccess(String cookie);
 

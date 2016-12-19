@@ -1,4 +1,4 @@
-package me.lancer.xupt.mvp.main;
+package me.lancer.xupt.mvp.loginedu;
 
 import me.lancer.xupt.mvp.base.IBaseView;
 
@@ -6,7 +6,7 @@ import me.lancer.xupt.mvp.base.IBaseView;
  * Created by HuangFangzhi on 2016/12/13.
  */
 
-public interface IMainView extends IBaseView {
+public interface ILoginEduView extends IBaseView {
 
     void showCheckCode(String cookie);
 

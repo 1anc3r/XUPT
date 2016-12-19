@@ -41,6 +41,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                     break;
                 case 2:
                     Log.e("log", (String) msg.obj);
+                    break;
                 case 3:
                     app.setCourse(false);
                     courseList = (List<CourseBean>) msg.obj;
@@ -82,7 +83,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
         app = (ApplicationInstance) getActivity().getApplication();
         number = app.getNumber();
         name = app.getName();
-        cookie = app.getCookie();
+        cookie = app.getEduCookie();
         new Thread(loadCourse).start();
     }
 

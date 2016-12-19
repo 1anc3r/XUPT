@@ -22,7 +22,7 @@ import me.lancer.xupt.ui.adapter.TermAdapter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.ui.view.cardstackview.CardStackView;
 
-public class ScoreFragment extends PresenterFragment<ScorePresenter> implements IScoreView, CardStackView.ItemExpendListener {
+public class ScoreFragment extends PresenterFragment<ScorePresenter> implements IScoreView {
 
     private ApplicationInstance app;
 
@@ -60,6 +60,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                     break;
                 case 2:
                     Log.e("log", (String) msg.obj);
+                    break;
                 case 3:
                     app.setScore(false);
                     cardStackAdapter = new TermAdapter(getActivity(), termList, termMap);
@@ -70,8 +71,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                                 public void run() {
                                     cardStackAdapter.updateData(colorList);
                                 }
-                            }
-                            , 200
+                            }, 200
                     );
                     break;
             }
@@ -101,7 +101,12 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
 
     private void initView(View view) {
         cardStackView = (CardStackView) view.findViewById(R.id.csv_score);
-        cardStackView.setItemExpendListener(this);
+        cardStackView.setItemExpendListener(new CardStackView.ItemExpendListener() {
+            @Override
+            public void onItemExpend(boolean expend) {
+
+            }
+        });
         cardStackAdapter = new TermAdapter(getActivity(), termList, termMap);
         cardStackView.setAdapter(cardStackAdapter);
         new Handler().postDelayed(
@@ -110,8 +115,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                     public void run() {
                         cardStackAdapter.updateData(colorList);
                     }
-                }
-                , 200
+                }, 200
         );
         pdLogin = new ProgressDialog(getActivity());
         pdLogin.setMessage("正在加载成绩...");
@@ -122,7 +126,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
         app = (ApplicationInstance) getActivity().getApplication();
         number = app.getNumber();
         name = app.getName();
-        cookie = app.getCookie();
+        cookie = app.getEduCookie();
         new Thread(loadScore).start();
     }
 
@@ -173,10 +177,5 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
         Message msg = new Message();
         msg.what = 0;
         handler.sendMessage(msg);
-    }
-
-    @Override
-    public void onItemExpend(boolean expend) {
-
     }
 }

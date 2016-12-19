@@ -12,7 +12,8 @@ import com.wuxiaolong.androidutils.library.SharedPreferencesUtil;
 
 public class ApplicationInstance extends Application {
 
-    private String number, name, cookie;
+    private String number, name;
+    public static String eduCookie, libCookie;
     private boolean course, score, user;
 
     @Override
@@ -43,12 +44,20 @@ public class ApplicationInstance extends Application {
         this.name = name;
     }
 
-    public String getCookie() {
-        return cookie;
+    public String getEduCookie() {
+        return eduCookie;
     }
 
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
+    public void setEduCookie(String eduCookie) {
+        this.eduCookie = eduCookie;
+    }
+
+    public String getLibCookie() {
+        return libCookie;
+    }
+
+    public void setLibCookie(String libCookie) {
+        this.libCookie = libCookie;
     }
 
     public boolean isCourse() {

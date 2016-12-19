@@ -18,7 +18,7 @@ import me.lancer.xupt.mvp.user.UserPresenter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.ui.view.CircleImageView;
 
-public class UserFragment extends PresenterFragment<UserPresenter> implements IUserView {
+public class UserEduFragment extends PresenterFragment<UserPresenter> implements IUserView {
 
     ApplicationInstance app = new ApplicationInstance();
 
@@ -41,6 +41,7 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
                     break;
                 case 2:
                     Log.e("log", (String) msg.obj);
+                    break;
                 case 3:
                     app.setUser(false);
                     UserBean bean = (UserBean) msg.obj;
@@ -65,7 +66,7 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        return inflater.inflate(R.layout.fragment_user_edu, container, false);
     }
 
     @Override
@@ -94,13 +95,13 @@ public class UserFragment extends PresenterFragment<UserPresenter> implements IU
         app = (ApplicationInstance) getActivity().getApplication();
         number = app.getNumber();
         name = app.getName();
-        cookie = app.getCookie();
+        cookie = app.getEduCookie();
         new Thread(loadUser).start();
     }
 
     @Override
     protected UserPresenter onCreatePresenter() {
-        return new UserPresenter(UserFragment.this);
+        return new UserPresenter(UserEduFragment.this);
     }
 
     @Override

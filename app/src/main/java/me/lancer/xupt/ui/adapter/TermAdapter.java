@@ -68,7 +68,6 @@ public class TermAdapter extends StackAdapter<Integer> {
             rvSocre.setLayoutManager(llm);
             rvSocre.setItemAnimator(new DefaultItemAnimator());
             rvSocre.setHasFixedSize(true);
-
         }
 
         @Override

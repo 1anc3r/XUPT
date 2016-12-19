@@ -1,4 +1,4 @@
-package me.lancer.xupt.mvp.main;
+package me.lancer.xupt.mvp.loginedu;
 
 import android.os.Environment;
 import android.util.Log;
@@ -19,15 +19,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import me.lancer.xupt.ui.application.ApplicationInstance;
+
 /**
  * Created by HuangFangzhi on 2016/12/13.
  */
 
-public class MainModel {
+public class LoginEduModel {
 
-    IMainPresenter presenter;
+    ILoginEduPresenter presenter;
 
-    public MainModel(IMainPresenter presenter) {
+    public LoginEduModel(ILoginEduPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -95,8 +97,10 @@ public class MainModel {
         try {
             Response response = client.newCall(request).execute();
             if (response.code() == 302) {
-                presenter.loginSuccess(cookie);
-                Log.e("login", "loginSuccess.done");
+                if (cookie != null) {
+                    presenter.loginSuccess(cookie);
+                    Log.e("login", "loginSuccess.done");
+                }
             } else {
                 presenter.loginFailure("!error!----status code:" + response.code());
                 Log.e("login", "!error!----status code:" + response.code());

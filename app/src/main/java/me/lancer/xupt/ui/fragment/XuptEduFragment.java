@@ -19,10 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.loginedu.ILoginEduView;
+import me.lancer.xupt.mvp.loginedu.LoginEduPresenter;
 import me.lancer.xupt.ui.activity.MainActivity;
 
-public class XuptEduFragment extends BaseFragment {
-    private Toolbar mToolbar;
+public class XuptEduFragment extends PresenterFragment<LoginEduPresenter> implements ILoginEduView {
+    
+    private Toolbar toolbar;
     private int index = 0;
 
     @Override
@@ -32,39 +35,62 @@ public class XuptEduFragment extends BaseFragment {
     }
 
     @Override
+    protected LoginEduPresenter onCreatePresenter() {
+        return null;
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("教务处");
-        ((MainActivity) getActivity()).initDrawer(mToolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle("教务处");
+        ((MainActivity) getActivity()).initDrawer(toolbar);
         initTabLayout(view);
         inflateMenu();
         initSearchView();
     }
 
-    private void initSearchView() {
-        final SearchView searchView = (SearchView) mToolbar.getMenu()
-                .findItem(R.id.menu_search).getActionView();
-        searchView.setQueryHint("搜索…");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                showToast("query=" + query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                LogUtil.d("onQueryTextChange=" + s);
-                return false;
-            }
-        });
+    private void initTabLayout(View view) {
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    private void inflateMenu() {
-        mToolbar.inflateMenu(R.menu.menu_search);
-    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        Fragment newfragment = new CourseFragment();
+        Bundle data = new Bundle();
+        data.putInt("id", 0);
+        data.putString("title", getString(R.string.page1));
+        newfragment.setArguments(data);
+        adapter.addFrag(newfragment, getString(R.string.page1));
 
+        newfragment = new ScoreFragment();
+        data = new Bundle();
+        data.putInt("id", 1);
+        data.putString("title", getString(R.string.page2));
+        newfragment.setArguments(data);
+        adapter.addFrag(newfragment, getString(R.string.page2));
+
+
+        newfragment = new UserEduFragment();
+        data = new Bundle();
+        data.putInt("id", 2);
+        data.putString("title", "我的");
+        newfragment.setArguments(data);
+        adapter.addFrag(newfragment, "我的");
+
+
+        viewPager.setAdapter(adapter);
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            index = bundle.getInt("index");
+        }
+        viewPager.setCurrentItem(index, true);
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -95,45 +121,56 @@ public class XuptEduFragment extends BaseFragment {
         }
     }
 
-    private void initTabLayout(View view) {
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+    private void inflateMenu() {
+        toolbar.inflateMenu(R.menu.menu_search);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        Fragment newfragment = new CourseFragment();
-        Bundle data = new Bundle();
-        data.putInt("id", 0);
-        data.putString("title", getString(R.string.page1));
-        newfragment.setArguments(data);
-        adapter.addFrag(newfragment, getString(R.string.page1));
+    private void initSearchView() {
+        final SearchView searchView = (SearchView) toolbar.getMenu()
+                .findItem(R.id.menu_search).getActionView();
+        searchView.setQueryHint("搜索…");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                showToast("query=" + query);
+                return false;
+            }
 
-        newfragment = new ScoreFragment();
-        data = new Bundle();
-        data.putInt("id", 1);
-        data.putString("title", getString(R.string.page2));
-        newfragment.setArguments(data);
-        adapter.addFrag(newfragment, getString(R.string.page2));
+            @Override
+            public boolean onQueryTextChange(String s) {
+                LogUtil.d("onQueryTextChange=" + s);
+                return false;
+            }
+        });
+    }
 
+    @Override
+    public void showCheckCode(String cookie) {
 
-        newfragment = new UserFragment();
-        data = new Bundle();
-        data.putInt("id", 2);
-        data.putString("title", getString(R.string.page3));
-        newfragment.setArguments(data);
-        adapter.addFrag(newfragment, getString(R.string.page3));
+    }
 
+    @Override
+    public void login(String cookie) {
 
-        viewPager.setAdapter(adapter);
-        if (getArguments() != null) {
-            Bundle bundle = getArguments();
-            index = bundle.getInt("index");
-        }
-        viewPager.setCurrentItem(index, true);
+    }
+
+    @Override
+    public void home(String number, String name) {
+
+    }
+
+    @Override
+    public void showMsg(String log) {
+
+    }
+
+    @Override
+    public void showLoad() {
+
+    }
+
+    @Override
+    public void hideLoad() {
+
     }
 }

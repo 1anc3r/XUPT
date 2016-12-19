@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.wuxiaolong.androidutils.library.LogUtil;
@@ -113,7 +112,7 @@ public class MainActivity extends BaseActivity {
                     scoreFile.delete();
                     userFile.delete();
                 }
-                startActivity(new Intent(mActivity, LoginActivity.class));
+                startActivity(new Intent(mActivity, LoginEduActivity.class));
                 finish();
             }
         });
@@ -134,7 +133,7 @@ public class MainActivity extends BaseActivity {
                     scoreFile.delete();
                     userFile.delete();
                 }
-                startActivity(new Intent(mActivity, LoginActivity.class));
+                startActivity(new Intent(mActivity, LoginEduActivity.class));
                 finish();
             }
         });
@@ -171,11 +170,11 @@ public class MainActivity extends BaseActivity {
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
-                case R.id.navigation_item_night:
-                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, true);
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    recreate();
-                    return true;
+//                case R.id.navigation_item_night:
+//                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, true);
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    recreate();
+//                    return true;
                 case R.id.navigation_item_day:
                     SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, false);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

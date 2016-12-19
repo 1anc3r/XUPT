@@ -69,9 +69,9 @@ public class CourseModel {
             for (int j = 0; j < 7; j++) {
                 String str = elements1.get(j).text();
                 if (str.length() > 1) {
-                    CourseBean item = new CourseBean();
-                    item.setCourseTime(i - 1);
-                    item.setCourseDay(j + 1);
+                    CourseBean cbItem = new CourseBean();
+                    cbItem.setCourseTime(i - 1);
+                    cbItem.setCourseDay(j + 1);
                     String[] strs = str.split(" ");
                     String name = strs[0];
                     String teacher = strs[2];
@@ -79,21 +79,21 @@ public class CourseModel {
                     if (strs.length > 3) {
                         classroom = strs[3];
                     }
-                    item.setCourseName(name);
-                    item.setCourseTeacher(teacher);
+                    cbItem.setCourseName(name);
+                    cbItem.setCourseTeacher(teacher);
                     if (strs.length > 3) {
-                        item.setCourseClassroom(classroom);
+                        cbItem.setCourseClassroom(classroom);
                     }
                     if (colorMap.get(name) != null) {
-                        item.setCourseColor(colorMap.get(name));
+                        cbItem.setCourseColor(colorMap.get(name));
                     } else {
-                        item.setCourseColor(color);
+                        cbItem.setCourseColor(color);
                         colorMap.put(name, color);
                         if ((++color) == 7) {
                             color = 0;
                         }
                     }
-                    courseList.add(item);
+                    courseList.add(cbItem);
                 }
             }
         }
@@ -106,15 +106,15 @@ public class CourseModel {
             JSONArray jaCourse = (JSONArray) jbCourse.get("course");
             List<CourseBean> list = new ArrayList<>();
             for (int i = 0; i < jaCourse.length(); i++) {
-                CourseBean item = new CourseBean();
+                CourseBean cbItem = new CourseBean();
                 JSONObject jbItem = (JSONObject) jaCourse.get(i);
-                item.setCourseTime((Integer) jbItem.get("time"));
-                item.setCourseDay((Integer) jbItem.get("day"));
-                item.setCourseColor((Integer) jbItem.get("color"));
-                item.setCourseName((String) jbItem.get("name"));
-                item.setCourseTeacher((String) jbItem.get("teacher"));
-                item.setCourseClassroom((String) jbItem.get("classroom"));
-                list.add(item);
+                cbItem.setCourseTime((Integer) jbItem.get("time"));
+                cbItem.setCourseDay((Integer) jbItem.get("day"));
+                cbItem.setCourseColor((Integer) jbItem.get("color"));
+                cbItem.setCourseName((String) jbItem.get("name"));
+                cbItem.setCourseTeacher((String) jbItem.get("teacher"));
+                cbItem.setCourseClassroom((String) jbItem.get("classroom"));
+                list.add(cbItem);
             }
             return list;
         } catch (JSONException e) {
@@ -127,14 +127,14 @@ public class CourseModel {
         try {
             JSONObject jbCourse = new JSONObject();
             JSONArray jaCourse = new JSONArray();
-            for (CourseBean item : list) {
+            for (CourseBean cbItem : list) {
                 JSONObject jbItem = new JSONObject();
-                jbItem.put("time", item.getCourseTime());
-                jbItem.put("day", item.getCourseDay());
-                jbItem.put("color", item.getCourseColor());
-                jbItem.put("name", item.getCourseName());
-                jbItem.put("teacher", item.getCourseTeacher());
-                jbItem.put("classroom", item.getCourseClassroom());
+                jbItem.put("time", cbItem.getCourseTime());
+                jbItem.put("day", cbItem.getCourseDay());
+                jbItem.put("color", cbItem.getCourseColor());
+                jbItem.put("name", cbItem.getCourseName());
+                jbItem.put("teacher", cbItem.getCourseTeacher());
+                jbItem.put("classroom", cbItem.getCourseClassroom());
                 jaCourse.put(jbItem);
             }
             jbCourse.put("course", jaCourse);

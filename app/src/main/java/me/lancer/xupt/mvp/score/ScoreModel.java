@@ -156,7 +156,7 @@ public class ScoreModel {
                     Element element = document.getElementById("Datagrid1");
                     Elements elements = element.getElementsByTag("tr");
                     for (int k = 1; k < elements.size(); k++) {
-                        ScoreBean item = new ScoreBean();
+                        ScoreBean sbItem = new ScoreBean();
                         String year = elements.get(k).getAllElements().get(1).text();
                         String term = elements.get(k).getAllElements().get(2).text();
                         String name = elements.get(k).getAllElements().get(4).text();
@@ -166,16 +166,16 @@ public class ScoreModel {
                         String value = elements.get(k).getAllElements().get(9).text();
                         String resit = elements.get(k).getAllElements().get(11).text();
                         String retake = elements.get(k).getAllElements().get(12).text();
-                        item.setScoreYear(year);
-                        item.setScoreTerm(term);
-                        item.setScoreName(name);
-                        item.setScoreProperty(property);
-                        item.setScoreGPA(gpa);
-                        item.setScoreCredit(credit);
-                        item.setScoreValue(value);
-                        item.setScoreResit(resit);
-                        item.setScoreRetake(retake);
-                        scoreList.add(item);
+                        sbItem.setScoreYear(year);
+                        sbItem.setScoreTerm(term);
+                        sbItem.setScoreName(name);
+                        sbItem.setScoreProperty(property);
+                        sbItem.setScoreGPA(gpa);
+                        sbItem.setScoreCredit(credit);
+                        sbItem.setScoreValue(value);
+                        sbItem.setScoreResit(resit);
+                        sbItem.setScoreRetake(retake);
+                        scoreList.add(sbItem);
                     }
                 }
             }
@@ -189,18 +189,18 @@ public class ScoreModel {
             JSONArray jaScore = (JSONArray) jbScore.get("score");
             List<ScoreBean> list = new ArrayList<>();
             for (int i = 0; i < jaScore.length(); i++) {
-                ScoreBean item = new ScoreBean();
+                ScoreBean sbItem = new ScoreBean();
                 JSONObject jbItem = (JSONObject) jaScore.get(i);
-                item.setScoreYear((String) jbItem.get("year"));
-                item.setScoreTerm((String) jbItem.get("term"));
-                item.setScoreName((String) jbItem.get("name"));
-                item.setScoreProperty((String) jbItem.get("property"));
-                item.setScoreGPA((String) jbItem.get("gpa"));
-                item.setScoreCredit((String) jbItem.get("credit"));
-                item.setScoreValue((String) jbItem.get("value"));
-                item.setScoreResit((String) jbItem.get("resit"));
-                item.setScoreRetake((String) jbItem.get("retake"));
-                list.add(item);
+                sbItem.setScoreYear((String) jbItem.get("year"));
+                sbItem.setScoreTerm((String) jbItem.get("term"));
+                sbItem.setScoreName((String) jbItem.get("name"));
+                sbItem.setScoreProperty((String) jbItem.get("property"));
+                sbItem.setScoreGPA((String) jbItem.get("gpa"));
+                sbItem.setScoreCredit((String) jbItem.get("credit"));
+                sbItem.setScoreValue((String) jbItem.get("value"));
+                sbItem.setScoreResit((String) jbItem.get("resit"));
+                sbItem.setScoreRetake((String) jbItem.get("retake"));
+                list.add(sbItem);
             }
             return list;
         } catch (JSONException e) {
@@ -213,17 +213,17 @@ public class ScoreModel {
         try {
             JSONObject jbScore = new JSONObject();
             JSONArray jaScore = new JSONArray();
-            for (ScoreBean item : list) {
+            for (ScoreBean sbItem : list) {
                 JSONObject jbItem = new JSONObject();
-                jbItem.put("year", item.getScoreYear());
-                jbItem.put("term", item.getScoreTerm());
-                jbItem.put("name", item.getScoreName());
-                jbItem.put("property", item.getScoreProperty());
-                jbItem.put("gpa", item.getScoreGPA());
-                jbItem.put("credit", item.getScoreCredit());
-                jbItem.put("value", item.getScoreValue());
-                jbItem.put("resit", item.getScoreResit());
-                jbItem.put("retake", item.getScoreRetake());
+                jbItem.put("year", sbItem.getScoreYear());
+                jbItem.put("term", sbItem.getScoreTerm());
+                jbItem.put("name", sbItem.getScoreName());
+                jbItem.put("property", sbItem.getScoreProperty());
+                jbItem.put("gpa", sbItem.getScoreGPA());
+                jbItem.put("credit", sbItem.getScoreCredit());
+                jbItem.put("value", sbItem.getScoreValue());
+                jbItem.put("resit", sbItem.getScoreResit());
+                jbItem.put("retake", sbItem.getScoreRetake());
                 jaScore.put(jbItem);
             }
             jbScore.put("score", jaScore);

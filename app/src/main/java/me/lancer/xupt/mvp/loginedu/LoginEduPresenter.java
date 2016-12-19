@@ -1,4 +1,4 @@
-package me.lancer.xupt.mvp.main;
+package me.lancer.xupt.mvp.loginedu;
 
 import me.lancer.xupt.mvp.base.IBasePresenter;
 
@@ -6,18 +6,18 @@ import me.lancer.xupt.mvp.base.IBasePresenter;
  * Created by HuangFangzhi on 2016/12/13.
  */
 
-public class MainPresenter implements IBasePresenter<IMainView>, IMainPresenter {
+public class LoginEduPresenter implements IBasePresenter<ILoginEduView>, ILoginEduPresenter {
 
-    private IMainView view;
-    private MainModel model;
+    private ILoginEduView view;
+    private LoginEduModel model;
 
-    public MainPresenter(IMainView view) {
+    public LoginEduPresenter(ILoginEduView view) {
         attachView(view);
-        model = new MainModel(this);
+        model = new LoginEduModel(this);
     }
 
     @Override
-    public void attachView(IMainView view) {
+    public void attachView(ILoginEduView view) {
         this.view = view;
     }
 

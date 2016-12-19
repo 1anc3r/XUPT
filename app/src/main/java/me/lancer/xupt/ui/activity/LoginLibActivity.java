@@ -14,32 +14,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.io.File;
+import java.util.List;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.mvp.main.IMainView;
-import me.lancer.xupt.mvp.main.MainPresenter;
+import me.lancer.xupt.mvp.book.BookBean;
+import me.lancer.xupt.mvp.loginlib.ILoginLibView;
+import me.lancer.xupt.mvp.loginlib.LoginLibPresenter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.ui.view.ClearEditText;
 import me.lancer.xupt.util.NetworkDiagnosis;
 
-public class LoginActivity extends PresenterActivity<MainPresenter> implements IMainView {
+public class LoginLibActivity extends PresenterActivity<LoginLibPresenter> implements ILoginLibView {
 
     ApplicationInstance app = new ApplicationInstance();
 
     LinearLayout llLogin;
-    ClearEditText cetNumber, cetCheckCode;
+    ClearEditText cetNumber;
     EditText etPassword;
-    ImageView ivCheckCode;
     Button btnLogin;
     ProgressDialog pdLogin;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String cookie, number, name, password, checkcode;
+    String cookie, number, name, password;
 
     Handler handler = new Handler() {
         @Override
@@ -50,10 +49,6 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
                     pdLogin.show();
                 } else if (log.equals("hide")) {
                     pdLogin.dismiss();
-                } else if (log.equals("checkcode")) {
-                    String checkCodePath = Environment.getExternalStorageDirectory() + "/me.lancer.xupt/CheckCode.gif";
-                    Bitmap bitmap = BitmapFactory.decodeFile(checkCodePath);
-                    ivCheckCode.setImageBitmap(bitmap);
                 } else {
                     pdLogin.dismiss();
                     showSnackbar(llLogin, log);
@@ -65,24 +60,15 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
     Runnable login = new Runnable() {
         @Override
         public void run() {
-            presenter.login(cetNumber.getText().toString(), etPassword.getText().toString(), cetCheckCode.getText().toString(), cookie);
+            presenter.login(cetNumber.getText().toString(), etPassword.getText().toString());
         }
     };
 
-    Runnable loadCheckCode = new Runnable() {
-        @Override
-        public void run() {
-            presenter.loadCheckCode();
-        }
-    };
-
-    private final String root = Environment.getExternalStorageDirectory() + "/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initToolbar("登录");
         initView();
         initData();
@@ -92,9 +78,6 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
         llLogin = (LinearLayout) findViewById(R.id.ll_login);
         cetNumber = (ClearEditText) findViewById(R.id.cet_number);
         etPassword = (EditText) findViewById(R.id.et_password);
-        cetCheckCode = (ClearEditText) findViewById(R.id.cet_checkcode);
-        ivCheckCode = (ImageView) findViewById(R.id.iv_checkcode);
-        ivCheckCode.setOnClickListener(vOnClickListener);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(vOnClickListener);
         pdLogin = new ProgressDialog(this);
@@ -110,21 +93,6 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
         password = sharedPreferences.getString("password", "");
         cetNumber.setText(number);
         etPassword.setText(password);
-        app.setCourse(true);
-        app.setScore(true);
-        app.setUser(true);
-        if (new File(root + "me.lancer.xupt/course_" + number).exists() && new File(root + "me.lancer.xupt/score_" + number).exists() && new File(root + "me.lancer.xupt/user_" + number).exists()) {
-            app.setNumber(number);
-            app.setName(name);
-            app.setCourse(false);
-            app.setScore(false);
-            app.setUser(false);
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        new Thread(loadCheckCode).start();
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
@@ -140,60 +108,55 @@ public class LoginActivity extends PresenterActivity<MainPresenter> implements I
                     } else {
                         number = cetNumber.getText().toString();
                         password = etPassword.getText().toString();
-                        checkcode = cetCheckCode.getText().toString();
                         sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                         editor = sharedPreferences.edit();
                         editor.putString("number", number);
                         editor.putString("password", password);
                         editor.apply();
-                        if (!networkDiagnosis.checkNetwork(LoginActivity.this)) {
+                        if (!networkDiagnosis.checkNetwork(LoginLibActivity.this)) {
                             showSnackbar(llLogin, "网络连接错误!");
                         } else {
                             new Thread(login).start();
                         }
                     }
-                } else if (v == ivCheckCode) {
-                    Log.e("ivCheckCode", "change checkcode");
-                    new Thread(loadCheckCode).start();
                 }
             }
         }
     };
 
     @Override
-    protected MainPresenter onCreatePresenter() {
-        return new MainPresenter(this);
-    }
-
-    @Override
-    public void showCheckCode(String cookie) {
-        this.cookie = cookie;
-        app.setCookie(cookie);
-        Message msg = new Message();
-        msg.obj = "checkcode";
-        handler.sendMessage(msg);
+    protected LoginLibPresenter onCreatePresenter() {
+        return new LoginLibPresenter(this);
     }
 
     @Override
     public void login(String cookie) {
         this.cookie = cookie;
-        app.setCookie(cookie);
-        presenter.home(cetNumber.getText().toString(), cookie);
+        app.setLibCookie(cookie);
+        Intent intent = new Intent();
+        intent.setClass(LoginLibActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
-    public void home(String number, String name) {
-        app.setNumber(number);
-        app.setName(name);
-        sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.putString("number", number);
-        editor.putString("name", name);
-        editor.apply();
-        Intent intent = new Intent();
-        intent.setClass(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+    public void showDebt(String debt) {
+
+    }
+
+    @Override
+    public void showCurrent(List<BookBean> list) {
+
+    }
+
+    @Override
+    public void showHistory(List<BookBean> list) {
+
+    }
+
+    @Override
+    public void showFavorite(List<BookBean> list) {
+
     }
 
     @Override
