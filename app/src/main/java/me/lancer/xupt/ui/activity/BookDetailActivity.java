@@ -4,13 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +41,7 @@ import me.lancer.xupt.ui.adapter.SearchAdapter;
 
 public class BookDetailActivity extends PresenterActivity<BookPresenter> implements IBookView {
 
+    Toolbar toolbar;
     ImageView ivBook;
     TextView tvName, tvAuthor, tvPublish, tvSubject, tvTotal, tvAvaliable;
     RecyclerView rvCircle, rvRefer;
@@ -97,7 +102,6 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-        initToolbar("图书详情");
         initData();
         initView();
     }
@@ -109,6 +113,30 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
     }
 
     private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("图书详情");
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_18dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.inflateMenu(R.menu.menu_detail);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_favorite:
+
+                        break;
+                    case R.id.menu_renew:
+
+                        break;
+                }
+                return true;
+            }
+        });
         ivBook = (ImageView) findViewById(R.id.iv_book);
         tvName = (TextView) findViewById(R.id.tv_name);
         tvAuthor = (TextView) findViewById(R.id.tv_author);
