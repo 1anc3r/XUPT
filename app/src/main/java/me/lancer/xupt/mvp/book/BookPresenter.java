@@ -1,6 +1,7 @@
 package me.lancer.xupt.mvp.book;
 
 import java.util.List;
+import java.util.Map;
 
 import me.lancer.xupt.mvp.base.IBasePresenter;
 
@@ -58,6 +59,23 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
 
     @Override
     public void rankFailure(String log) {
+        view.showMsg(log);
+        view.hideLoad();
+    }
+
+    public void detail(int key, String value) {
+        view.showLoad();
+        model.detail(key, value);
+    }
+
+    @Override
+    public void detailSuccess(Map<String, List<BookBean>> map) {
+        view.detail(map);
+        view.hideLoad();
+    }
+
+    @Override
+    public void detailFailure(String log) {
         view.showMsg(log);
         view.hideLoad();
     }

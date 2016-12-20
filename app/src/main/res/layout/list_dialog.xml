@@ -14,11 +14,11 @@
         android:background="?attr/colorPrimary"
         android:elevation="3dp"
         android:gravity="center"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         android:text=""
         android:textColor="?android:colorBackground"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"

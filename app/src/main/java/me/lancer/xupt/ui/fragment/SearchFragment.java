@@ -15,17 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
 import me.lancer.xupt.mvp.book.IBookView;
 import me.lancer.xupt.ui.adapter.SearchAdapter;
-import me.lancer.xupt.ui.adapter.StrAdapter;
 
 /**
  * Created by HuangFangzhi on 2016/12/18.
@@ -152,6 +151,11 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
 
     @Override
     public void rank(List<BookBean> list) {
+
+    }
+
+    @Override
+    public void detail(Map<String, List<BookBean>> map) {
 
     }
 

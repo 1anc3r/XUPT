@@ -34,4 +34,5 @@
     <string name="tips_4">姓名输入有误</string>
     <string name="tips_5">网络异常，请检查网络设置</string>
     <string name="yes">确定</string>
+    <string name="title_activity_book_detail">BookDetailActivity</string>
 </resources>

@@ -28,7 +28,7 @@ public class LoginLibModel {
     }
 
     public void login(String number, String password) {
-        String url = "http://api.xiyoumobile.com/xiyoulibv2/user/login?username=S" + number + "&password=123456";
+        String url = "http://api.xiyoumobile.com/xiyoulibv2/user/login?username=S" + number + "&password="+password;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
         try {

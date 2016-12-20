@@ -15,7 +15,7 @@ public class BookBean {
     private String bookSort;// 图书馆索书号
     private String bookSubject; // 主题
     private String bookTotal;// 图书馆藏书数量
-    private String bookAvaliable;// 可借阅数量
+    private String bookAvailable;// 可借阅数量
     private String bookBarCode;// 条形码
     private String bookDepartment;// 所在分馆
     private String bookState;// 当前状态
@@ -99,12 +99,12 @@ public class BookBean {
         this.bookTotal = bookTotal;
     }
 
-    public String getBookAvaliable() {
-        return bookAvaliable;
+    public String getBookAvailable() {
+        return bookAvailable;
     }
 
-    public void setBookAvaliable(String bookAvaliable) {
-        this.bookAvaliable = bookAvaliable;
+    public void setBookAvailable(String bookAvailable) {
+        this.bookAvailable = bookAvailable;
     }
 
     public String getBookBarCode() {

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.book.BookBean;
@@ -121,6 +122,11 @@ public class RankFragment extends PresenterFragment<BookPresenter> implements IB
         msg.what = 3;
         msg.obj = list;
         handler.sendMessage(msg);
+    }
+
+    @Override
+    public void detail(Map<String, List<BookBean>> map) {
+
     }
 
     @Override

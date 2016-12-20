@@ -1,5 +1,6 @@
 package me.lancer.xupt.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import java.util.List;
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.score.ScoreBean;
+import me.lancer.xupt.ui.activity.BookDetailActivity;
+import me.lancer.xupt.ui.activity.LoginEduActivity;
+import me.lancer.xupt.ui.activity.MainActivity;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
@@ -67,6 +71,16 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
             super(rootView);
             tvName = (TextView) rootView.findViewById(R.id.tv_name);
             tvBorNum = (TextView) rootView.findViewById(R.id.tv_bor_num);
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("key", 0);
+                    intent.putExtra("value", bookList.get(getPosition()).getBookId());
+                    intent.setClass(v.getContext(), BookDetailActivity.class);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

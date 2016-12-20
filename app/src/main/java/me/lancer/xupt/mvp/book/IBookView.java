@@ -1,6 +1,7 @@
 package me.lancer.xupt.mvp.book;
 
 import java.util.List;
+import java.util.Map;
 
 import me.lancer.xupt.mvp.base.IBaseView;
 
@@ -13,4 +14,6 @@ public interface IBookView extends IBaseView {
     void search(List<BookBean> list);
 
     void rank(List<BookBean> list);
+
+    void detail(Map<String, List<BookBean>> map);
 }

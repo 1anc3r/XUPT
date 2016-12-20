@@ -1,6 +1,7 @@
 package me.lancer.xupt.mvp.book;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
@@ -15,4 +16,8 @@ public interface IBookPresenter {
     void rankSuccess(List<BookBean> list);
 
     void rankFailure(String log);
+
+    void detailSuccess(Map<String, List<BookBean>> map);
+
+    void detailFailure(String log);
 }

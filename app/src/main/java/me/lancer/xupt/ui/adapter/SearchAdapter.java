@@ -1,5 +1,6 @@
 package me.lancer.xupt.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.book.BookBean;
+import me.lancer.xupt.ui.activity.BookDetailActivity;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
@@ -48,6 +50,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(rootView);
             tvName = (TextView) rootView.findViewById(R.id.tv_name);
             tvAuthor = (TextView) rootView.findViewById(R.id.tv_author);
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("key", 0);
+                    intent.putExtra("value", bookList.get(getPosition()).getBookId());
+                    intent.setClass(v.getContext(), BookDetailActivity.class);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

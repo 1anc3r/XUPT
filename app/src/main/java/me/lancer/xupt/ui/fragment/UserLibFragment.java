@@ -1,5 +1,6 @@
 package me.lancer.xupt.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +39,15 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
 
     LinearLayout llUser, llCurrent, llHistory, llFavorite;
     CircleImageView civHead;
-    TextView tvHead, tvDebt, tvCurrent, tvHistory, tvFavorite;
+    TextView tvHead, tvDebt, tvCurrent, tvHistory, tvFavorite, tvType;
+    RecyclerView rvList;
+    View loginDialogView, listDialogView;
+    AlertDialog loginDialog;
+    BottomSheetDialog listDialog;
+    ClearEditText cetNumber;
+    EditText etPassword;
+    Button btnLogin;
+    ProgressDialog pdLogin;
 
     List<BookBean> currentList = new ArrayList<>(), historyList = new ArrayList<>(), favoriteList = new ArrayList<>();
 
@@ -55,6 +65,8 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
                     Log.e("log", (String) msg.obj);
                     break;
                 case 3:
+                    pdLogin.dismiss();
+                    loginDialog.dismiss();
                     app.setLibCookie(cookie);
                     tvHead.setText(app.getName());
                     new Thread(getDebt).start();
@@ -97,7 +109,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     Runnable login = new Runnable() {
         @Override
         public void run() {
-            presenter.login(app.getNumber(), password);
+            presenter.login(number, password);
         }
     };
 
@@ -146,6 +158,10 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         tvCurrent = (TextView) view.findViewById(R.id.tv_current);
         tvHistory = (TextView) view.findViewById(R.id.tv_history);
         tvFavorite = (TextView) view.findViewById(R.id.tv_favorite);
+        pdLogin = new ProgressDialog(getActivity());
+        pdLogin.setMessage("正在登录...");
+        pdLogin.setCancelable(false);
+        showLoginDialog();
     }
 
     private void initData() {
@@ -161,20 +177,25 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         @Override
         public void onClick(View v) {
             if (v == llCurrent) {
-                showList(1, currentList);
+                showListDialog(1, currentList);
             } else if (v == llHistory) {
-                showList(2, historyList);
+                showListDialog(2, historyList);
             } else if (v == llFavorite) {
-                showList(3, favoriteList);
+                showListDialog(3, favoriteList);
             } else if (v == civHead) {
-                showDialog();
+                loginDialog.show();
+            } else if (v == btnLogin) {
+                number = cetNumber.getText().toString();
+                password = etPassword.getText().toString();
+                pdLogin.show();
+                new Thread(login).start();
             }
         }
     };
 
-    public void showList(int type, List<BookBean> list) {
-        View view = View.inflate(getActivity(), R.layout.list_dialog, null);
-        TextView tvType = (TextView) view.findViewById(R.id.tv_type);
+    public void showListDialog(int type, List<BookBean> list) {
+        listDialogView = View.inflate(getActivity(), R.layout.list_dialog, null);
+        tvType = (TextView) listDialogView.findViewById(R.id.tv_type);
         switch (type) {
             case 1:
                 tvType.setText("当前借阅");
@@ -186,7 +207,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
                 tvType.setText("收藏关注");
                 break;
         }
-        RecyclerView rvList = (RecyclerView) view.findViewById(R.id.rv_list);
+        rvList = (RecyclerView) listDialogView.findViewById(R.id.rv_list);
         rvList.setItemAnimator(new DefaultItemAnimator());
         rvList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         RecyclerView.Adapter adapter = null;
@@ -203,27 +224,20 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         }
         rvList.setAdapter(adapter);
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.show();
+        listDialog = new BottomSheetDialog(getActivity());
+        listDialog.setContentView(listDialogView);
+        listDialog.show();
     }
 
-    private void showDialog() {
-        final View view = LayoutInflater.from(getActivity()).inflate(R.layout.login_dialog, null);
+    private void showLoginDialog(){
+        loginDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.login_dialog, null);
+        cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
+        etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);
+        btnLogin = (Button) loginDialogView.findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(vOnClickListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("登录");
-        builder.setView(view);
-        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ClearEditText cetNumber = (ClearEditText) view.findViewById(R.id.cet_number);
-                EditText etPassword = (EditText) view.findViewById(R.id.et_password);
-                number = cetNumber.getText().toString();
-                password = etPassword.getText().toString();
-                new Thread(login).start();
-            }
-        });
-        builder.create().show();
+        builder.setView(loginDialogView);
+        loginDialog = builder.create();
     }
 
     @Override

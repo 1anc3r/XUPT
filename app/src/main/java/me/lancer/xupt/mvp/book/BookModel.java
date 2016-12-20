@@ -11,7 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
@@ -73,6 +75,35 @@ public class BookModel {
         }
     }
 
+    public void detail(int key, String value){
+        String url="";
+        if (key == 0) {
+            url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/id/" + value;
+        } else if (key == 1){
+            url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/borcode/" + value;
+        }
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        try {
+            Response response = client.newCall(request).execute();
+            Map<String, List<BookBean>> map;
+            if (response.code() == 200) {
+                map = getDetailFromContent(response.body().string());
+                if (map != null) {
+                    presenter.detailSuccess(map);
+                } else {
+                    presenter.detailSuccess(null);
+                }
+            } else {
+                presenter.detailFailure("!error!----status code:" + response.code());
+                Log.e("detail", "!error!----status code:" + response.code());
+            }
+        } catch (Exception e) {
+            presenter.detailFailure("!error!----exception:" + e.toString());
+            Log.e("detail", "!error!----exception:" + e.toString());
+        }
+    }
+
     private List<BookBean> getSearchFromContent(String content) {
         try {
             JSONObject jbBook = new JSONObject(content);
@@ -93,7 +124,7 @@ public class BookModel {
                         bbItem.setBookISBN(jbItem.getString("ISBN"));
                         bbItem.setBookSort(jbItem.getString("Sort"));
                         bbItem.setBookTotal(jbItem.getString("Total"));
-                        bbItem.setBookAvaliable(jbItem.getString("Available"));
+                        bbItem.setBookAvailable(jbItem.getString("Available"));
                         list.add(bbItem);
                     }
                     return list;
@@ -128,6 +159,67 @@ public class BookModel {
                     }
                     return list;
                 }
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Map<String, List<BookBean>> getDetailFromContent(String content){
+        try {
+            Map<String, List<BookBean>> map = new HashMap<>();
+            List<BookBean> detail = new ArrayList<>();
+            List<BookBean> circle = new ArrayList<>();
+            List<BookBean> refer = new ArrayList<>();
+            JSONObject jbBook = new JSONObject(content);
+            if (jbBook.getBoolean("Result")) {
+                JSONObject jbDeteil = jbBook.getJSONObject("Detail");
+                BookBean bean = new BookBean();
+                bean.setBookId(jbDeteil.getString("ID"));
+                bean.setBookISBN(jbDeteil.getString("ISBN"));
+                bean.setBookMainTitle(jbDeteil.getString("Title"));
+                bean.setBookSubTitle(jbDeteil.getString("SecondTitle"));
+                bean.setBookAuthor(jbDeteil.getString("Author"));
+                bean.setBookPublish(jbDeteil.getString("Pub"));
+                bean.setBookSort(jbDeteil.getString("Sort"));
+                bean.setBookSubject(jbDeteil.getString("Subject"));
+                bean.setBookTotal(jbDeteil.getString("Total"));
+                bean.setBookAvailable(jbDeteil.getString("Avaliable"));
+                if (jbDeteil.getJSONObject("DoubanInfo") != null){
+                    bean.setBookImage(jbDeteil.getJSONObject("DoubanInfo").getJSONObject("Images").getString("medium"));
+                }
+                detail.add(bean);
+                map.put("detail", detail);
+                JSONArray jaCircle = jbDeteil.getJSONArray("CirculationInfo");
+                if (jaCircle.length() != 0) {
+                    for (int i = 0; i < jaCircle.length(); i++) {
+                        BookBean bbItem = new BookBean();
+                        JSONObject jbItem = jaCircle.getJSONObject(i);
+                        bbItem.setBookBarCode(jbItem.getString("Barcode"));
+                        bbItem.setBookSort(jbItem.getString("Sort"));
+                        bbItem.setBookDepartment(jbItem.getString("Department"));
+                        bbItem.setBookState(jbItem.getString("Status"));
+                        bbItem.setBookDate(jbItem.getString("Date"));
+                        circle.add(bbItem);
+                    }
+                    map.put("circle",circle);
+                }
+                JSONArray jaRefer = jbDeteil.getJSONArray("ReferBooks");
+                if (jaRefer.length() != 0) {
+                    for (int i = 0; i < jaRefer.length(); i++) {
+                        BookBean bbItem = new BookBean();
+                        JSONObject jbItem = jaRefer.getJSONObject(i);
+                        bbItem.setBookId(jbItem.getString("ID"));
+                        bbItem.setBookMainTitle(jbItem.getString("Title"));
+                        bbItem.setBookAuthor(jbItem.getString("Author"));
+                        refer.add(bbItem);
+                    }
+                    map.put("refer",refer);
+                }
+                return map;
             } else {
                 return null;
             }
