@@ -49,24 +49,24 @@ public class ScoreModel {
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         List<ScoreBean> list;
-        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("!error!") && !refresh) {
+        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
 //            yearBundle = getYearBundleFromContent(content);
 //            termBundle = getTermBundleWithYearBundle(yearBundle);
 //            list = getScoreFromBundle(yearBundle, termBundle);
             list = getScoreFromJson(content);
             presenter.loadScoreSuccess(list);
-            Log.e("loadScore", "loadScoreSuccess.done");
-        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("!error!") && refresh) {
+            Log.e("loadScore", "获取成绩成功!");
+        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("失败!") && refresh) {
             yearBundle = getYearBundleFromContent(content);
             termBundle = getTermBundleWithYearBundle(yearBundle);
             list = getScoreFromBundle(yearBundle, termBundle);
             content = setScoreToJson(list);
             contentGetterSetter.setContentToFile(path, content);
             presenter.loadScoreSuccess(list);
-            Log.e("loadScore", "loadScoreSuccess.done");
+            Log.e("loadScore", "获取成绩成功!");
         } else {
-            presenter.loadScoreFailure("loadScoreFailure.done");
-            Log.e("loadScore", "loadScoreFailure.done");
+            presenter.loadScoreFailure(content);
+            Log.e("loadScore", "获取成绩失败!");
         }
     }
 
@@ -134,11 +134,11 @@ public class ScoreModel {
                             termBundle.putString(object.toString() + " " + j, content.toString());
                         }
                     } else {
-                        Log.e("termBundle", "!error!----status code:" + response.code());
+                        Log.e("termBundle", "获取成绩失败!状态码:" + response.code());
                         return null;
                     }
                 } catch (IOException e) {
-                    Log.e("termBundle", "!error!----exception:" + e.toString());
+                    Log.e("termBundle", "获取成绩失败!捕获异常:" + e.toString());
                     return null;
                 }
             }
@@ -230,7 +230,7 @@ public class ScoreModel {
             return jbScore.toString();
         } catch (JSONException e) {
             e.printStackTrace();
-            return "!error!----" + e.toString();
+            return "获取成绩失败!捕获异常:" + e.toString();
         }
     }
 }

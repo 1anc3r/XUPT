@@ -52,10 +52,12 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
                     Log.e("log", (String) msg.obj);
                     break;
                 case 3:
-                    if (msg.obj != null && !msg.obj.toString().contains("!error!")) {
+                    if (msg.obj != null) {
                         resultList = (List<BookBean>) msg.obj;
                         SearchAdapter searchAdapter = new SearchAdapter(resultList);
                         rvResult.setAdapter(searchAdapter);
+                        srlResult.setRefreshing(false);
+                    } else {
                         srlResult.setRefreshing(false);
                     }
                     break;

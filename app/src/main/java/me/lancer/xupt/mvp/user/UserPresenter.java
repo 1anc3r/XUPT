@@ -41,7 +41,9 @@ public class UserPresenter implements IBasePresenter<IUserView>, IUserPresenter 
 
     @Override
     public void loadUserFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 }

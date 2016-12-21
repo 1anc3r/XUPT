@@ -63,18 +63,18 @@ public class LoginEduModel {
                     String rawCookie = response.header("Set-Cookie");
                     String cookie = rawCookie.substring(0, rawCookie.indexOf(';'));
                     presenter.loadCheckCodeSuccess(cookie);
-                    Log.e("loadCheckCode", "loadCheckCodeSuccess.done");
+                    Log.e("loadCheckCode", "加载验证码成功!");
                 } else {
-                    presenter.loadCheckCodeFailure("!error!----cann't find cookie");
-                    Log.e("loadCheckCode", "!error!----cann't find cookie");
+                    presenter.loadCheckCodeFailure("加载验证码失败!缺失cookie");
+                    Log.e("loadCheckCode", "加载验证码失败!缺失cookie");
                 }
             } else {
-                presenter.loadCheckCodeFailure("!error!----status code:" + response.code());
-                Log.e("loadCheckCode", "!error!----status code:" + response.code());
+                presenter.loadCheckCodeFailure("加载验证码失败!状态码:" + response.code());
+                Log.e("loadCheckCode", "加载验证码失败!状态码:" + response.code());
             }
         } catch (IOException e) {
-            presenter.loadCheckCodeFailure("!error!----exception:" + e.toString());
-            Log.e("loadCheckCode", "!error!----exception:" + e.toString());
+            presenter.loadCheckCodeFailure("加载验证码失败!状态码:" + e.toString());
+            Log.e("loadCheckCode", "加载验证码失败!状态码:" + e.toString());
         }
     }
 
@@ -99,15 +99,15 @@ public class LoginEduModel {
             if (response.code() == 302) {
                 if (cookie != null) {
                     presenter.loginSuccess(cookie);
-                    Log.e("login", "loginSuccess.done");
+                    Log.e("login", "登录成功!");
                 }
             } else {
-                presenter.loginFailure("!error!----status code:" + response.code());
-                Log.e("login", "!error!----status code:" + response.code());
+                presenter.loginFailure("登录失败!状态码:" + response.code());
+                Log.e("login", "登录失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.loginFailure("!error!----exception:" + e.toString());
-            Log.e("login", "!error!----exception:" + e.toString());
+            presenter.loginFailure("登录失败!捕获异常:" + e.toString());
+            Log.e("login", "登录失败!捕获异常:" + e.toString());
         }
     }
 
@@ -127,14 +127,14 @@ public class LoginEduModel {
                 }
                 reader.close();
                 presenter.homeSuccess(number, getNameFromContent(content.toString()));
-                Log.e("home", "homeSuccess.done");
+                Log.e("home", "加载主页成功!");
             } else {
-                presenter.homeFailure("!error!----status code:" + response.code());
-                Log.e("home", "!error!----status code:" + response.code());
+                presenter.homeFailure("加载主页失败!状态码:" + response.code());
+                Log.e("home", "加载主页失败!状态码:" + response.code());
             }
         } catch (IOException e) {
-            presenter.homeFailure("!error!----exception:" + e.toString());
-            Log.e("home", "!error!----exception:" + e.toString());
+            presenter.homeFailure("加载主页失败!捕获异常:" + e.toString());
+            Log.e("home", "加载主页失败!捕获异常:" + e.toString());
         }
     }
 

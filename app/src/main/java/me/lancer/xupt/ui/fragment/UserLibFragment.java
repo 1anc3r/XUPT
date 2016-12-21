@@ -1,7 +1,9 @@
 package me.lancer.xupt.ui.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,30 +42,36 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
 
     LinearLayout llUser, llCurrent, llHistory, llFavorite;
     CircleImageView civHead;
-    TextView tvHead, tvDebt, tvCurrent, tvHistory, tvFavorite, tvType;
+    TextView tvHead, tvDebt, tvCurrent, tvHistory, tvFavorite, tvType, tvTitle;
     RecyclerView rvList;
     View loginDialogView, listDialogView;
     AlertDialog loginDialog;
     BottomSheetDialog listDialog;
-    ClearEditText cetNumber;
+    ClearEditText cetNumber, cetCheckCode;
     EditText etPassword;
+    ImageView ivCheckCode;
     Button btnLogin;
     ProgressDialog pdLogin;
 
     List<BookBean> currentList = new ArrayList<>(), historyList = new ArrayList<>(), favoriteList = new ArrayList<>();
 
-    String number, name, password, cookie;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String number, password, cookie;
 
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    pdLogin.dismiss();
                     break;
                 case 1:
+                    pdLogin.show();
                     break;
                 case 2:
                     Log.e("log", (String) msg.obj);
+                    showSnackbar(llUser, (String) msg.obj);
                     break;
                 case 3:
                     pdLogin.dismiss();
@@ -116,16 +125,16 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     Runnable getDebt = new Runnable() {
         @Override
         public void run() {
-            presenter.getDebt(app.getLibCookie());
+            presenter.getDebt(cookie);
         }
     };
 
     Runnable getList = new Runnable() {
         @Override
         public void run() {
-            presenter.getCurrent(app.getLibCookie());
-            presenter.getHistory(app.getLibCookie());
-            presenter.getFavorite(app.getLibCookie());
+            presenter.getCurrent(cookie);
+            presenter.getHistory(cookie);
+            presenter.getFavorite(cookie);
         }
     };
 
@@ -144,6 +153,9 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     }
 
     private void initView(View view) {
+        sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        number = sharedPreferences.getString("number", "");
+        password = sharedPreferences.getString("passwordlib", "");
         llUser = (LinearLayout) view.findViewById(R.id.ll_user);
         llCurrent = (LinearLayout) view.findViewById(R.id.ll_current);
         llCurrent.setOnClickListener(vOnClickListener);
@@ -159,17 +171,15 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         tvHistory = (TextView) view.findViewById(R.id.tv_history);
         tvFavorite = (TextView) view.findViewById(R.id.tv_favorite);
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在登录...");
+        pdLogin.setMessage("正在加载信息...");
         pdLogin.setCancelable(false);
         showLoginDialog();
     }
 
     private void initData() {
         app = (ApplicationInstance) getActivity().getApplication();
-        number = app.getNumber();
-        name = app.getName();
-        password = "123456";
-        cookie = app.getLibCookie();
+//        number = app.getNumber();
+//        password = "123456";
         new Thread(login).start();
     }
 
@@ -187,7 +197,12 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
             } else if (v == btnLogin) {
                 number = cetNumber.getText().toString();
                 password = etPassword.getText().toString();
-                pdLogin.show();
+                sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putString("number", number);
+                editor.putString("passwordlib", password);
+                editor.apply();
+                loginDialog.dismiss();
                 new Thread(login).start();
             }
         }
@@ -231,8 +246,16 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
 
     private void showLoginDialog(){
         loginDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.login_dialog, null);
+        tvTitle = (TextView) loginDialogView.findViewById(R.id.tv_title);
+        tvTitle.setText("登录图书馆");
         cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
+        cetNumber.setText(number);
         etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);
+        etPassword.setText(password);
+        cetCheckCode = (ClearEditText) loginDialogView.findViewById(R.id.cet_checkcode);
+        cetCheckCode.setVisibility(View.GONE);
+        ivCheckCode = (ImageView) loginDialogView.findViewById(R.id.iv_checkcode);
+        ivCheckCode.setVisibility(View.GONE);
         btnLogin = (Button) loginDialogView.findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(vOnClickListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -248,6 +271,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     @Override
     public void login(String cookie) {
         this.cookie = cookie;
+        app.setLibCookie(cookie);
         Message msg = new Message();
         msg.what = 3;
         msg.obj = cookie;

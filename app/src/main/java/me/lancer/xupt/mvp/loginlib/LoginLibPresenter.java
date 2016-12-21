@@ -37,68 +37,76 @@ public class LoginLibPresenter implements IBasePresenter<ILoginLibView>, ILoginL
     @Override
     public void loginSuccess(String cookie) {
         view.login(cookie);
-        view.hideLoad();
+//        view.hideLoad();
     }
 
     @Override
     public void loginFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
     public void getDebt(String cookie) {
-        view.showLoad();
+//        view.showLoad();
         model.getDebt(cookie);
     }
 
     @Override
     public void getDebtSuccess(String debt) {
         view.showDebt(debt);
-        view.hideLoad();
+//        view.hideLoad();
     }
 
     @Override
     public void getDebtFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
-    public void getCurrent(String cookie){
-        view.showLoad();
+    public void getCurrent(String cookie) {
+//        view.showLoad();
         model.getCurrent(cookie);
     }
 
     @Override
     public void getCurrentSuccess(List<BookBean> list) {
         view.showCurrent(list);
-        view.hideLoad();
+//        view.hideLoad();
     }
 
     @Override
     public void getCurrentFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
-    public void getHistory(String cookie){
-        view.showLoad();
+    public void getHistory(String cookie) {
+//        view.showLoad();
         model.getHistory(cookie);
     }
 
     @Override
     public void getHistorySuccess(List<BookBean> list) {
         view.showHistory(list);
-        view.hideLoad();
+//        view.hideLoad();
     }
 
     @Override
     public void getHistoryFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
-    public void getFavorite(String cookie){
-        view.showLoad();
+    public void getFavorite(String cookie) {
+//        view.showLoad();
         model.getFavorite(cookie);
     }
 
@@ -110,7 +118,9 @@ public class LoginLibPresenter implements IBasePresenter<ILoginLibView>, ILoginL
 
     @Override
     public void getFavoriteFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 }

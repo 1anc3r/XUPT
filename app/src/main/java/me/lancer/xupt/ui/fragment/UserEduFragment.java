@@ -43,14 +43,16 @@ public class UserEduFragment extends PresenterFragment<UserPresenter> implements
                     Log.e("log", (String) msg.obj);
                     break;
                 case 3:
-                    app.setUser(false);
-                    UserBean bean = (UserBean) msg.obj;
-                    tvHead.setText(bean.getUserName());
-                    tvNumber.setText(bean.getUserNumber());
-                    tvClass.setText(bean.getUserClass());
-                    tvMajor.setText(bean.getUserMajor());
-                    tvCollege.setText(bean.getUserCollege());
-                    tvSchool.setText("西安邮电大学");
+                    if (msg.obj != null) {
+                        app.setUser(false);
+                        UserBean bean = (UserBean) msg.obj;
+                        tvHead.setText(bean.getUserName());
+                        tvNumber.setText(bean.getUserNumber());
+                        tvClass.setText(bean.getUserClass());
+                        tvMajor.setText(bean.getUserMajor());
+                        tvCollege.setText(bean.getUserCollege());
+                        tvSchool.setText("西安邮电大学");
+                    }
                     break;
             }
         }

@@ -152,12 +152,12 @@ public class CetFragment extends BaseFragment {
                 }
                 reader.close();
                 parseScore(content.toString());
-                Log.e("getScore", "getScore.done");
+                Log.e("getScore", "获取成绩成功!");
             } else {
-                Log.e("getScore", "!error!----status code:" + response.code());
+                Log.e("getScore", "获取成绩失败!状态码:" + response.code());
             }
         } catch (IOException e) {
-            Log.e("getScore", "!error!----exception:" + e.toString());
+            Log.e("getScore", "获取成绩失败!捕获异常:" + e.toString());
         }
     }
 

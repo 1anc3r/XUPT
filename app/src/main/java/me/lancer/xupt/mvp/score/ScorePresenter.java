@@ -44,7 +44,9 @@ public class ScorePresenter implements IBasePresenter<IScoreView>, IScorePresent
 
     @Override
     public void loadScoreFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 }

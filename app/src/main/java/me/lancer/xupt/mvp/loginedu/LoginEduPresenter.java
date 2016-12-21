@@ -53,7 +53,9 @@ public class LoginEduPresenter implements IBasePresenter<ILoginEduView>, ILoginE
 
     @Override
     public void loginFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
@@ -68,6 +70,8 @@ public class LoginEduPresenter implements IBasePresenter<ILoginEduView>, ILoginE
 
     @Override
     public void homeFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
     }
 }

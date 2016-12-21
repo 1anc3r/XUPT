@@ -34,18 +34,25 @@ public class LoginLibModel {
         try {
             Response response = client.newCall(request).execute();
             if (response.code() == 200) {
-                String cookie = new JSONObject(response.body().string()).getString("Detail");
-                if (cookie != null) {
-                    presenter.loginSuccess(cookie);
-                    Log.e("loginSuccess", "loginSuccess.done");
+                String content =  response.body().string();
+                Boolean result = new JSONObject(content).getBoolean("Result");
+                String cookie = new JSONObject(content).getString("Detail");
+                if (result) {
+                    if (cookie != null) {
+                        presenter.loginSuccess(cookie);
+                        Log.e("loginSuccess", "登录成功!");
+                    }
+                }else{
+                    presenter.loginFailure("登录失败!错误信息:" + cookie);
+                    Log.e("login", "登录失败!错误信息:" + cookie);
                 }
             } else {
-                presenter.loginFailure("!error!----status code:" + response.code());
-                Log.e("login", "!error!----status code:" + response.code());
+                presenter.loginFailure("登录失败!状态码:" + response.code());
+                Log.e("login", "登录失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.loginFailure("!error!----exception:" + e.toString());
-            Log.e("login", "!error!----exception:" + e.toString());
+            presenter.loginFailure("登录失败!捕获异常:" + e.toString());
+            Log.e("login", "登录失败!捕获异常:" + e.toString());
         }
     }
 
@@ -62,15 +69,15 @@ public class LoginLibModel {
                 if (debt != null) {
                     presenter.getDebtSuccess(debt);
                 } else {
-                    presenter.getDebtSuccess(null);
+                    presenter.getDebtSuccess("0");
                 }
             } else {
-                presenter.getDebtFailure("!error!----status code:" + response.code());
-                Log.e("getDebt", "!error!----status code:" + response.code());
+                presenter.getDebtFailure("获取欠费情况失败!状态码:" + response.code());
+                Log.e("getDebt", "获取欠费情况失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.getDebtFailure("!error!----exception:" + e.toString());
-            Log.e("getDebt", "!error!----exception:" + e.toString());
+            presenter.getDebtFailure("获取欠费情况失败!捕获异常:" + e.toString());
+            Log.e("getDebt", "获取欠费情况失败!捕获异常:" + e.toString());
         }
     }
 
@@ -89,12 +96,12 @@ public class LoginLibModel {
                     presenter.getCurrentSuccess(null);
                 }
             } else {
-                presenter.getCurrentFailure("!error!----status code:" + response.code());
-                Log.e("getrCurrent", "!error!----status code:" + response.code());
+                presenter.getCurrentFailure("获取当前借阅失败!状态码:" + response.code());
+                Log.e("getrCurrent", "获取当前借阅失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.getCurrentFailure("!error!----exception:" + e.toString());
-            Log.e("getrCurrent", "!error!----exception:" + e.toString());
+            presenter.getCurrentFailure("获取当前借阅失败!捕获异常:" + e.toString());
+            Log.e("getrCurrent", "获取当前借阅失败!捕获异常:" + e.toString());
         }
     }
 
@@ -113,12 +120,12 @@ public class LoginLibModel {
                     presenter.getHistorySuccess(null);
                 }
             } else {
-                presenter.getHistoryFailure("!error!----status code:" + response.code());
-                Log.e("getHistory", "!error!----status code:" + response.code());
+                presenter.getHistoryFailure("获取历史借阅失败!状态码:" + response.code());
+                Log.e("getHistory", "获取历史借阅失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.getHistoryFailure("!error!----exception:" + e.toString());
-            Log.e("getHistory", "!error!----exception:" + e.toString());
+            presenter.getHistoryFailure("获取历史借阅失败!捕获异常:" + e.toString());
+            Log.e("getHistory", "获取历史借阅失败!捕获异常:" + e.toString());
         }
     }
 
@@ -137,12 +144,12 @@ public class LoginLibModel {
                     presenter.getFavoriteSuccess(null);
                 }
             } else {
-                presenter.getFavoriteFailure("!error!----status code:" + response.code());
-                Log.e("getFavorite", "!error!----status code:" + response.code());
+                presenter.getFavoriteFailure("获取收藏关注失败!状态码:" + response.code());
+                Log.e("getFavorite", "获取收藏关注失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.getFavoriteFailure("!error!----exception:" + e.toString());
-            Log.e("getFavorite", "!error!----exception:" + e.toString());
+            presenter.getFavoriteFailure("获取收藏关注失败!捕获异常:" + e.toString());
+            Log.e("getFavorite", "获取收藏关注失败!捕获异常:" + e.toString());
         }
     }
 

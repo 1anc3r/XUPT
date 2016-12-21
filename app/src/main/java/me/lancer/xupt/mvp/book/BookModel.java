@@ -42,12 +42,12 @@ public class BookModel {
                     presenter.searchSuccess(null);
                 }
             } else {
-                presenter.searchFailure("!error!----status code:" + response.code());
-                Log.e("search", "!error!----status code:" + response.code());
+                presenter.searchFailure("获取信息失败!状态码:" + response.code());
+                Log.e("search", "获取信息失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.searchFailure("!error!----exception:" + e.toString());
-            Log.e("search", "!error!----exception:" + e.toString());
+            presenter.searchFailure("获取信息失败!捕获异常:" + e.toString());
+            Log.e("search", "获取信息失败!捕获异常:" + e.toString());
         }
     }
 
@@ -66,20 +66,20 @@ public class BookModel {
                     presenter.rankSuccess(null);
                 }
             } else {
-                presenter.rankFailure("!error!----status code:" + response.code());
-                Log.e("rank", "!error!----status code:" + response.code());
+                presenter.rankFailure("获取信息失败!状态码:" + response.code());
+                Log.e("rank", "获取信息失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.rankFailure("!error!----exception:" + e.toString());
-            Log.e("rank", "!error!----exception:" + e.toString());
+            presenter.rankFailure("获取信息失败!捕获异常:" + e.toString());
+            Log.e("rank", "获取信息失败!捕获异常:" + e.toString());
         }
     }
 
-    public void detail(int key, String value){
-        String url="";
+    public void detail(int key, String value) {
+        String url = "";
         if (key == 0) {
             url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/id/" + value;
-        } else if (key == 1){
+        } else if (key == 1) {
             url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/borcode/" + value;
         }
         OkHttpClient client = new OkHttpClient();
@@ -95,12 +95,74 @@ public class BookModel {
                     presenter.detailSuccess(null);
                 }
             } else {
-                presenter.detailFailure("!error!----status code:" + response.code());
-                Log.e("detail", "!error!----status code:" + response.code());
+                presenter.detailFailure("获取信息失败!状态码:" + response.code());
+                Log.e("detail", "获取信息失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.detailFailure("!error!----exception:" + e.toString());
-            Log.e("detail", "!error!----exception:" + e.toString());
+            presenter.detailFailure("获取信息失败!捕获异常:" + e.toString());
+            Log.e("detail", "获取信息失败!捕获异常:" + e.toString());
+        }
+    }
+
+    public void addFavorite(String id, String cookie) {
+        String url = "https://api.xiyoumobile.com/xiyoulibv2/user/addFav?id=" + id + "&session=" + cookie;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code() == 200) {
+                JSONObject jbAdd = new JSONObject(response.body().string());
+                if (jbAdd.getBoolean("Result")) {
+                    String log = jbAdd.getString("Detail");
+                    if (log.equals("ADDED_SUCCEED")) {
+                        presenter.addFavoriteSuccess("收藏成功!");
+                    } else if (log.equals("ALREADY_IN_FAVORITE")) {
+                        presenter.addFavoriteSuccess("已经收藏!");
+                    } else if (log.equals("ADDED_FAILED")) {
+                        presenter.addFavoriteFailure("收藏失败!");
+                    } else if (log.equals("USER_NOT_LOGIN")) {
+                        presenter.addFavoriteFailure("用户未登录!");
+                    } else if (log.equals("PARAM_ERROR")) {
+                        presenter.addFavoriteFailure("参数错误,缺少参数!");
+                    }
+                }
+            } else {
+                presenter.addFavoriteFailure("收藏失败!状态码:" + response.code());
+                Log.e("getDebt", "收藏失败!状态码:" + response.code());
+            }
+        } catch (Exception e) {
+            presenter.addFavoriteFailure("收藏情况失败!捕获异常:" + e.toString());
+            Log.e("getDebt", "收藏失败!捕获异常:" + e.toString());
+        }
+    }
+
+    public void delFavorite(String id, String number, String cookie) {
+        String url = "https://api.xiyoumobile.com/xiyoulibv2/user/delFav?id=" + id + "&username=S" + number + "&session=" + cookie;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code() == 200) {
+                JSONObject jbAdd = new JSONObject(response.body().string());
+                if (jbAdd.getBoolean("Result")) {
+                    String log = jbAdd.getString("Detail");
+                    if (log.equals("DELETED_SUCCEED")) {
+                        presenter.delFavoriteSuccess("删除成功!");
+                    } else if (log.equals("DELETED_FAILED")) {
+                        presenter.delFavoriteSuccess("删除失败!");
+                    } else if (log.equals("USER_NOT_LOGIN")) {
+                        presenter.delFavoriteFailure("用户未登录!");
+                    } else if (log.equals("PARAM_ERROR")) {
+                        presenter.delFavoriteFailure("参数错误,缺少参数!");
+                    }
+                }
+            } else {
+                presenter.delFavoriteFailure("删除失败!状态码:" + response.code());
+                Log.e("getDebt", "删除失败!状态码:" + response.code());
+            }
+        } catch (Exception e) {
+            presenter.delFavoriteFailure("删除情况失败!捕获异常:" + e.toString());
+            Log.e("getDebt", "删除失败!捕获异常:" + e.toString());
         }
     }
 
@@ -168,7 +230,7 @@ public class BookModel {
         }
     }
 
-    private Map<String, List<BookBean>> getDetailFromContent(String content){
+    private Map<String, List<BookBean>> getDetailFromContent(String content) {
         try {
             Map<String, List<BookBean>> map = new HashMap<>();
             List<BookBean> detail = new ArrayList<>();
@@ -188,7 +250,7 @@ public class BookModel {
                 bean.setBookSubject(jbDeteil.getString("Subject"));
                 bean.setBookTotal(jbDeteil.getString("Total"));
                 bean.setBookAvailable(jbDeteil.getString("Avaliable"));
-                if (jbDeteil.getJSONObject("DoubanInfo") != null){
+                if (jbDeteil.getJSONObject("DoubanInfo") != null) {
                     bean.setBookImage(jbDeteil.getJSONObject("DoubanInfo").getJSONObject("Images").getString("medium"));
                 }
                 detail.add(bean);
@@ -205,7 +267,7 @@ public class BookModel {
                         bbItem.setBookDate(jbItem.getString("Date"));
                         circle.add(bbItem);
                     }
-                    map.put("circle",circle);
+                    map.put("circle", circle);
                 }
                 JSONArray jaRefer = jbDeteil.getJSONArray("ReferBooks");
                 if (jaRefer.length() != 0) {
@@ -217,7 +279,7 @@ public class BookModel {
                         bbItem.setBookAuthor(jbItem.getString("Author"));
                         refer.add(bbItem);
                     }
-                    map.put("refer",refer);
+                    map.put("refer", refer);
                 }
                 return map;
             } else {

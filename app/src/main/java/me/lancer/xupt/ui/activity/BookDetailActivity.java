@@ -38,8 +38,11 @@ import me.lancer.xupt.mvp.book.IBookView;
 import me.lancer.xupt.ui.adapter.CircleAdapter;
 import me.lancer.xupt.ui.adapter.RankAdapter;
 import me.lancer.xupt.ui.adapter.SearchAdapter;
+import me.lancer.xupt.ui.application.ApplicationInstance;
 
 public class BookDetailActivity extends PresenterActivity<BookPresenter> implements IBookView {
+
+    ApplicationInstance app = new ApplicationInstance();
 
     Toolbar toolbar;
     ImageView ivBook;
@@ -74,11 +77,11 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
                         referList = map.get("refer");
                         showImage(detailList.get(0).getBookImage());
                         tvName.setText(detailList.get(0).getBookMainTitle());
-                        tvAuthor.setText("作者:"+detailList.get(0).getBookAuthor());
-                        tvPublish.setText("出版:"+detailList.get(0).getBookPublish());
-                        tvSubject.setText("主题:"+detailList.get(0).getBookSubject());
-                        tvTotal.setText("藏书量:"+detailList.get(0).getBookTotal());
-                        tvAvaliable.setText("可借阅量:"+detailList.get(0).getBookAvailable());
+                        tvAuthor.setText("作者:" + detailList.get(0).getBookAuthor());
+                        tvPublish.setText("出版:" + detailList.get(0).getBookPublish());
+                        tvSubject.setText("主题:" + detailList.get(0).getBookSubject());
+                        tvTotal.setText("藏书量:" + detailList.get(0).getBookTotal());
+                        tvAvaliable.setText("可借阅量:" + detailList.get(0).getBookAvailable());
                         CircleAdapter adapterCircle = new CircleAdapter(circleList);
                         rvCircle.setAdapter(adapterCircle);
                         SearchAdapter adapterRefer = new SearchAdapter(referList);
@@ -97,6 +100,20 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
         }
     };
 
+    Runnable addFavorite = new Runnable() {
+        @Override
+        public void run() {
+            presenter.addFavorite(detailList.get(0).getBookId(), app.getLibCookie());
+        }
+    };
+
+    Runnable delFavorite = new Runnable() {
+        @Override
+        public void run() {
+            presenter.delFavorite(detailList.get(0).getBookId(), app.getNumber(), app.getLibCookie());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +124,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
     }
 
     private void initData() {
+        app = (ApplicationInstance) this.getApplication();
         Intent intent = getIntent();
         key = intent.getIntExtra("key", 0);
         value = intent.getStringExtra("value");
@@ -127,8 +145,11 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.menu_favorite:
-
+                    case R.id.menu_add_favorite:
+                        new Thread(addFavorite).start();
+                        break;
+                    case R.id.menu_del_favorite:
+                        new Thread(delFavorite).start();
                         break;
                     case R.id.menu_renew:
 
@@ -165,7 +186,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
         new Thread(detail).start();
     }
 
-    private void showImage(String url){
+    private void showImage(String url) {
         RequestQueue queue = Volley.newRequestQueue(this);
         ImageRequest imageRequest = new ImageRequest(url,
                 new Response.Listener<Bitmap>() {

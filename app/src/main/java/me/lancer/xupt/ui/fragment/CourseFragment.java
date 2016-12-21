@@ -43,9 +43,11 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                     Log.e("log", (String) msg.obj);
                     break;
                 case 3:
-                    app.setCourse(false);
-                    courseList = (List<CourseBean>) msg.obj;
-                    scheduleView.updateSchedule(courseList);
+                    if (msg.obj != null) {
+                        app.setCourse(false);
+                        courseList = (List<CourseBean>) msg.obj;
+                        scheduleView.updateSchedule(courseList);
+                    }
                     break;
             }
         }

@@ -48,7 +48,7 @@ public class RankFragment extends PresenterFragment<BookPresenter> implements IB
                     Log.e("log", (String) msg.obj);
                     break;
                 case 3:
-                    if (msg.obj != null && !msg.obj.toString().contains("!error!")) {
+                    if (msg.obj != null) {
                         bookList = (List<BookBean>) msg.obj;
                         RankAdapter adapter = new RankAdapter(bookList, type);
                         rvRank.setAdapter(adapter);

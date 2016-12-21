@@ -11,11 +11,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.wuxiaolong.androidutils.library.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.loginlib.ILoginLibView;
 import me.lancer.xupt.mvp.loginlib.LoginLibPresenter;
 import me.lancer.xupt.ui.activity.MainActivity;
-import me.lancer.xupt.ui.application.ApplicationInstance;
 
 public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implements ILoginLibView {
     
@@ -67,6 +65,7 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+
         Fragment newfragment = new SearchFragment();
         Bundle data = new Bundle();
         data.putInt("id", 0);
@@ -81,14 +80,12 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
         newfragment.setArguments(data);
         adapter.addFrag(newfragment, "排行");
 
-
         newfragment = new UserLibFragment();
         data = new Bundle();
         data.putInt("id", 2);
         data.putString("title", "我的");
         newfragment.setArguments(data);
         adapter.addFrag(newfragment, "我的");
-
 
         viewPager.setAdapter(adapter);
         if (getArguments() != null) {
@@ -145,13 +142,12 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                showToast("query=" + query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                LogUtil.d("onQueryTextChange=" + s);
+                Log.e("onQueryTextChange", s);
                 return false;
             }
         });

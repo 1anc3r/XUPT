@@ -35,8 +35,8 @@ public class ContentGetterSetter {
             Response response = client.newCall(request).execute();
             if (response.code() == 200) {
                 if (response.header("Content-Length").equals("276")) {
-                    Log.e("gettersetter.fromHtml", "!error!----no evaluate");
-                    return "!error!";
+                    Log.e("gettersetter.fromHtml", "加载文件失败!未评价");
+                    return "加载文件失败!未评价";
                 }
                 BufferedReader reader = new BufferedReader(response.body().charStream());
                 String line;
@@ -44,15 +44,15 @@ public class ContentGetterSetter {
                     content.append(line);
                 }
                 reader.close();
-                Log.e("gettersetter.fromHtml", "getContentFromHtml.done");
+                Log.e("gettersetter.fromHtml", "加载文件成功!");
                 return content.toString();
             } else {
-                Log.e("gettersetter.fromHtml", "!error!----status code:" + response.code());
-                return "!error!";
+                Log.e("gettersetter.fromHtml", "加载文件失败!状态码:" + response.code());
+                return "加载文件失败!状态码:" + response.code();
             }
         } catch (IOException e) {
-            Log.e("gettersetter.fromHtml", "!error!----exception:" + e.toString());
-            return "!error!";
+            Log.e("gettersetter.fromHtml", "加载文件失败!捕获异常:" + e.toString());
+            return "加载文件失败!捕获异常:" + e.toString();
         }
     }
 
@@ -68,17 +68,17 @@ public class ContentGetterSetter {
             fis.read(bytes);
             String content = new String(bytes);
             if (content == null) {
-                Log.e("gettersetter.fromFile", "!error!----empty file");
-                return "!error!";
+                Log.e("gettersetter.fromFile", "加载文件失败!空文件");
+                return "加载文件失败!空文件";
             }
             if (fis != null) {
                 fis.close();
             }
-            Log.e("gettersetter.fromFile", "getContentFromFile.done");
+            Log.e("gettersetter.fromFile", "加载文件成功!");
             return content;
         } catch (IOException e) {
-            Log.e("gettersetter.fromFile", "!error!----exception:" + e.toString());
-            return "!error!";
+            Log.e("gettersetter.fromFile", "加载文件失败!捕获异常:" + e.toString());
+            return "加载文件失败!捕获异常:" + e.toString();
         }
     }
 
@@ -97,9 +97,9 @@ public class ContentGetterSetter {
             if (fos != null) {
                 fos.close();
             }
-            Log.e("gettersetter.toFile", "setContentToFile.done");
+            Log.e("gettersetter.toFile", "配置文件成功!");
         } catch (Exception e) {
-            Log.e("gettersetter.toFile", "!error!----exception:" + e.toString());
+            Log.e("gettersetter.toFile", "配置文件失败!捕获异常:" + e.toString());
         }
     }
 }

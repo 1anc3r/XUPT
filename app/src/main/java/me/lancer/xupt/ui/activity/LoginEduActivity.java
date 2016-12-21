@@ -106,7 +106,7 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
         sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         number = sharedPreferences.getString("number", "");
         name = sharedPreferences.getString("name", "");
-        password = sharedPreferences.getString("password", "");
+        password = sharedPreferences.getString("passwordedu", "");
         cetNumber.setText(number);
         etPassword.setText(password);
         app.setCourse(true);
@@ -144,7 +144,7 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
                         sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                         editor = sharedPreferences.edit();
                         editor.putString("number", number);
-                        editor.putString("password", password);
+                        editor.putString("passwordedu", password);
                         editor.apply();
                         if (!networkDiagnosis.checkNetwork(LoginEduActivity.this)) {
                             showSnackbar(llLogin, "网络连接错误!");

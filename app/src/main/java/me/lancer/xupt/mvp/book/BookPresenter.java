@@ -42,7 +42,9 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
 
     @Override
     public void searchFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
@@ -59,7 +61,9 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
 
     @Override
     public void rankFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 
@@ -76,7 +80,51 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
 
     @Override
     public void detailFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
+        view.hideLoad();
+    }
+
+    public void addFavorite(String id, String cookie) {
+        view.showLoad();
+        model.addFavorite(id, cookie);
+    }
+
+    @Override
+    public void addFavoriteSuccess(String log) {
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
+        view.hideLoad();
+    }
+
+    @Override
+    public void addFavoriteFailure(String log) {
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
+        view.hideLoad();
+    }
+
+    public void delFavorite(String id, String number, String cookie) {
+        view.showLoad();
+        model.delFavorite(id, number, cookie);
+    }
+
+    @Override
+    public void delFavoriteSuccess(String log) {
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
+        view.hideLoad();
+    }
+
+    @Override
+    public void delFavoriteFailure(String log) {
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 }

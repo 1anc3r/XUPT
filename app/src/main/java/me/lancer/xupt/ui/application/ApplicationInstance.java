@@ -1,10 +1,10 @@
 package me.lancer.xupt.ui.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatDelegate;
-
-import com.wuxiaolong.androidutils.library.LogUtil;
-import com.wuxiaolong.androidutils.library.SharedPreferencesUtil;
+import android.util.Log;
 
 /**
  * Created by HuangFangzhi on 2016/12/15.
@@ -13,14 +13,15 @@ import com.wuxiaolong.androidutils.library.SharedPreferencesUtil;
 public class ApplicationInstance extends Application {
 
     private String number, name;
-    public static String eduCookie, libCookie;
-    private boolean course, score, user;
+    public static String eduCookie, libCookie, CardCookie0, CardCookie1;
+    private boolean course, score, user, rollcall;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        boolean isNight = SharedPreferencesUtil.getBoolean(this, ApplicationParameter.ISNIGHT, false);
-        LogUtil.e("isNight=" + isNight);
+        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        boolean isNight = sharedPreferences.getBoolean(ApplicationParameter.ISNIGHT, false);
+        Log.e("夜间模式", isNight+"");
         if (isNight) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -60,6 +61,22 @@ public class ApplicationInstance extends Application {
         this.libCookie = libCookie;
     }
 
+    public String getCardCookie0() {
+        return CardCookie0;
+    }
+
+    public void setCardCookie0(String CardCookie0) {
+        this.CardCookie0 = CardCookie0;
+    }
+
+    public String getCardCookie1() {
+        return CardCookie1;
+    }
+
+    public void setCardCookie1(String CardCookie1) {
+        this.CardCookie1 = CardCookie1;
+    }
+
     public boolean isCourse() {
         return course;
     }
@@ -82,5 +99,13 @@ public class ApplicationInstance extends Application {
 
     public void setUser(boolean user) {
         this.user = user;
+    }
+
+    public boolean isRollcall() {
+        return rollcall;
+    }
+
+    public void setRollcall(boolean rollcall) {
+        this.rollcall = rollcall;
     }
 }

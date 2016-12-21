@@ -40,20 +40,20 @@ public class CourseModel {
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         List<CourseBean> list;
-        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("!error!") && !refresh) {
+        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
 //            list = getCourseFromContent(content);
             list = getCourseFromJson(content);
             presenter.loadCourseSuccess(list);
-            Log.e("loadCourse", "loadCourseSuccess.done");
-        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("!error!") && refresh) {
+            Log.e("loadCourse", "加载课表成功!");
+        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("失败!") && refresh) {
             list = getCourseFromContent(content);
             content = setCourseToJson(list);
             contentGetterSetter.setContentToFile(path, content);
             presenter.loadCourseSuccess(list);
-            Log.e("loadCourse", "loadCourseSuccess.done");
+            Log.e("loadCourse", "加载课表成功!");
         } else {
-            presenter.loadCourseFailure("loadCourseFailure.done");
-            Log.e("loadCourse", "loadCourseFailure.done");
+            presenter.loadCourseFailure(content);
+            Log.e("loadCourse", "加载课表失败!");
         }
     }
 
@@ -141,7 +141,7 @@ public class CourseModel {
             return jbCourse.toString();
         } catch (JSONException e) {
             e.printStackTrace();
-            return "!error!----" + e.toString();
+            return "加载课表失败!捕获异常:" + e.toString();
         }
     }
 }

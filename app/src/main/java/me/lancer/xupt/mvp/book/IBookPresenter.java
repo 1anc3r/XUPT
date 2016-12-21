@@ -20,4 +20,12 @@ public interface IBookPresenter {
     void detailSuccess(Map<String, List<BookBean>> map);
 
     void detailFailure(String log);
+
+    void addFavoriteSuccess(String log);
+
+    void addFavoriteFailure(String log);
+
+    void delFavoriteSuccess(String log);
+
+    void delFavoriteFailure(String log);
 }

@@ -8,15 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import com.wuxiaolong.androidutils.library.LogUtil;
-import com.wuxiaolong.androidutils.library.SharedPreferencesUtil;
 
 import java.io.File;
 
@@ -24,6 +21,7 @@ import me.lancer.xupt.R;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.ui.application.ApplicationParameter;
 import me.lancer.xupt.ui.fragment.CetFragment;
+import me.lancer.xupt.ui.fragment.XuptRollCallFragment;
 import me.lancer.xupt.ui.fragment.XuptEduFragment;
 import me.lancer.xupt.ui.fragment.XuptLibFragment;
 import me.lancer.xupt.ui.view.CircleImageView;
@@ -155,15 +153,23 @@ public class MainActivity extends BaseActivity {
                     switchContent(currentFragment);
                     return true;
                 case R.id.navigation_item_2:
-                    currentIndex = 1;
+                    currentIndex = 0;
+                    menuItem.setChecked(true);
+                    currentFragment = new XuptRollCallFragment();
+                    bundle.putInt("index", currentIndex);
+                    currentFragment.setArguments(bundle);
+                    switchContent(currentFragment);
+                    return true;
+                case R.id.navigation_item_3:
+                    currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new XuptLibFragment();
                     bundle.putInt("index", currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
-                case R.id.navigation_item_3:
-                    currentIndex = 2;
+                case R.id.navigation_item_4:
+                    currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new CetFragment();
                     bundle.putInt("index", currentIndex);
@@ -176,9 +182,9 @@ public class MainActivity extends BaseActivity {
 //                    recreate();
 //                    return true;
                 case R.id.navigation_item_day:
-                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, false);
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    recreate();
+//                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, false);
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    recreate();
                     return true;
                 default:
                     return true;
@@ -194,7 +200,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        LogUtil.d("onSaveInstanceState=" + currentIndex);
+        Log.e("onSaveInstanceState", currentIndex+"");
         outState.putInt(ApplicationParameter.CURRENT_INDEX, currentIndex);
         super.onSaveInstanceState(outState);
     }

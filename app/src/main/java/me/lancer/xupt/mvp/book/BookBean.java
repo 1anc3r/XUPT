@@ -6,23 +6,23 @@ package me.lancer.xupt.mvp.book;
 
 public class BookBean {
 
-    private String bookId;// 图书馆内控制号
-    private String bookISBN;//标准号
-    private String bookMainTitle;// 标题
-    private String bookSubTitle;// 副标题
-    private String bookPublish;// 出版社
-    private String bookAuthor;// 责任者，作者
-    private String bookSort;// 图书馆索书号
-    private String bookSubject; // 主题
-    private String bookTotal;// 图书馆藏书数量
-    private String bookAvailable;// 可借阅数量
-    private String bookBarCode;// 条形码
-    private String bookDepartment;// 所在分馆
-    private String bookState;// 当前状态
-    private String bookDate;// 应还日期
-    private boolean bookCanRenew;// 是否可续借
-    private String bookDepartmentId;// 书库ID号，用于续借
-    private String bookLibraryId;// 分馆ID号，用于续借
+    private String bookId;
+    private String bookBarCode;
+    private String bookISBN;
+    private String bookSort;
+    private String bookMainTitle;
+    private String bookSubTitle;
+    private String bookAuthor;
+    private String bookPublish;
+    private String bookSubject;
+    private String bookTotal;
+    private String bookAvailable;
+    private String bookDepartment;
+    private String bookState;
+    private String bookDate;
+    private boolean bookCanRenew;
+    private String bookDepartmentId;
+    private String bookLibraryId;
     private String bookImage;
     private String bookRank;
     private String bookBorNum;

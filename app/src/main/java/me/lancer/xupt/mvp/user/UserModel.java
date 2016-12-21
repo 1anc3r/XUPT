@@ -34,20 +34,20 @@ public class UserModel {
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         UserBean bean;
-        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("!error!") && !refresh) {
+        if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
 //            bean = getUserFromContent(content);
             bean = getUserFromJson(content);
             presenter.loadUserSuccess(bean);
-            Log.e("loadUser", "loadUserSuccess.done");
-        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("!error!") && refresh) {
+            Log.e("loadUser", "加载信息成功!");
+        } else if (!(content = contentGetterSetter.getContentFromHtml(url, cookie)).contains("失败!") && refresh) {
             bean = getUserFromContent(content);
             content = setUserToJson(bean);
             contentGetterSetter.setContentToFile(path, content);
             presenter.loadUserSuccess(bean);
-            Log.e("loadUser", "loadUserSuccess.done");
+            Log.e("loadUser", "加载信息成功!");
         } else {
-            presenter.loadUserFailure("loadUserFailure.done");
-            Log.e("loadUser", "loadUserFailure.done");
+            presenter.loadUserFailure(content);
+            Log.e("loadUser", "加载信息失败!");
         }
     }
 
@@ -103,7 +103,7 @@ public class UserModel {
             return jbUser.toString();
         } catch (JSONException e) {
             e.printStackTrace();
-            return "!error!----" + e.toString();
+            return "加载信息失败!捕获异常:" + e.toString();
         }
     }
 }

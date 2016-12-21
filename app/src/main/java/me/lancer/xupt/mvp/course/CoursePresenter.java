@@ -41,7 +41,9 @@ public class CoursePresenter implements IBasePresenter<ICourseView>, ICoursePres
 
     @Override
     public void loadCourseFailure(String log) {
-        view.showMsg(log);
+        if (log != null && log.length() > 0) {
+            view.showMsg(log);
+        }
         view.hideLoad();
     }
 }

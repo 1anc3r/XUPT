@@ -4,8 +4,13 @@
     tools:context=".activity.MainActivity">
 
     <item
-        android:id="@+id/menu_favorite"
+        android:id="@+id/menu_add_favorite"
         android:title="收藏"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_del_favorite"
+        android:title="取关"
         app:showAsAction="never" />
 
     <item
