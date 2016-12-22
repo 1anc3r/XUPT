@@ -1,34 +1,17 @@
 package me.lancer.xupt.ui.adapter;
 
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -132,11 +115,11 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         rgState.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rb_attend){
+                if (checkedId == R.id.rb_attend) {
                     state = "1";
-                } else if (checkedId == R.id.rb_late){
+                } else if (checkedId == R.id.rb_late) {
                     state = "2";
-                } else if (checkedId == R.id.rb_leave){
+                } else if (checkedId == R.id.rb_leave) {
                     state = "3";
                 }
             }

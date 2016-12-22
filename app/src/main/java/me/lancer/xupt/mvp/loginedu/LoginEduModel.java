@@ -100,6 +100,9 @@ public class LoginEduModel {
                 if (cookie != null) {
                     presenter.loginSuccess(cookie);
                     Log.e("login", "登录成功!");
+                } else {
+                    presenter.loginFailure("登录失败!cookie为空");
+                    Log.e("login", "登录失败!cookie为空");
                 }
             } else {
                 presenter.loginFailure("登录失败!状态码:" + response.code());

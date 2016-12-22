@@ -27,50 +27,64 @@ public class LoginEduPresenter implements IBasePresenter<ILoginEduView>, ILoginE
     }
 
     public void loadCheckCode() {
-        model.loadCheckCode();
+        if (view != null) {
+            model.loadCheckCode();
+        }
     }
 
     @Override
     public void loadCheckCodeSuccess(String cookie) {
-        view.showCheckCode(cookie);
+        if (view != null) {
+            view.showCheckCode(cookie);
+        }
     }
 
     @Override
     public void loadCheckCodeFailure(String log) {
-        view.showMsg(log);
+        if (view != null) {
+            view.showMsg(log);
+        }
     }
 
     public void login(String number, String password, String checkcode, String cookie) {
-        view.showLoad();
-        model.login(number, password, checkcode, cookie);
+        if (view != null) {
+            view.showLoad();
+            model.login(number, password, checkcode, cookie);
+        }
     }
 
     @Override
     public void loginSuccess(String cookie) {
-        view.login(cookie);
-        view.hideLoad();
+        if (view != null) {
+            view.login(cookie);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loginFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void home(String number, String cookie) {
-        model.home(number, cookie);
+        if (view != null) {
+            model.home(number, cookie);
+        }
     }
 
     @Override
     public void homeSuccess(String number, String name) {
-        view.home(number, name);
+        if (view != null) {
+            view.home(number, name);
+        }
     }
 
     @Override
     public void homeFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
         }
     }

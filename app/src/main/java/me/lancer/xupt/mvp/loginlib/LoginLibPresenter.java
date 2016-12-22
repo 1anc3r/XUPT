@@ -30,97 +30,117 @@ public class LoginLibPresenter implements IBasePresenter<ILoginLibView>, ILoginL
     }
 
     public void login(String number, String password) {
-        view.showLoad();
-        model.login(number, password);
+        if (view != null) {
+            view.showLoad();
+            model.login(number, password);
+        }
     }
 
     @Override
     public void loginSuccess(String cookie) {
-        view.login(cookie);
-//        view.hideLoad();
+        if (view != null) {
+            view.login(cookie);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loginFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void getDebt(String cookie) {
+        if (view != null) {
 //        view.showLoad();
-        model.getDebt(cookie);
+            model.getDebt(cookie);
+        }
     }
 
     @Override
     public void getDebtSuccess(String debt) {
-        view.showDebt(debt);
+        if (view != null) {
+            view.showDebt(debt);
 //        view.hideLoad();
+        }
     }
 
     @Override
     public void getDebtFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+//        view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void getCurrent(String cookie) {
+        if (view != null) {
 //        view.showLoad();
-        model.getCurrent(cookie);
+            model.getCurrent(cookie);
+        }
     }
 
     @Override
     public void getCurrentSuccess(List<BookBean> list) {
-        view.showCurrent(list);
+        if (view != null) {
+            view.showCurrent(list);
 //        view.hideLoad();
+        }
     }
 
     @Override
     public void getCurrentFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+//        view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void getHistory(String cookie) {
+        if (view != null) {
 //        view.showLoad();
-        model.getHistory(cookie);
+            model.getHistory(cookie);
+        }
     }
 
     @Override
     public void getHistorySuccess(List<BookBean> list) {
-        view.showHistory(list);
+        if (view != null) {
+            view.showHistory(list);
 //        view.hideLoad();
+        }
     }
 
     @Override
     public void getHistoryFailure(String log) {
         if (log != null && log.length() > 0) {
             view.showMsg(log);
+//        view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void getFavorite(String cookie) {
+        if (view != null) {
 //        view.showLoad();
-        model.getFavorite(cookie);
+            model.getFavorite(cookie);
+        }
     }
 
     @Override
     public void getFavoriteSuccess(List<BookBean> list) {
-        view.showFavorite(list);
-        view.hideLoad();
+        if (view != null) {
+            view.showFavorite(list);
+//        view.hideLoad();
+        }
     }
 
     @Override
     public void getFavoriteFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+//        view.hideLoad();
         }
-        view.hideLoad();
     }
 }

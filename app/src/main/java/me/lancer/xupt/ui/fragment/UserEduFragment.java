@@ -40,7 +40,7 @@ public class UserEduFragment extends PresenterFragment<UserPresenter> implements
                     pdLogin.show();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
                     if (msg.obj != null) {
@@ -51,7 +51,7 @@ public class UserEduFragment extends PresenterFragment<UserPresenter> implements
                         tvClass.setText(bean.getUserClass());
                         tvMajor.setText(bean.getUserMajor());
                         tvCollege.setText(bean.getUserCollege());
-                        tvSchool.setText("西安邮电大学");
+                        tvSchool.setText(R.string.xupt);
                     }
                     break;
             }
@@ -89,7 +89,7 @@ public class UserEduFragment extends PresenterFragment<UserPresenter> implements
         tvCollege = (TextView) view.findViewById(R.id.tv_college);
         tvSchool = (TextView) view.findViewById(R.id.tv_school);
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在加载信息...");
+        pdLogin.setMessage(getString(R.string.loading));
         pdLogin.setCancelable(false);
     }
 

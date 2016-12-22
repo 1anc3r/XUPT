@@ -2,7 +2,6 @@ package me.lancer.xupt.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,7 +34,6 @@ import java.util.List;
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.logincard.ILoginCardView;
 import me.lancer.xupt.mvp.logincard.LoginCardPresenter;
-import me.lancer.xupt.ui.activity.LoginCardActivity;
 import me.lancer.xupt.ui.activity.MainActivity;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.ui.view.ClearEditText;
@@ -67,20 +65,20 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
         public void handleMessage(Message msg) {
             if (msg.obj != null) {
                 String log = (String) msg.obj;
-                if (log.equals("show")) {
+                if (log.equals(getString(R.string.show))) {
                     pdLogin.show();
-                } else if (log.equals("hide")) {
+                } else if (log.equals(getString(R.string.hide))) {
                     pdLogin.dismiss();
-                } else if (log.equals("checkcode")) {
-                    String checkCodePath = Environment.getExternalStorageDirectory() + "/me.lancer.xupt/CheckCode.png";
+                } else if (log.equals(getString(R.string.checkcode))) {
+                    String checkCodePath = Environment.getExternalStorageDirectory() + getString(R.string.path_checkcode_png);
                     Bitmap bitmap = BitmapFactory.decodeFile(checkCodePath);
                     ivCheckCode.setImageBitmap(bitmap);
-                } else if (log.equals("login")) {
+                } else if (log.equals(getString(R.string.login))) {
                     app.setRollcall(true);
                     loginDialog.dismiss();
                     initTabLayout(getView());
                 } else {
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     showSnackbar(clRollCall, (String) msg.obj);
                 }
             }
@@ -116,7 +114,7 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("考勤表");
+        toolbar.setTitle(R.string.roll_title);
         ((MainActivity) getActivity()).initDrawer(toolbar);
         initTabLayout(view);
         inflateMenu();
@@ -139,22 +137,22 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
 
         Fragment newfragment = new DetailFragment();
         Bundle data = new Bundle();
-        data.putInt("id", 0);
-        data.putString("title", "明细");
+        data.putInt(getString(R.string.id), 0);
+        data.putString(getString(R.string.title), getString(R.string.roll_detail));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "明细");
+        adapter.addFrag(newfragment, getString(R.string.roll_detail));
 
         newfragment = new StatisticFragment();
         data = new Bundle();
-        data.putInt("id", 1);
-        data.putString("title", "统计");
+        data.putInt(getString(R.string.id), 1);
+        data.putString(getString(R.string.title), getString(R.string.roll_statistic));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "统计");
+        adapter.addFrag(newfragment, getString(R.string.roll_statistic));
 
         viewPager.setAdapter(adapter);
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            index = bundle.getInt("index");
+            index = bundle.getInt(getString(R.string.index));
         }
         viewPager.setCurrentItem(index, true);
     }
@@ -195,16 +193,16 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
     private void initSearchView() {
         final SearchView searchView = (SearchView) toolbar.getMenu()
                 .findItem(R.id.menu_search).getActionView();
-        searchView.setQueryHint("搜索…");
+        searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                showToast(getString(R.string.lazy));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.e("onQueryTextChange", s);
                 return false;
             }
         });
@@ -212,15 +210,15 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
 
     private void initData() {
         app = (ApplicationInstance) getActivity().getApplication();
-        sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        number = sharedPreferences.getString("number", "");
-        password = sharedPreferences.getString("passwordcard", "");
+        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
+        number = sharedPreferences.getString(getString(R.string.spf_number), "");
+        password = sharedPreferences.getString(getString(R.string.spf_passwd_roll), "");
     }
 
     private void initView(View view) {
         clRollCall = (CoordinatorLayout) view.findViewById(R.id.cl_rollcall);
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在登录...");
+        pdLogin.setMessage(getString(R.string.logining));
         pdLogin.setCancelable(false);
         showLoginDialog();
         if (!app.isRollcall()) {
@@ -232,7 +230,7 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
     private void showLoginDialog() {
         loginDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.login_dialog, null);
         tvTitle = (TextView) loginDialogView.findViewById(R.id.tv_title);
-        tvTitle.setText("登录考勤表");
+        tvTitle.setText(R.string.roll_login_title);
         cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
         cetNumber.setText(number);
         etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);
@@ -244,7 +242,7 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(loginDialogView);
         loginDialog = builder.create();
-        loginDialog.setCancelable(false);
+        loginDialog.setCancelable(true);
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
@@ -254,15 +252,19 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
                 NetworkDiagnosis networkDiagnosis = new NetworkDiagnosis();
                 if (networkDiagnosis.checkNetwork(getActivity().getApplication())) {
                     if (cetNumber.getText().toString().equals("")) {
+                        showSnackbar(clRollCall, getString(R.string.number_null));
                     } else if (etPassword.getText().toString().equals("")) {
+                        showSnackbar(clRollCall, getString(R.string.passwd_null));
+                    } else if (cetCheckCode.getText().toString().equals("")) {
+                        showSnackbar(clRollCall, getString(R.string.checkcode_null));
                     } else {
                         number = cetNumber.getText().toString();
                         password = etPassword.getText().toString();
                         checkcode = cetCheckCode.getText().toString();
-                        sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
                         editor = sharedPreferences.edit();
-                        editor.putString("number", number);
-                        editor.putString("passwordcard", password);
+                        editor.putString(getString(R.string.spf_number), number);
+                        editor.putString(getString(R.string.spf_passwd_roll), password);
                         editor.apply();
                         loginDialog.dismiss();
                         new Thread(login).start();
@@ -275,20 +277,18 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
     @Override
     public void showCheckCode(String cookie) {
         this.cookie = cookie;
-        Log.e("cookie", cookie);
         app.setCardCookie0(cookie);
         Message msg = new Message();
-        msg.obj = "checkcode";
+        msg.obj = getString(R.string.checkcode);
         handler.sendMessage(msg);
     }
 
     @Override
     public void login(String cookie) {
         this.cookie = cookie;
-        Log.e("cookie", cookie);
         app.setCardCookie1(cookie);
         Message msg = new Message();
-        msg.obj = "login";
+        msg.obj = getString(R.string.login);
         handler.sendMessage(msg);
     }
 
@@ -302,14 +302,14 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
     @Override
     public void showLoad() {
         Message msg = new Message();
-        msg.obj = "show";
+        msg.obj = getString(R.string.show);
         handler.sendMessage(msg);
     }
 
     @Override
     public void hideLoad() {
         Message msg = new Message();
-        msg.obj = "hide";
+        msg.obj = getString(R.string.hide);
         handler.sendMessage(msg);
     }
 }

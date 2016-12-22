@@ -28,7 +28,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.tvName.setText(scoreList.get(position).getScoreName());
-        viewHolder.tvProperty.setText("性质: "+scoreList.get(position).getScoreProperty());
+        viewHolder.tvProperty.setText("性质: " + scoreList.get(position).getScoreProperty());
         viewHolder.tvValue.setText("成绩: " + scoreList.get(position).getScoreValue());
         viewHolder.tvCredit.setText("学分: " + scoreList.get(position).getScoreCredit());
         viewHolder.tvGPA.setText("绩点: " + scoreList.get(position).getScoreGPA());
@@ -41,7 +41,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvName,tvProperty,tvValue,tvCredit,tvGPA;
+        public TextView tvName, tvProperty, tvValue, tvCredit, tvGPA;
 
         public ViewHolder(View rootView) {
             super(rootView);

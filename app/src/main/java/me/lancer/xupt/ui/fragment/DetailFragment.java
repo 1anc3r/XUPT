@@ -1,6 +1,7 @@
 package me.lancer.xupt.ui.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +48,7 @@ public class DetailFragment extends PresenterFragment<RollCallPresenter> impleme
     CheckBox cbAttend, cbLate, cbAbsence;
     SwipeRefreshLayout srlDetail;
     RecyclerView rvDetail;
+//    ProgressDialog pdLogin;
 
     List<RollCallBean> detailList = new ArrayList<>();
 
@@ -60,20 +62,26 @@ public class DetailFragment extends PresenterFragment<RollCallPresenter> impleme
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+//                    pdLogin.show();
                     break;
                 case 1:
+//                    pdLogin.dismiss();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
                     detailList = (List<RollCallBean>) msg.obj;
-                    DetailAdapter adapter = new DetailAdapter(DetailFragment.this, detailList);
-                    rvDetail.setAdapter(adapter);
-                    srlDetail.setRefreshing(false);
+                    if (detailList!=null) {
+                        DetailAdapter adapter = new DetailAdapter(DetailFragment.this, detailList);
+                        rvDetail.setAdapter(adapter);
+                        srlDetail.setRefreshing(false);
+                    }else {
+//                        pdLogin.dismiss();
+                    }
                     break;
                 case 4:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     showSnackbar(llDetail, (String) msg.obj);
                     break;
             }
@@ -136,6 +144,9 @@ public class DetailFragment extends PresenterFragment<RollCallPresenter> impleme
         DetailAdapter adapter = new DetailAdapter(this, detailList);
         rvDetail.setAdapter(adapter);
         srlDetail.setRefreshing(true);
+//        pdLogin = new ProgressDialog(getActivity());
+//        pdLogin.setMessage(getString(R.string.detail_loading));
+//        pdLogin.setCancelable(false);
     }
 
     private void initData() {

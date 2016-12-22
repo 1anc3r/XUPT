@@ -30,101 +30,117 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
     }
 
     public void search(String keyword) {
-        view.showLoad();
-        model.search(keyword);
+        if (view != null) {
+            view.showLoad();
+            model.search(keyword);
+        }
     }
 
     @Override
     public void searchSuccess(List<BookBean> list) {
-        view.search(list);
-        view.hideLoad();
+        if (view != null) {
+            view.search(list);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void searchFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void rank(String type, String size) {
-        view.showLoad();
-        model.rank(type, size);
+        if (view != null) {
+            view.showLoad();
+            model.rank(type, size);
+        }
     }
 
     @Override
     public void rankSuccess(List<BookBean> list) {
-        view.rank(list);
-        view.hideLoad();
+        if (view != null) {
+            view.rank(list);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void rankFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void detail(int key, String value) {
-        view.showLoad();
-        model.detail(key, value);
+        if (view != null) {
+            view.showLoad();
+            model.detail(key, value);
+        }
     }
 
     @Override
     public void detailSuccess(Map<String, List<BookBean>> map) {
-        view.detail(map);
-        view.hideLoad();
+        if (view != null) {
+            view.detail(map);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void detailFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void addFavorite(String id, String cookie) {
-        view.showLoad();
-        model.addFavorite(id, cookie);
+        if (view != null) {
+            view.showLoad();
+            model.addFavorite(id, cookie);
+        }
     }
 
     @Override
     public void addFavoriteSuccess(String log) {
         if (log != null && log.length() > 0) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     @Override
     public void addFavoriteFailure(String log) {
         if (log != null && log.length() > 0) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     public void delFavorite(String id, String number, String cookie) {
-        view.showLoad();
-        model.delFavorite(id, number, cookie);
+        if (view != null) {
+            view.showLoad();
+            model.delFavorite(id, number, cookie);
+        }
     }
 
     @Override
     public void delFavoriteSuccess(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 
     @Override
     public void delFavoriteFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 }

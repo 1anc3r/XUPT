@@ -1,10 +1,7 @@
 package me.lancer.xupt.ui.fragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -84,8 +81,8 @@ public class CetFragment extends BaseFragment {
 
     private void initView(View view) {
         llCet = (LinearLayout) view.findViewById(R.id.ll_cet);
-        tCet = (Toolbar) view.findViewById(R.id.t_cet) ;
-        tCet.setTitle("英语四六级考试成绩查询");
+        tCet = (Toolbar) view.findViewById(R.id.t_cet);
+        tCet.setTitle(R.string.cet_title);
         ((MainActivity) getActivity()).initDrawer(tCet);
         cetNumber = (ClearEditText) view.findViewById(R.id.cet_number);
         cetName = (ClearEditText) view.findViewById(R.id.cet_name);
@@ -101,7 +98,7 @@ public class CetFragment extends BaseFragment {
         tvSynthesize = (TextView) view.findViewById(R.id.tv_synthesize);
         tvWrite = (TextView) view.findViewById(R.id.tv_write);
         pdQuery = new ProgressDialog(getActivity());
-        pdQuery.setMessage("正在查询...");
+        pdQuery.setMessage(getString(R.string.cet_query));
         pdQuery.setCancelable(true);
     }
 
@@ -140,7 +137,7 @@ public class CetFragment extends BaseFragment {
         OkHttpClient client = new OkHttpClient();
         client.setFollowRedirects(false);
         client.setFollowSslRedirects(false);
-        Request request = new Request.Builder().url("http://www.chsi.com.cn/cet/query?zkzh="+ number+"&xm="+name)
+        Request request = new Request.Builder().url("http://www.chsi.com.cn/cet/query?zkzh=" + number + "&xm=" + name)
                 .addHeader("Referer", "http://www.chsi.com.cn/cet/").build();
         try {
             Response response = client.newCall(request).execute();
@@ -212,7 +209,7 @@ public class CetFragment extends BaseFragment {
                     synthesize = score[3];
                     write = result;
                     Message msg = new Message();
-                    msg.obj = name+"!"+school+"!"+type+"!"+number+"!"+sum+"!"+hear+"!"+read+"!"+synthesize+"!"+write;
+                    msg.obj = name + "!" + school + "!" + type + "!" + number + "!" + sum + "!" + hear + "!" + read + "!" + synthesize + "!" + write;
                     handler.sendMessage(msg);
                 }
             }

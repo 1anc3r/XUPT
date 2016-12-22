@@ -50,9 +50,6 @@ public class ScoreModel {
         String content;
         List<ScoreBean> list;
         if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
-//            yearBundle = getYearBundleFromContent(content);
-//            termBundle = getTermBundleWithYearBundle(yearBundle);
-//            list = getScoreFromBundle(yearBundle, termBundle);
             list = getScoreFromJson(content);
             presenter.loadScoreSuccess(list);
             Log.e("loadScore", "获取成绩成功!");

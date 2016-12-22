@@ -27,35 +27,45 @@ public class LoginCardPresenter implements IBasePresenter<ILoginCardView>, ILogi
     }
 
     public void loadCheckCode() {
-        model.loadCheckCode();
+        if (view != null) {
+            model.loadCheckCode();
+        }
     }
 
     @Override
     public void loadCheckCodeSuccess(String cookie) {
-        view.showCheckCode(cookie);
+        if (view != null) {
+            view.showCheckCode(cookie);
+        }
     }
 
     @Override
     public void loadCheckCodeFailure(String log) {
-        view.showMsg(log);
+        if (view != null) {
+            view.showMsg(log);
+        }
     }
 
     public void login(String number, String password, String checkcode, String cookie) {
-        view.showLoad();
-        model.login(number, password, checkcode, cookie);
+        if (view != null) {
+            view.showLoad();
+            model.login(number, password, checkcode, cookie);
+        }
     }
 
     @Override
     public void loginSuccess(String cookie) {
-        view.login(cookie);
-        view.hideLoad();
+        if (view != null) {
+            view.login(cookie);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loginFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 }

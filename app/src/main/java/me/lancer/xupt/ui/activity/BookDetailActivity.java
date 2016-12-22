@@ -3,8 +3,6 @@ package me.lancer.xupt.ui.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -24,9 +23,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +32,6 @@ import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
 import me.lancer.xupt.mvp.book.IBookView;
 import me.lancer.xupt.ui.adapter.CircleAdapter;
-import me.lancer.xupt.ui.adapter.RankAdapter;
 import me.lancer.xupt.ui.adapter.SearchAdapter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 
@@ -44,6 +39,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
 
     ApplicationInstance app = new ApplicationInstance();
 
+    LinearLayout llBookDetail;
     Toolbar toolbar;
     ImageView ivBook;
     TextView tvName, tvAuthor, tvPublish, tvSubject, tvTotal, tvAvaliable;
@@ -67,21 +63,22 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
                     pdLogin.show();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
+                    showSnackbar(llBookDetail, (String) msg.obj);
                     break;
                 case 3:
-                    if (msg.obj != null && !msg.obj.toString().contains("!error!")) {
+                    if (msg.obj != null) {
                         map = (Map<String, List<BookBean>>) msg.obj;
-                        detailList = map.get("detail");
-                        circleList = map.get("circle");
-                        referList = map.get("refer");
+                        detailList = map.get(getString(R.string.detail));
+                        circleList = map.get(getString(R.string.circle));
+                        referList = map.get(getString(R.string.refer));
                         showImage(detailList.get(0).getBookImage());
                         tvName.setText(detailList.get(0).getBookMainTitle());
-                        tvAuthor.setText("作者:" + detailList.get(0).getBookAuthor());
-                        tvPublish.setText("出版:" + detailList.get(0).getBookPublish());
-                        tvSubject.setText("主题:" + detailList.get(0).getBookSubject());
-                        tvTotal.setText("藏书量:" + detailList.get(0).getBookTotal());
-                        tvAvaliable.setText("可借阅量:" + detailList.get(0).getBookAvailable());
+                        tvAuthor.setText(getString(R.string.Author) + detailList.get(0).getBookAuthor());
+                        tvPublish.setText(getString(R.string.publish) + detailList.get(0).getBookPublish());
+                        tvSubject.setText(getString(R.string.subject) + detailList.get(0).getBookSubject());
+                        tvTotal.setText(getString(R.string.total) + detailList.get(0).getBookTotal());
+                        tvAvaliable.setText(getString(R.string.available) + detailList.get(0).getBookAvailable());
                         CircleAdapter adapterCircle = new CircleAdapter(circleList);
                         rvCircle.setAdapter(adapterCircle);
                         SearchAdapter adapterRefer = new SearchAdapter(referList);
@@ -126,13 +123,13 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
     private void initData() {
         app = (ApplicationInstance) this.getApplication();
         Intent intent = getIntent();
-        key = intent.getIntExtra("key", 0);
-        value = intent.getStringExtra("value");
+        key = intent.getIntExtra(getString(R.string.key), 0);
+        value = intent.getStringExtra(getString(R.string.value));
     }
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("图书详情");
+        toolbar.setTitle(R.string.book_detail);
         toolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_18dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +155,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
                 return true;
             }
         });
+        llBookDetail = (LinearLayout) findViewById(R.id.ll_book_detail);
         ivBook = (ImageView) findViewById(R.id.iv_book);
         tvName = (TextView) findViewById(R.id.tv_name);
         tvAuthor = (TextView) findViewById(R.id.tv_author);
@@ -181,7 +179,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
         SearchAdapter adapterRefer = new SearchAdapter(referList);
         rvRefer.setAdapter(adapterRefer);
         pdLogin = new ProgressDialog(this);
-        pdLogin.setMessage("正在加载图书详情...");
+        pdLogin.setMessage(getString(R.string.book_loading));
         pdLogin.setCancelable(false);
         new Thread(detail).start();
     }

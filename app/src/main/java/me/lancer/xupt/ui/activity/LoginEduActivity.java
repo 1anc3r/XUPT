@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,12 +46,12 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
         public void handleMessage(Message msg) {
             if (msg.obj != null) {
                 String log = (String) msg.obj;
-                if (log.equals("show")) {
+                if (log.equals(getString(R.string.show))) {
                     pdLogin.show();
-                } else if (log.equals("hide")) {
+                } else if (log.equals(getString(R.string.hide))) {
                     pdLogin.dismiss();
-                } else if (log.equals("checkcode")) {
-                    String checkCodePath = Environment.getExternalStorageDirectory() + "/me.lancer.xupt/CheckCode.gif";
+                } else if (log.equals(getString(R.string.checkcode))) {
+                    String checkCodePath = Environment.getExternalStorageDirectory() + getString(R.string.path_checkcode_gif);
                     Bitmap bitmap = BitmapFactory.decodeFile(checkCodePath);
                     ivCheckCode.setImageBitmap(bitmap);
                 } else {
@@ -82,12 +82,18 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initToolbar("登录");
         initView();
         initData();
     }
 
     private void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.edu_login_title);
+        setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         llLogin = (LinearLayout) findViewById(R.id.ll_login);
         cetNumber = (ClearEditText) findViewById(R.id.cet_number);
         etPassword = (EditText) findViewById(R.id.et_password);
@@ -97,22 +103,22 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(vOnClickListener);
         pdLogin = new ProgressDialog(this);
-        pdLogin.setMessage("正在登录...");
+        pdLogin.setMessage(getString(R.string.logining));
         pdLogin.setCancelable(false);
     }
 
     private void initData() {
         app = (ApplicationInstance) this.getApplication();
-        sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        number = sharedPreferences.getString("number", "");
-        name = sharedPreferences.getString("name", "");
-        password = sharedPreferences.getString("passwordedu", "");
+        sharedPreferences = getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
+        number = sharedPreferences.getString(getString(R.string.spf_number), "");
+        name = sharedPreferences.getString(getString(R.string.spf_name), "");
+        password = sharedPreferences.getString(getString(R.string.spf_passwd_edu), "");
         cetNumber.setText(number);
         etPassword.setText(password);
         app.setCourse(true);
         app.setScore(true);
         app.setUser(true);
-        if (new File(root + "me.lancer.xupt/course_" + number).exists() && new File(root + "me.lancer.xupt/score_" + number).exists() && new File(root + "me.lancer.xupt/user_" + number).exists()) {
+        if (new File(root + getString(R.string.path_course) + number).exists() && new File(root + getString(R.string.path_score) + number).exists() && new File(root + getString(R.string.path_user) + number).exists()) {
             app.setNumber(number);
             app.setName(name);
             app.setCourse(false);
@@ -134,27 +140,28 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
                 NetworkDiagnosis networkDiagnosis = new NetworkDiagnosis();
                 if (networkDiagnosis.checkNetwork(getApplication())) {
                     if (cetNumber.getText().toString().equals("")) {
-                        showSnackbar(llLogin, "学号不能为空!");
+                        showSnackbar(llLogin, getString(R.string.number_null));
                     } else if (etPassword.getText().toString().equals("")) {
-                        showSnackbar(llLogin, "密码不能为空!");
+                        showSnackbar(llLogin, getString(R.string.passwd_null));
+                    } else if (cetCheckCode.getText().toString().equals("")) {
+                        showSnackbar(llLogin, getString(R.string.checkcode_null));
                     } else {
                         number = cetNumber.getText().toString();
                         password = etPassword.getText().toString();
                         checkcode = cetCheckCode.getText().toString();
-                        sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+                        sharedPreferences = getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
                         editor = sharedPreferences.edit();
-                        editor.putString("number", number);
-                        editor.putString("passwordedu", password);
+                        editor.putString(getString(R.string.spf_number), number);
+                        editor.putString(getString(R.string.spf_passwd_edu), password);
                         editor.apply();
                         if (!networkDiagnosis.checkNetwork(LoginEduActivity.this)) {
-                            showSnackbar(llLogin, "网络连接错误!");
+                            showSnackbar(llLogin, getString(R.string.network_error));
                         } else {
                             new Thread(login).start();
                         }
                     }
                 }
             } else if (v == ivCheckCode) {
-                Log.e("ivCheckCode", "change checkcode");
                 new Thread(loadCheckCode).start();
             }
         }
@@ -170,7 +177,7 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
         this.cookie = cookie;
         app.setEduCookie(cookie);
         Message msg = new Message();
-        msg.obj = "checkcode";
+        msg.obj = getString(R.string.checkcode);
         handler.sendMessage(msg);
     }
 
@@ -185,10 +192,10 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
     public void home(String number, String name) {
         app.setNumber(number);
         app.setName(name);
-        sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putString("number", number);
-        editor.putString("name", name);
+        editor.putString(getString(R.string.spf_number), number);
+        editor.putString(getString(R.string.spf_name), name);
         editor.apply();
         Intent intent = new Intent();
         intent.setClass(LoginEduActivity.this, MainActivity.class);
@@ -206,14 +213,14 @@ public class LoginEduActivity extends PresenterActivity<LoginEduPresenter> imple
     @Override
     public void showLoad() {
         Message msg = new Message();
-        msg.obj = "show";
+        msg.obj = getString(R.string.show);
         handler.sendMessage(msg);
     }
 
     @Override
     public void hideLoad() {
         Message msg = new Message();
-        msg.obj = "hide";
+        msg.obj = getString(R.string.hide);
         handler.sendMessage(msg);
     }
 }

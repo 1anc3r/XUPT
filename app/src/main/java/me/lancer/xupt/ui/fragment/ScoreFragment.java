@@ -59,7 +59,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                     pdLogin.show();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
                     app.setScore(false);
@@ -118,7 +118,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
                 }, 200
         );
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在加载成绩...");
+        pdLogin.setMessage(getString(R.string.score_loading));
         pdLogin.setCancelable(false);
     }
 
@@ -139,7 +139,7 @@ public class ScoreFragment extends PresenterFragment<ScorePresenter> implements 
     public void showScore(List<ScoreBean> list) {
         scoreList = list;
         for (ScoreBean item : scoreList) {
-            String termStr = item.getScoreYear() + "学年" + item.getScoreTerm() + "学期";
+            String termStr = item.getScoreYear() + getString(R.string.year) + item.getScoreTerm() + getString(R.string.term);
             if (termMap.get(termStr) == null) {
                 List<ScoreBean> itemList = new ArrayList<>();
                 itemList.add(item);

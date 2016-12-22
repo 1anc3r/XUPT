@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
-    }
+        }
         return toolbar;
     }
 

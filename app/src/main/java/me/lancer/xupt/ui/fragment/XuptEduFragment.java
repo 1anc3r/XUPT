@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class XuptEduFragment extends PresenterFragment<LoginEduPresenter> implem
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("教务处");
+        toolbar.setTitle(R.string.edu_title);
         ((MainActivity) getActivity()).initDrawer(toolbar);
         initTabLayout(view);
         inflateMenu();
@@ -63,29 +62,29 @@ public class XuptEduFragment extends PresenterFragment<LoginEduPresenter> implem
 
         Fragment newfragment = new CourseFragment();
         Bundle data = new Bundle();
-        data.putInt("id", 0);
-        data.putString("title", getString(R.string.page1));
+        data.putInt(getString(R.string.id), 0);
+        data.putString(getString(R.string.title), getString(R.string.edu_course));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, getString(R.string.page1));
+        adapter.addFrag(newfragment, getString(R.string.edu_course));
 
         newfragment = new ScoreFragment();
         data = new Bundle();
-        data.putInt("id", 1);
-        data.putString("title", getString(R.string.page2));
+        data.putInt(getString(R.string.id), 1);
+        data.putString(getString(R.string.title), getString(R.string.edu_score));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, getString(R.string.page2));
+        adapter.addFrag(newfragment, getString(R.string.edu_score));
 
         newfragment = new UserEduFragment();
         data = new Bundle();
-        data.putInt("id", 2);
-        data.putString("title", "我的");
+        data.putInt(getString(R.string.id), 2);
+        data.putString(getString(R.string.title), getString(R.string.edu_info));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "我的");
+        adapter.addFrag(newfragment, getString(R.string.edu_info));
 
         viewPager.setAdapter(adapter);
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            index = bundle.getInt("index");
+            index = bundle.getInt(getString(R.string.index));
         }
         viewPager.setCurrentItem(index, true);
     }
@@ -126,16 +125,16 @@ public class XuptEduFragment extends PresenterFragment<LoginEduPresenter> implem
     private void initSearchView() {
         final SearchView searchView = (SearchView) toolbar.getMenu()
                 .findItem(R.id.menu_search).getActionView();
-        searchView.setQueryHint("搜索…");
+        searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                showToast(getString(R.string.lazy));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.e("onQueryTextChange", s);
                 return false;
             }
         });

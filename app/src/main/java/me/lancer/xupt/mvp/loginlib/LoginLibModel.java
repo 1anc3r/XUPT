@@ -28,21 +28,24 @@ public class LoginLibModel {
     }
 
     public void login(String number, String password) {
-        String url = "http://api.xiyoumobile.com/xiyoulibv2/user/login?username=S" + number + "&password="+password;
+        String url = "http://api.xiyoumobile.com/xiyoulibv2/user/login?username=S" + number + "&password=" + password;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
         try {
             Response response = client.newCall(request).execute();
             if (response.code() == 200) {
-                String content =  response.body().string();
+                String content = response.body().string();
                 Boolean result = new JSONObject(content).getBoolean("Result");
                 String cookie = new JSONObject(content).getString("Detail");
                 if (result) {
                     if (cookie != null) {
                         presenter.loginSuccess(cookie);
                         Log.e("loginSuccess", "登录成功!");
+                    } else {
+                        presenter.loginFailure("登录失败!cookie为空");
+                        Log.e("login", "登录失败!cookie为空");
                     }
-                }else{
+                } else {
                     presenter.loginFailure("登录失败!错误信息:" + cookie);
                     Log.e("login", "登录失败!错误信息:" + cookie);
                 }
@@ -153,7 +156,7 @@ public class LoginLibModel {
         }
     }
 
-    private String getDebtFromContent(String content){
+    private String getDebtFromContent(String content) {
         try {
             JSONObject jbUser = new JSONObject(content);
             if (jbUser.getBoolean("Result")) {
@@ -169,7 +172,7 @@ public class LoginLibModel {
         }
     }
 
-    public List<BookBean> getCurrentFromContent(String content){
+    public List<BookBean> getCurrentFromContent(String content) {
         try {
             JSONObject jbBook = new JSONObject(content);
             if (jbBook.getBoolean("Result")) {
@@ -202,7 +205,7 @@ public class LoginLibModel {
         }
     }
 
-    public List<BookBean> getHistoryFromContent(String content){
+    public List<BookBean> getHistoryFromContent(String content) {
         try {
             JSONObject jbBook = new JSONObject(content);
             if (jbBook.getBoolean("Result")) {
@@ -231,7 +234,7 @@ public class LoginLibModel {
         }
     }
 
-    public List<BookBean> getFavoriteFromContent(String content){
+    public List<BookBean> getFavoriteFromContent(String content) {
         try {
             JSONObject jbBook = new JSONObject(content);
             if (jbBook.getBoolean("Result")) {

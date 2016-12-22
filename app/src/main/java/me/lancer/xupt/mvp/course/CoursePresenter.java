@@ -29,21 +29,25 @@ public class CoursePresenter implements IBasePresenter<ICourseView>, ICoursePres
     }
 
     public void loadCourse(String number, String name, String cookie, boolean refresh) {
-        view.showLoad();
-        model.loadCourse(number, name, cookie, refresh);
+        if (view != null) {
+            view.showLoad();
+            model.loadCourse(number, name, cookie, refresh);
+        }
     }
 
     @Override
     public void loadCourseSuccess(List<CourseBean> list) {
-        view.showCourse(list);
-        view.hideLoad();
+        if (view != null) {
+            view.showCourse(list);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loadCourseFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 }

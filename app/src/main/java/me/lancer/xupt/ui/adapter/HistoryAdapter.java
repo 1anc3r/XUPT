@@ -33,7 +33,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             viewHolder.tvName.setText(bookList.get(position).getBookMainTitle());
             String info = "";
             String[] date = bookList.get(position).getBookDate().split("-");
-            info += "于"+date[0]+"年"+date[1]+"月"+date[2]+"日"+bookList.get(position).getBookState();
+            info += "于" + date[0] + "年" + date[1] + "月" + date[2] + "日" + bookList.get(position).getBookState();
             viewHolder.tvInfo.setText(info);
         }
     }

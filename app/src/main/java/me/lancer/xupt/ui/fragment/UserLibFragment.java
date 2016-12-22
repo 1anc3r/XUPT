@@ -70,7 +70,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
                     pdLogin.show();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     showSnackbar(llUser, (String) msg.obj);
                     break;
                 case 3:
@@ -83,32 +83,32 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
                 case 4:
                     if (msg.obj != null) {
                         tvHead.setText(app.getName());
-                        tvDebt.setText(msg.obj.toString() + "元");
+                        tvDebt.setText(msg.obj.toString() + getString(R.string.yuan));
                         new Thread(getList).start();
                     }
                     break;
                 case 5:
                     currentList = (List<BookBean>) msg.obj;
                     if (currentList != null) {
-                        tvCurrent.setText("" + currentList.size());
+                        tvCurrent.setText(String.valueOf(currentList.size()));
                     } else {
-                        tvCurrent.setText("0");
+                        tvCurrent.setText(R.string.zero);
                     }
                     break;
                 case 6:
                     historyList = (List<BookBean>) msg.obj;
                     if (historyList != null) {
-                        tvHistory.setText("" + historyList.size());
+                        tvHistory.setText(String.valueOf(historyList.size()));
                     } else {
-                        tvHistory.setText("0");
+                        tvHistory.setText(getString(R.string.zero));
                     }
                     break;
                 case 7:
                     favoriteList = (List<BookBean>) msg.obj;
                     if (favoriteList != null) {
-                        tvFavorite.setText("" + favoriteList.size());
+                        tvFavorite.setText(String.valueOf(favoriteList.size()));
                     } else {
-                        tvFavorite.setText("0");
+                        tvFavorite.setText(getString(R.string.zero));
                     }
                     break;
             }
@@ -153,9 +153,9 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     }
 
     private void initView(View view) {
-        sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        number = sharedPreferences.getString("number", "");
-        password = sharedPreferences.getString("passwordlib", "");
+        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
+        number = sharedPreferences.getString(getString(R.string.spf_number), "");
+        password = sharedPreferences.getString(getString(R.string.spf_passwd_lib), "");
         llUser = (LinearLayout) view.findViewById(R.id.ll_user);
         llCurrent = (LinearLayout) view.findViewById(R.id.ll_current);
         llCurrent.setOnClickListener(vOnClickListener);
@@ -171,7 +171,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         tvHistory = (TextView) view.findViewById(R.id.tv_history);
         tvFavorite = (TextView) view.findViewById(R.id.tv_favorite);
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在加载信息...");
+        pdLogin.setMessage(getString(R.string.logining));
         pdLogin.setCancelable(false);
         showLoginDialog();
     }
@@ -199,8 +199,8 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
                 password = etPassword.getText().toString();
                 sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                 editor = sharedPreferences.edit();
-                editor.putString("number", number);
-                editor.putString("passwordlib", password);
+                editor.putString(getString(R.string.spf_number), number);
+                editor.putString(getString(R.string.spf_passwd_lib), password);
                 editor.apply();
                 loginDialog.dismiss();
                 new Thread(login).start();
@@ -213,13 +213,13 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         tvType = (TextView) listDialogView.findViewById(R.id.tv_type);
         switch (type) {
             case 1:
-                tvType.setText("当前借阅");
+                tvType.setText(R.string.lib_current);
                 break;
             case 2:
-                tvType.setText("历史借阅");
+                tvType.setText(R.string.lib_history);
                 break;
             case 3:
-                tvType.setText("收藏关注");
+                tvType.setText(R.string.lib_favorite);
                 break;
         }
         rvList = (RecyclerView) listDialogView.findViewById(R.id.rv_list);
@@ -244,10 +244,10 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         listDialog.show();
     }
 
-    private void showLoginDialog(){
+    private void showLoginDialog() {
         loginDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.login_dialog, null);
         tvTitle = (TextView) loginDialogView.findViewById(R.id.tv_title);
-        tvTitle.setText("登录图书馆");
+        tvTitle.setText(R.string.lib_login_title);
         cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
         cetNumber.setText(number);
         etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);

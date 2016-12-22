@@ -32,12 +32,12 @@ public class CurrentAdapter extends RecyclerView.Adapter<CurrentAdapter.ViewHold
         if (bookList.get(position) != null) {
             if (bookList.get(position).isBookCanRenew()) {
                 viewHolder.tvName.setText(bookList.get(position).getBookMainTitle() + "[可续借]");
-            }else{
+            } else {
                 viewHolder.tvName.setText(bookList.get(position).getBookMainTitle() + "[不可续借]");
             }
             String info = "";
             char[] date = bookList.get(position).getBookDate().toCharArray();
-            info += "请于"+date[0]+date[1]+date[2]+date[3]+"年"+date[4]+date[5]+"月"+date[6]+date[7]+"日还书至"+bookList.get(position).getBookDepartment();
+            info += "请于" + date[0] + date[1] + date[2] + date[3] + "年" + date[4] + date[5] + "月" + date[6] + date[7] + "日还书至" + bookList.get(position).getBookDepartment();
             viewHolder.tvInfo.setText(info);
         }
     }

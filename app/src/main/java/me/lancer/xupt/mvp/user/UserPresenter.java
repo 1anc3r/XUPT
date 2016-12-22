@@ -29,21 +29,25 @@ public class UserPresenter implements IBasePresenter<IUserView>, IUserPresenter 
     }
 
     public void loadUser(String number, String name, String cookie, boolean refresh) {
-        view.showLoad();
-        model.loadUser(number, name, cookie, refresh);
+        if (view != null) {
+            view.showLoad();
+            model.loadUser(number, name, cookie, refresh);
+        }
     }
 
     @Override
     public void loadUserSuccess(UserBean bean) {
-        view.showUser(bean);
-        view.hideLoad();
+        if (view != null) {
+            view.showUser(bean);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loadUserFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 }

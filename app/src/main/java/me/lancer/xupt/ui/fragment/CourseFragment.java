@@ -40,7 +40,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                     pdLogin.show();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
                     if (msg.obj != null) {
@@ -77,7 +77,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
     private void initView(View view) {
         scheduleView = (ScheduleView) view.findViewById(R.id.sv_course);
         pdLogin = new ProgressDialog(getActivity());
-        pdLogin.setMessage("正在加载课表...");
+        pdLogin.setMessage(getString(R.string.course_loading));
         pdLogin.setCancelable(false);
     }
 

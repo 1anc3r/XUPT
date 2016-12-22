@@ -49,7 +49,7 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
                 case 1:
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
                     if (msg.obj != null) {

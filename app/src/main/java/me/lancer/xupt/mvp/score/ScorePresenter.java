@@ -32,21 +32,25 @@ public class ScorePresenter implements IBasePresenter<IScoreView>, IScorePresent
     }
 
     public void loadScore(String number, String name, String cookie, boolean refresh) {
-        view.showLoad();
-        model.loadScore(number, name, cookie, refresh);
+        if (view != null) {
+            view.showLoad();
+            model.loadScore(number, name, cookie, refresh);
+        }
     }
 
     @Override
     public void loadScoreSuccess(List<ScoreBean> list) {
-        view.showScore(list);
-        view.hideLoad();
+        if (view != null) {
+            view.showScore(list);
+            view.hideLoad();
+        }
     }
 
     @Override
     public void loadScoreFailure(String log) {
-        if (log != null && log.length() > 0) {
+        if (log != null && log.length() > 0 && view != null) {
             view.showMsg(log);
+            view.hideLoad();
         }
-        view.hideLoad();
     }
 }

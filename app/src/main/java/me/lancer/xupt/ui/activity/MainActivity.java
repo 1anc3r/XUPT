@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +52,7 @@ public class MainActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         if (savedInstanceState == null) {
             currentFragment = new XuptEduFragment();
-            bundle.putInt("index", 0);
+            bundle.putInt(getString(R.string.index), 0);
             currentFragment.setArguments(bundle);
             switchContent(currentFragment);
         } else {
@@ -61,15 +60,15 @@ public class MainActivity extends BaseActivity {
             currentFragment = new XuptEduFragment();
             switch (this.currentIndex) {
                 case 0:
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     break;
                 case 1:
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     break;
                 case 2:
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     break;
             }
@@ -102,9 +101,9 @@ public class MainActivity extends BaseActivity {
         civHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File courseFile = new File(root + "me.lancer.xupt/course_" + app.getNumber());
-                File scoreFile = new File(root + "me.lancer.xupt/score_" + app.getNumber());
-                File userFile = new File(root + "me.lancer.xupt/user_" + app.getNumber());
+                File courseFile = new File(root + getString(R.string.path_course) + app.getNumber());
+                File scoreFile = new File(root + getString(R.string.path_score) + app.getNumber());
+                File userFile = new File(root + getString(R.string.path_user) + app.getNumber());
                 if (courseFile.exists() && scoreFile.exists() && userFile.exists()) {
                     courseFile.delete();
                     scoreFile.delete();
@@ -118,14 +117,14 @@ public class MainActivity extends BaseActivity {
         if (app.getName() != null) {
             tvHead.setText(app.getName());
         } else {
-            tvHead.setText("点击头像登录");
+            tvHead.setText(R.string.click_head);
         }
         tvHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File courseFile = new File(root + "me.lancer.xupt/course_" + app.getNumber());
-                File scoreFile = new File(root + "me.lancer.xupt/score_" + app.getNumber());
-                File userFile = new File(root + "me.lancer.xupt/user_" + app.getNumber());
+                File courseFile = new File(root + getString(R.string.path_course) + app.getNumber());
+                File scoreFile = new File(root + getString(R.string.path_score) + app.getNumber());
+                File userFile = new File(root + getString(R.string.path_user) + app.getNumber());
                 if (courseFile.exists() && scoreFile.exists() && userFile.exists()) {
                     courseFile.delete();
                     scoreFile.delete();
@@ -148,7 +147,7 @@ public class MainActivity extends BaseActivity {
                     currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new XuptEduFragment();
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
@@ -156,7 +155,7 @@ public class MainActivity extends BaseActivity {
                     currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new XuptRollCallFragment();
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
@@ -164,7 +163,7 @@ public class MainActivity extends BaseActivity {
                     currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new XuptLibFragment();
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
@@ -172,16 +171,11 @@ public class MainActivity extends BaseActivity {
                     currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new CetFragment();
-                    bundle.putInt("index", currentIndex);
+                    bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
                     return true;
-//                case R.id.navigation_item_night:
-//                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, true);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    recreate();
-//                    return true;
-                case R.id.navigation_item_day:
+                case R.id.navigation_setting:
 //                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, false);
 //                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //                    recreate();
@@ -200,7 +194,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.e("onSaveInstanceState", currentIndex+"");
         outState.putInt(ApplicationParameter.CURRENT_INDEX, currentIndex);
         super.onSaveInstanceState(outState);
     }

@@ -1,8 +1,6 @@
 package me.lancer.xupt.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,7 @@ import me.lancer.xupt.mvp.loginlib.LoginLibPresenter;
 import me.lancer.xupt.ui.activity.MainActivity;
 
 public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implements ILoginLibView {
-    
+
     private Toolbar toolbar;
     private int index = 0;
 
@@ -45,7 +42,7 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("图书馆");
+        toolbar.setTitle(R.string.lib_title);
         ((MainActivity) getActivity()).initDrawer(toolbar);
         initTabLayout(view);
         inflateMenu();
@@ -68,29 +65,29 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
 
         Fragment newfragment = new SearchFragment();
         Bundle data = new Bundle();
-        data.putInt("id", 0);
-        data.putString("title", "检索");
+        data.putInt(getString(R.string.id), 0);
+        data.putString(getString(R.string.title), getString(R.string.lib_search));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "检索");
+        adapter.addFrag(newfragment, getString(R.string.lib_search));
 
         newfragment = new RankFragment();
         data = new Bundle();
-        data.putInt("id", 1);
-        data.putString("title", "排行");
+        data.putInt(getString(R.string.id), 1);
+        data.putString(getString(R.string.title), getString(R.string.lib_rank));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "排行");
+        adapter.addFrag(newfragment, getString(R.string.lib_rank));
 
         newfragment = new UserLibFragment();
         data = new Bundle();
-        data.putInt("id", 2);
-        data.putString("title", "我的");
+        data.putInt(getString(R.string.id), 2);
+        data.putString(getString(R.string.title), getString(R.string.lib_info));
         newfragment.setArguments(data);
-        adapter.addFrag(newfragment, "我的");
+        adapter.addFrag(newfragment, getString(R.string.lib_info));
 
         viewPager.setAdapter(adapter);
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            index = bundle.getInt("index");
+            index = bundle.getInt(getString(R.string.index));
         }
         viewPager.setCurrentItem(index, true);
     }
@@ -124,10 +121,10 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
         }
     }
 
-    private void initView(){
+    private void initView() {
     }
 
-    private void initData(){
+    private void initData() {
 
     }
 
@@ -138,16 +135,16 @@ public class XuptLibFragment extends PresenterFragment<LoginLibPresenter> implem
     private void initSearchView() {
         final SearchView searchView = (SearchView) toolbar.getMenu()
                 .findItem(R.id.menu_search).getActionView();
-        searchView.setQueryHint("搜索…");
+        searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                showToast(getString(R.string.lazy));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.e("onQueryTextChange", s);
                 return false;
             }
         });

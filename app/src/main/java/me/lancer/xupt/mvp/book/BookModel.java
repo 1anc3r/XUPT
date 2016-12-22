@@ -36,18 +36,14 @@ public class BookModel {
             List<BookBean> list;
             if (response.code() == 200) {
                 list = getSearchFromContent(response.body().string());
-                if (list != null) {
-                    presenter.searchSuccess(list);
-                } else {
-                    presenter.searchSuccess(null);
-                }
+                presenter.searchSuccess(list);
             } else {
-                presenter.searchFailure("获取信息失败!状态码:" + response.code());
-                Log.e("search", "获取信息失败!状态码:" + response.code());
+                presenter.searchFailure("搜索失败!状态码:" + response.code());
+                Log.e("search", "搜索失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.searchFailure("获取信息失败!捕获异常:" + e.toString());
-            Log.e("search", "获取信息失败!捕获异常:" + e.toString());
+            presenter.searchFailure("搜索失败!捕获异常:" + e.toString());
+            Log.e("search", "搜索失败!捕获异常:" + e.toString());
         }
     }
 
@@ -60,18 +56,14 @@ public class BookModel {
             List<BookBean> list;
             if (response.code() == 200) {
                 list = getRankFromContent(response.body().string());
-                if (list != null) {
-                    presenter.rankSuccess(list);
-                } else {
-                    presenter.rankSuccess(null);
-                }
+                presenter.rankSuccess(list);
             } else {
-                presenter.rankFailure("获取信息失败!状态码:" + response.code());
-                Log.e("rank", "获取信息失败!状态码:" + response.code());
+                presenter.rankFailure("获取排行失败!状态码:" + response.code());
+                Log.e("rank", "获取排行失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.rankFailure("获取信息失败!捕获异常:" + e.toString());
-            Log.e("rank", "获取信息失败!捕获异常:" + e.toString());
+            presenter.rankFailure("获取排行失败!捕获异常:" + e.toString());
+            Log.e("rank", "获取排行失败!捕获异常:" + e.toString());
         }
     }
 
@@ -92,15 +84,15 @@ public class BookModel {
                 if (map != null) {
                     presenter.detailSuccess(map);
                 } else {
-                    presenter.detailSuccess(null);
+                    presenter.detailFailure("获取详情失败!空指针");
                 }
             } else {
-                presenter.detailFailure("获取信息失败!状态码:" + response.code());
-                Log.e("detail", "获取信息失败!状态码:" + response.code());
+                presenter.detailFailure("获取详情失败!状态码:" + response.code());
+                Log.e("detail", "获取详情失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.detailFailure("获取信息失败!捕获异常:" + e.toString());
-            Log.e("detail", "获取信息失败!捕获异常:" + e.toString());
+            presenter.detailFailure("获取详情失败!捕获异常:" + e.toString());
+            Log.e("detail", "获取详情失败!捕获异常:" + e.toString());
         }
     }
 
@@ -121,18 +113,22 @@ public class BookModel {
                     } else if (log.equals("ADDED_FAILED")) {
                         presenter.addFavoriteFailure("收藏失败!");
                     } else if (log.equals("USER_NOT_LOGIN")) {
-                        presenter.addFavoriteFailure("用户未登录!");
+                        presenter.addFavoriteFailure("收藏失败!用户未登录!");
                     } else if (log.equals("PARAM_ERROR")) {
-                        presenter.addFavoriteFailure("参数错误,缺少参数!");
+                        presenter.addFavoriteFailure("收藏失败!参数错误,缺少参数!");
+                    } else {
+                        presenter.delFavoriteFailure("收藏失败!未知错误");
                     }
+                } else {
+                    presenter.addFavoriteFailure("收藏失败!");
                 }
             } else {
                 presenter.addFavoriteFailure("收藏失败!状态码:" + response.code());
-                Log.e("getDebt", "收藏失败!状态码:" + response.code());
+                Log.e("addFavorite", "收藏失败!状态码:" + response.code());
             }
         } catch (Exception e) {
             presenter.addFavoriteFailure("收藏情况失败!捕获异常:" + e.toString());
-            Log.e("getDebt", "收藏失败!捕获异常:" + e.toString());
+            Log.e("addFavorite", "收藏失败!捕获异常:" + e.toString());
         }
     }
 
@@ -147,22 +143,27 @@ public class BookModel {
                 if (jbAdd.getBoolean("Result")) {
                     String log = jbAdd.getString("Detail");
                     if (log.equals("DELETED_SUCCEED")) {
-                        presenter.delFavoriteSuccess("删除成功!");
+                        presenter.delFavoriteSuccess("取关成功!");
                     } else if (log.equals("DELETED_FAILED")) {
-                        presenter.delFavoriteSuccess("删除失败!");
+                        presenter.delFavoriteSuccess("取关失败!");
                     } else if (log.equals("USER_NOT_LOGIN")) {
-                        presenter.delFavoriteFailure("用户未登录!");
+                        presenter.delFavoriteFailure("取关失败!用户未登录!");
                     } else if (log.equals("PARAM_ERROR")) {
-                        presenter.delFavoriteFailure("参数错误,缺少参数!");
+                        presenter.delFavoriteFailure("取关失败!参数错误,缺少参数!");
+                    } else {
+                        presenter.delFavoriteFailure("取关失败!未知错误");
                     }
+                } else {
+                    presenter.addFavoriteFailure("取关失败!");
+                    Log.e("delFavorite", "取关失败!");
                 }
             } else {
-                presenter.delFavoriteFailure("删除失败!状态码:" + response.code());
-                Log.e("getDebt", "删除失败!状态码:" + response.code());
+                presenter.delFavoriteFailure("取关失败!状态码:" + response.code());
+                Log.e("delFavorite", "取关失败!状态码:" + response.code());
             }
         } catch (Exception e) {
-            presenter.delFavoriteFailure("删除情况失败!捕获异常:" + e.toString());
-            Log.e("getDebt", "删除失败!捕获异常:" + e.toString());
+            presenter.delFavoriteFailure("取关情况失败!捕获异常:" + e.toString());
+            Log.e("delFavorite", "取关失败!捕获异常:" + e.toString());
         }
     }
 

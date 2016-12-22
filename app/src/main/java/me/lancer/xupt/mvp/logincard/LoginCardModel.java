@@ -60,6 +60,9 @@ public class LoginCardModel {
                     cookie = rawCookie.substring(0, rawCookie.length() - 18);
                     presenter.loadCheckCodeSuccess(cookie);
                     Log.e("loadCheckCode", "加载验证码成功!");
+                } else {
+                    presenter.loadCheckCodeFailure("加载验证码失败!");
+                    Log.e("loadCheckCode", "加载验证码失败!");
                 }
             } else {
                 presenter.loadCheckCodeFailure("加载验证码失败!状态码:" + response.getStatusLine().getStatusCode());
@@ -83,18 +86,23 @@ public class LoginCardModel {
             HttpResponse response = client.execute(post);
             if (response.getStatusLine().getStatusCode() == 200) {
                 Header[] header = response.getHeaders("Set-Cookie");
+                HttpEntity entity = response.getEntity();
+                String content = EntityUtils.toString(entity, "utf-8").toString();
                 if (header.length != 0) {
                     String rawCookie = header[0].getValue().toString();
                     cookie = rawCookie.substring(0, rawCookie.length() - 18);
-                    HttpEntity entity = response.getEntity();
-                    String content = EntityUtils.toString(entity, "utf-8").toString();
                     String log = isSucceedFromContent(content);
                     if (log.equals("登录成功!")) {
                         presenter.loginSuccess(cookie);
                         Log.e("login", "登录成功!");
                     } else {
-                        presenter.loginFailure(log);
+                        presenter.loginFailure("登录失败!错误信息:"+log);
+                        Log.e("login", "登录失败!错误信息:"+log);
                     }
+                } else {
+                    String log = isSucceedFromContent(content);
+                    presenter.loginFailure("登录失败!错误信息:"+log);
+                    Log.e("login", "登录失败!错误信息:"+log);
                 }
             } else {
                 presenter.loginFailure("登录失败!状态码:" + response.getStatusLine().getStatusCode());

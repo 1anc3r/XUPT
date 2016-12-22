@@ -1,6 +1,5 @@
 package me.lancer.xupt.ui.adapter;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,9 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.rollcall.RollCallBean;
-import me.lancer.xupt.ui.activity.BookDetailActivity;
 
 /**
  * Created by HuangFangzhi on 2016/12/20.
@@ -64,9 +61,9 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
             int absence = statisticList.get(position).getRollCallAbsence();
             int late = statisticList.get(position).getRollCallLate();
             ArrayList<PieEntry> entries = new ArrayList<>();
-            entries.add(new PieEntry((float) (attend * 1.0 / total), "正常:"+attend));
-            entries.add(new PieEntry((float) (late * 1.0 / total), "迟到:"+late));
-            entries.add(new PieEntry((float) (absence * 1.0 / total), "缺勤:"+absence));
+            entries.add(new PieEntry((float) (attend * 1.0 / total), "正常:" + attend));
+            entries.add(new PieEntry((float) (late * 1.0 / total), "迟到:" + late));
+            entries.add(new PieEntry((float) (absence * 1.0 / total), "缺勤:" + absence));
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setSliceSpace(5f);
             dataSet.setSelectionShift(5f);

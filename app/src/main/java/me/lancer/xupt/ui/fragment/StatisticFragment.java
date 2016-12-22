@@ -1,7 +1,5 @@
 package me.lancer.xupt.ui.fragment;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,27 +8,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.rollcall.IRollCallView;
 import me.lancer.xupt.mvp.rollcall.RollCallBean;
 import me.lancer.xupt.mvp.rollcall.RollCallPresenter;
-import me.lancer.xupt.mvp.user.UserBean;
-import me.lancer.xupt.ui.activity.LoginCardActivity;
-import me.lancer.xupt.ui.adapter.RankAdapter;
 import me.lancer.xupt.ui.adapter.StatisticAdapter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
-import me.lancer.xupt.ui.view.CircleImageView;
 
 public class StatisticFragment extends PresenterFragment<RollCallPresenter> implements IRollCallView {
 
@@ -38,6 +28,7 @@ public class StatisticFragment extends PresenterFragment<RollCallPresenter> impl
 
     SwipeRefreshLayout srlStatistic;
     RecyclerView rvStatistic;
+//    ProgressDialog pdLogin;
 
     List<RollCallBean> statisticList = new ArrayList<>();
 
@@ -46,17 +37,21 @@ public class StatisticFragment extends PresenterFragment<RollCallPresenter> impl
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+//                    pdLogin.show();
                     break;
                 case 1:
+//                    pdLogin.dismiss();
                     break;
                 case 2:
-                    Log.e("log", (String) msg.obj);
+                    Log.e(getString(R.string.log), (String) msg.obj);
                     break;
                 case 3:
+                    statisticList = (List<RollCallBean>) msg.obj;
                     if (msg.obj != null) {
-                        statisticList = (List<RollCallBean>) msg.obj;
                         StatisticAdapter adapter = new StatisticAdapter(statisticList);
                         rvStatistic.setAdapter(adapter);
+                    } else {
+//                        pdLogin.dismiss();
                     }
                     srlStatistic.setRefreshing(false);
                     break;
@@ -92,7 +87,6 @@ public class StatisticFragment extends PresenterFragment<RollCallPresenter> impl
             @Override
             public void onRefresh() {
                 srlStatistic.setRefreshing(true);
-                Log.e("app.isRollcall()",app.isRollcall()+"");
                 new Thread(getStatistic).start();
             }
         });
@@ -105,6 +99,9 @@ public class StatisticFragment extends PresenterFragment<RollCallPresenter> impl
         StatisticAdapter adapter = new StatisticAdapter(statisticList);
         rvStatistic.setAdapter(adapter);
         srlStatistic.setRefreshing(true);
+//        pdLogin = new ProgressDialog(getActivity());
+//        pdLogin.setMessage(getString(R.string.statistic_loading));
+//        pdLogin.setCancelable(false);
     }
 
     private void initData() {

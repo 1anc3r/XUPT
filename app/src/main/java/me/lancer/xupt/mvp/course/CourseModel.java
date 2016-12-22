@@ -41,7 +41,6 @@ public class CourseModel {
         String content;
         List<CourseBean> list;
         if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
-//            list = getCourseFromContent(content);
             list = getCourseFromJson(content);
             presenter.loadCourseSuccess(list);
             Log.e("loadCourse", "加载课表成功!");

@@ -35,7 +35,6 @@ public class UserModel {
         String content;
         UserBean bean;
         if (!(content = contentGetterSetter.getContentFromFile(path)).contains("失败!") && !refresh) {
-//            bean = getUserFromContent(content);
             bean = getUserFromJson(content);
             presenter.loadUserSuccess(bean);
             Log.e("loadUser", "加载信息成功!");
