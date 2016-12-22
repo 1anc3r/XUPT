@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:text="点击头像登录"
+                    android:text="@string/click_head"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:text="欠费金额"
+                        android:text="@string/debtcn"
                         android:textSize="16sp" />
 
                     <View
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:text="当前借阅"
+                        android:text="@string/lib_current"
                         android:textSize="16sp" />
 
                     <View
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:text="历史借阅"
+                        android:text="@string/lib_history"
                         android:textSize="16sp" />
 
                     <View
@@ -193,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:text="收藏关注"
+                        android:text="@string/lib_favorite"
                         android:textSize="16sp" />
 
                     <View

@@ -11,17 +11,17 @@
             android:id="@+id/navigation_item_1"
             android:checked="true"
             android:icon="@mipmap/ic_dashboard_black_24dp"
-            android:title="教务处" />
+            android:title="@string/edu_title" />
 
         <item
             android:id="@+id/navigation_item_2"
             android:icon="@mipmap/ic_local_florist_black_24dp"
-            android:title="考勤表" />
+            android:title="@string/roll_title" />
 
         <item
             android:id="@+id/navigation_item_3"
             android:icon="@mipmap/ic_class_black_24dp"
-            android:title="图书馆" />
+            android:title="@string/lib_title" />
 
 
         <item

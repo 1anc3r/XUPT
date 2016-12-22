@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="索书号:"
+                android:text="@string/sort"
                 android:textSize="14sp" />
 
             <TextView
@@ -30,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:maxLines="1"
                 android:text=""
                 android:textSize="14sp" />
 
@@ -41,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="书库:"
+                android:text="@string/department"
                 android:textSize="14sp" />
 
             <TextView
@@ -62,7 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="状态:"
+                android:text="@string/state"
                 android:textSize="14sp" />
 
             <TextView

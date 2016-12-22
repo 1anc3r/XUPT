@@ -14,7 +14,7 @@
         android:gravity="center"
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
-        android:text="申诉"
+        android:text="@string/appealcn"
         android:textColor="?android:colorBackground"
         android:textSize="20sp" />
 
@@ -31,7 +31,6 @@
             android:layout_height="24dp"
             android:layout_marginBottom="4dp"
             android:gravity="center_vertical"
-            android:text="课程:微机原理与接口技术A"
             android:textSize="16sp" />
 
         <TextView
@@ -41,7 +40,6 @@
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
             android:gravity="center_vertical"
-            android:text="日期:2016-12-16"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -57,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="状态:"
                 android:textSize="16sp" />
 
             <RadioGroup
@@ -73,7 +70,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="4dp"
                     android:checked="true"
-                    android:text="正常"></RadioButton>
+                    android:text="@string/attend"></RadioButton>
 
                 <RadioButton
                     android:id="@+id/rb_late"
@@ -81,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:text="迟到"></RadioButton>
+                    android:text="@string/late"></RadioButton>
 
                 <RadioButton
                     android:id="@+id/rb_leave"
@@ -89,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="8dp"
-                    android:text="请假"></RadioButton>
+                    android:text="@string/leave"></RadioButton>
             </RadioGroup>
 
         </LinearLayout>

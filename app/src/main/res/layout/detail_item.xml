@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue"
                     android:elevation="3dp"
-                    android:text="申诉"
+                    android:text="@string/appealcn"
                     android:textColor="@color/white"
                     android:visibility="gone" />
 

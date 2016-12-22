@@ -107,7 +107,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
             viewHolder.pcStatistic.setEntryLabelColor(Color.TRANSPARENT);
             viewHolder.pcStatistic.setEntryLabelTextSize(10f);
             viewHolder.pcStatistic.setHighlightPerTapEnabled(true);
-            viewHolder.pcStatistic.setHoleColor(Color.WHITE);
+            viewHolder.pcStatistic.setHoleColor(Color.TRANSPARENT);
             viewHolder.pcStatistic.setHoleRadius(45f);
             viewHolder.pcStatistic.setRotationAngle(45f);
             viewHolder.pcStatistic.setRotationEnabled(true);

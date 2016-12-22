@@ -149,7 +149,7 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
                         new Thread(delFavorite).start();
                         break;
                     case R.id.menu_renew:
-
+                        showToast(mActivity, getString(R.string.lazy));
                         break;
                 }
                 return true;

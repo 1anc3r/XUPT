@@ -3,12 +3,14 @@ package me.lancer.xupt.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private Fragment currentFragment;
 
     private int currentIndex;
+    private long exitTime;
 
     private final String root = Environment.getExternalStorageDirectory() + "/";
 
@@ -176,9 +179,8 @@ public class MainActivity extends BaseActivity {
                     switchContent(currentFragment);
                     return true;
                 case R.id.navigation_setting:
-//                    SharedPreferencesUtil.setBoolean(mActivity, ApplicationParameter.ISNIGHT, false);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    recreate();
+                    startActivity(new Intent().setClass(MainActivity.this, SettingActivity.class));
+                    finish();
                     return true;
                 default:
                     return true;
@@ -215,5 +217,23 @@ public class MainActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                showToast(this, "再按一次退出应用");
+                exitTime = System.currentTimeMillis();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

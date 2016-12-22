@@ -23,7 +23,7 @@
                 android:id="@+id/cet_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="学号"
+                android:hint="@string/numbercn"
                 android:inputType="text"
                 android:maxLength="8"
                 android:maxLines="1" />
@@ -39,7 +39,7 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="密码"
+                android:hint="@string/passwdcn"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
@@ -59,7 +59,7 @@
                     android:id="@+id/cet_checkcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="验证码"
+                    android:hint="@string/checkcodecn"
                     android:inputType="text"
                     android:maxLines="1" />
 

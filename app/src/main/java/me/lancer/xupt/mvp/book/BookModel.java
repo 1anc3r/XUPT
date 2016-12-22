@@ -72,7 +72,7 @@ public class BookModel {
         if (key == 0) {
             url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/id/" + value;
         } else if (key == 1) {
-            url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/borcode/" + value;
+            url = "https://api.xiyoumobile.com/xiyoulibv2/book/detail/barcode/" + value;
         }
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

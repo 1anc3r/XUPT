@@ -33,7 +33,6 @@
                 android:focusableInTouchMode="true"
                 android:maxLines="1"
                 android:maxWidth="240dp"
-                android:text="操作系统"
                 android:textSize="20sp" />
 
             <LinearLayout

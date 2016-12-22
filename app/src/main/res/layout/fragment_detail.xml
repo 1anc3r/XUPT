@@ -43,9 +43,6 @@
                         android:id="@+id/tv_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/background_light"
-                        android:text="2016-11-26"
-                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
@@ -54,16 +51,13 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="2dp"
-                        android:text="至"
+                        android:text="@string/to"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/background_light"
-                        android:text="2016-11-26"
-                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <View
@@ -97,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="一天"></RadioButton>
+                            android:text="@string/oneday"></RadioButton>
 
                         <View
                             android:layout_width="wrap_content"
@@ -108,7 +102,7 @@
                             android:id="@+id/rb_week"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="一周"></RadioButton>
+                            android:text="@string/oneweek"></RadioButton>
 
                         <View
                             android:layout_width="wrap_content"
@@ -119,7 +113,7 @@
                             android:id="@+id/rb_month"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="一月"></RadioButton>
+                            android:text="@string/onemonth"></RadioButton>
 
                         <View
                             android:layout_width="wrap_content"
@@ -147,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="正常"></CheckBox>
+                        android:text="@string/attend"></CheckBox>
 
                     <View
                         android:layout_width="wrap_content"
@@ -159,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="迟到"></CheckBox>
+                        android:text="@string/late"></CheckBox>
 
                     <View
                         android:layout_width="wrap_content"
@@ -171,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="缺勤"></CheckBox>
+                        android:text="@string/absence"></CheckBox>
 
                     <View
                         android:layout_width="wrap_content"

@@ -39,7 +39,7 @@
                     android:id="@+id/cet_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="准考证号"
+                    android:hint="@string/cet_number"
                     android:inputType="text"
                     android:maxLength="15"
                     android:maxLines="1" />
@@ -55,7 +55,7 @@
                     android:id="@+id/cet_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="考生姓名"
+                    android:hint="@string/cet_name"
                     android:inputType="text"
                     android:maxLength="15"
                     android:maxLines="1" />
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/blue"
-                    android:text="查询"
+                    android:text="@string/querycn"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -119,7 +119,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="考生姓名"
+                                    android:text="@string/cet_name"
                                     android:textSize="16sp" />
 
                                 <View
@@ -149,7 +149,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="考生学校"
+                                    android:text="@string/cet_school"
                                     android:textSize="16sp" />
 
                                 <View
@@ -179,7 +179,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="考试类别"
+                                    android:text="@string/cet_type"
                                     android:textSize="16sp" />
 
                                 <View
@@ -209,7 +209,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="准考证号"
+                                    android:text="@string/cet_number"
                                     android:textSize="16sp" />
 
                                 <View
@@ -256,7 +256,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="总分"
+                                    android:text="@string/cet_total"
                                     android:textSize="16sp" />
 
                                 <View
@@ -286,7 +286,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="听力"
+                                    android:text="@string/cet_hear"
                                     android:textSize="16sp" />
 
                                 <View
@@ -316,7 +316,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="阅读"
+                                    android:text="@string/cet_read"
                                     android:textSize="16sp" />
 
                                 <View
@@ -346,7 +346,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="综合"
+                                    android:text="@string/cet_synthesize"
                                     android:textSize="16sp" />
 
                                 <View
@@ -376,7 +376,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="16dp"
-                                    android:text="写作"
+                                    android:text="@string/cet_write"
                                     android:textSize="16sp" />
 
                                 <View
