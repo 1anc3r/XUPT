@@ -2,7 +2,7 @@
 <img src="http://o7gy5l0ax.bkt.clouddn.com/ic_launcher-web.png" width = "96" height = "96" alt="icon"/>
 
 ## 应用简介:
- 
+(先占坑，有时间再写...)
 
 ## 相关链接:
 * Github: [https://github.com/1anc3r](https://github.com/1anc3r)
