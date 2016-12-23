@@ -39,7 +39,7 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/passwdcn"
+                android:hint="教务处密码"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 

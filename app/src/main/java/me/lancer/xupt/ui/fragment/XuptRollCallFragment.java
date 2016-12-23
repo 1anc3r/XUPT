@@ -234,6 +234,7 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
         cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
         cetNumber.setText(number);
         etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);
+        etPassword.setHint("一卡通密码(默认学号后六位)");
         etPassword.setText(password);
         cetCheckCode = (ClearEditText) loginDialogView.findViewById(R.id.cet_checkcode);
         ivCheckCode = (ImageView) loginDialogView.findViewById(R.id.iv_checkcode);
