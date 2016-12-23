@@ -42,10 +42,10 @@ public class CetFragment extends BaseFragment {
     Toolbar tCet;
     ClearEditText cetNumber, cetName;
     Button btnQuery;
-    TextView tvName, tvSchool, tvType, tvNumber, tvSum, tvHear, tvRead, tvSynthesize, tvWrite;
+    TextView tvName, tvSchool, tvType, tvNumber, tvSum, tvHear, tvRead, tvWrite;
     ProgressDialog pdQuery;
 
-    String number, name, school, type, time, sum, hear, read, synthesize, write;
+    String number, name, school, type, time, sum, hear, read, write;
 
     Handler handler = new Handler() {
         @Override
@@ -60,8 +60,8 @@ public class CetFragment extends BaseFragment {
                 tvSum.setText(results[4]);
                 tvHear.setText(results[5]);
                 tvRead.setText(results[6]);
-                tvSynthesize.setText(results[7]);
-                tvWrite.setText(results[8]);
+                tvWrite.setText(results[7]);
+                pdQuery.dismiss();
             }
         }
     };
@@ -95,7 +95,6 @@ public class CetFragment extends BaseFragment {
         tvSum = (TextView) view.findViewById(R.id.tv_sum);
         tvHear = (TextView) view.findViewById(R.id.tv_hear);
         tvRead = (TextView) view.findViewById(R.id.tv_read);
-        tvSynthesize = (TextView) view.findViewById(R.id.tv_synthesize);
         tvWrite = (TextView) view.findViewById(R.id.tv_write);
         pdQuery = new ProgressDialog(getActivity());
         pdQuery.setMessage(getString(R.string.cet_query));
@@ -194,22 +193,13 @@ public class CetFragment extends BaseFragment {
                     time = item.getElementsByTag("td").text();
                 } else if (item.getElementsByTag("th").text().equals(getResources().getString(R.string.sum_2))) {
                     String result = item.getElementsByTag("td").text();
-                    int value;
-                    int start;
-                    String[] score = new String[4];
-                    for (int j = 0; j < 4; j++) {
-                        value = result.indexOf(' ');
-                        score[j] = result.substring(0, value);
-                        start = result.indexOf('：') + 1;
-                        result = result.substring(start);
-                    }
+                    String[] score = result.split(" ");
                     sum = score[0];
-                    hear = score[1];
-                    read = score[2];
-                    synthesize = score[3];
-                    write = result;
+                    hear = score[2];
+                    read = score[4];
+                    write = score[6];
                     Message msg = new Message();
-                    msg.obj = name + "!" + school + "!" + type + "!" + number + "!" + sum + "!" + hear + "!" + read + "!" + synthesize + "!" + write;
+                    msg.obj = name + "!" + school + "!" + type + "!" + number + "!" + sum + "!" + hear + "!" + read + "!" + write;
                     handler.sendMessage(msg);
                 }
             }

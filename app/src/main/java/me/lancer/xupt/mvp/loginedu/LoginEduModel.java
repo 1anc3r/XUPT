@@ -105,8 +105,8 @@ public class LoginEduModel {
                     Log.e("login", "登录失败!cookie为空");
                 }
             } else {
-                presenter.loginFailure("登录失败!状态码:" + response.code());
-                Log.e("login", "登录失败!状态码:" + response.code());
+                presenter.loginFailure("登录失败!密码或验证码错误");
+                Log.e("login", "登录失败!密码或验证码错误");
             }
         } catch (Exception e) {
             presenter.loginFailure("登录失败!捕获异常:" + e.toString());
