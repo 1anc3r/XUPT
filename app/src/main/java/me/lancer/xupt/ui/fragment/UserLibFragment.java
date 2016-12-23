@@ -179,7 +179,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     private void initData() {
         app = (ApplicationInstance) getActivity().getApplication();
 //        number = app.getNumber();
-//        password = "123456";
+        password = "123456";
         new Thread(login).start();
     }
 
@@ -251,6 +251,7 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         cetNumber = (ClearEditText) loginDialogView.findViewById(R.id.cet_number);
         cetNumber.setText(number);
         etPassword = (EditText) loginDialogView.findViewById(R.id.et_password);
+        etPassword.setHint("图书馆密码(默认123456)");
         etPassword.setText(password);
         cetCheckCode = (ClearEditText) loginDialogView.findViewById(R.id.cet_checkcode);
         cetCheckCode.setVisibility(View.GONE);
