@@ -110,7 +110,7 @@ public class ScheduleView extends RelativeLayout {
         Calendar todayDateCal = Calendar.getInstance();
         todayDateCal.setTimeInMillis(System.currentTimeMillis());
         String[] temp = new String[totalDay];
-        int b = US_DAYS[todayDateCal.get(Calendar.DAY_OF_WEEK)];
+        int b = todayDateCal.get(Calendar.DAY_OF_WEEK)-2;
         if (b != 6) {
             todayDateCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         } else {
@@ -138,7 +138,7 @@ public class ScheduleView extends RelativeLayout {
     private void init(Context context) {
         Calendar todayDateCal = Calendar.getInstance();
         todayDateCal.setTimeInMillis(System.currentTimeMillis());
-        todayDate = todayDateCal.get(Calendar.DAY_OF_WEEK);
+        todayDate = todayDateCal.get(Calendar.DAY_OF_WEEK)-2;
         weight = DensityUtil.dip2px(context, 2);
         arrDate = getArrDate();
     }
@@ -233,7 +233,7 @@ public class ScheduleView extends RelativeLayout {
             tvWeek.setTextColor(0xFF999999);
             tvWeek.setPadding(0, -weight, 0, weight * 2);
             tvWeek.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            if (US_DAYS[todayDate] == i) {
+            if (todayDate == i) {
                 ll.setBackgroundColor(0xFF2196F3);
                 tvWeek.setTextColor(Color.WHITE);
                 tvDate.setTextColor(Color.WHITE);

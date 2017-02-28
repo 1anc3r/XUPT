@@ -2,7 +2,6 @@ package me.lancer.xupt.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,20 +63,27 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    pdLogin.dismiss();
+                    if (!app.isLib()) {
+                        pdLogin.dismiss();
+                    }
                     break;
                 case 1:
-                    pdLogin.show();
+                    if (!app.isLib()) {
+                        pdLogin.show();
+                    }
                     break;
                 case 2:
                     Log.e(getString(R.string.log), (String) msg.obj);
                     showSnackbar(llUser, (String) msg.obj);
                     break;
                 case 3:
-                    pdLogin.dismiss();
+                    if (!app.isLib()) {
+                        pdLogin.dismiss();
+                    }
                     loginDialog.dismiss();
                     app.setLibCookie(cookie);
                     tvHead.setText(app.getName());
+                    app.setLib(true);
                     new Thread(getDebt).start();
                     break;
                 case 4:
@@ -148,8 +154,12 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView(view);
         initData();
+        initView(view);
+    }
+
+    private void initData() {
+        app = (ApplicationInstance) getActivity().getApplication();
     }
 
     private void initView(View view) {
@@ -174,13 +184,11 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
         pdLogin.setMessage(getString(R.string.logining));
         pdLogin.setCancelable(false);
         showLoginDialog();
-    }
-
-    private void initData() {
-        app = (ApplicationInstance) getActivity().getApplication();
-//        number = app.getNumber();
-        password = "123456";
-        new Thread(login).start();
+        if (!app.isLib()) {
+            loginDialog.show();
+        } else {
+            new Thread(login).start();
+        }
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
@@ -193,7 +201,9 @@ public class UserLibFragment extends PresenterFragment<LoginLibPresenter> implem
             } else if (v == llFavorite) {
                 showListDialog(3, favoriteList);
             } else if (v == civHead) {
-                loginDialog.show();
+                if (!app.isLib()) {
+                    loginDialog.show();
+                }
             } else if (v == btnLogin) {
                 number = cetNumber.getText().toString();
                 password = etPassword.getText().toString();

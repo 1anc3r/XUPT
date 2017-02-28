@@ -16,7 +16,7 @@ public class ApplicationInstance extends Application {
 
     private String number, name;
     public static String eduCookie, libCookie, CardCookie0, CardCookie1;
-    private boolean course, score, user, rollcall;
+    private boolean course, score, user, lib, rollcall;
 
     @Override
     public void onCreate() {
@@ -101,6 +101,14 @@ public class ApplicationInstance extends Application {
 
     public void setUser(boolean user) {
         this.user = user;
+    }
+
+    public boolean isLib() {
+        return lib;
+    }
+
+    public void setLib(boolean lib) {
+        this.lib = lib;
     }
 
     public boolean isRollcall() {
