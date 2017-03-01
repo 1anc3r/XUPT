@@ -34,7 +34,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/ic_search_white_24dp"
-                    android:tint="@color/blue" />
+                    android:tint="?attr/colorPrimary" />
 
                 <EditText
                     android:id="@+id/et_search"
@@ -45,7 +45,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:background="@android:color/background_light"
+                    android:background="?android:colorBackgroundFloating"
                     android:hint="@string/lib_search_hint"
                     android:textSize="16sp" />
 
@@ -57,7 +57,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/ic_scan_white_24dp"
-                    android:tint="@color/blue" />
+                    android:tint="?attr/colorPrimary" />
 
             </LinearLayout>
 
