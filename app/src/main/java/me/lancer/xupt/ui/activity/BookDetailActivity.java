@@ -30,6 +30,7 @@ import java.util.Map;
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
+import me.lancer.xupt.mvp.book.BookReviewer;
 import me.lancer.xupt.mvp.book.IBookView;
 import me.lancer.xupt.ui.adapter.CircleAdapter;
 import me.lancer.xupt.ui.adapter.SearchAdapter;
@@ -208,6 +209,16 @@ public class BookDetailActivity extends PresenterActivity<BookPresenter> impleme
 
     @Override
     public void search(List<BookBean> list) {
+
+    }
+
+    @Override
+    public void reviewer(List<BookReviewer> list) {
+
+    }
+
+    @Override
+    public void view(BookReviewer item) {
 
     }
 

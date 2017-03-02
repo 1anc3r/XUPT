@@ -13,6 +13,10 @@ public interface IBookView extends IBaseView {
 
     void search(List<BookBean> list);
 
+    void reviewer(List<BookReviewer> list);
+
+    void view(BookReviewer item);
+
     void rank(List<BookBean> list);
 
     void detail(Map<String, List<BookBean>> map);

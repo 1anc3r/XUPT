@@ -26,7 +26,7 @@ import me.lancer.xupt.ui.view.ClearEditText;
  * Created by HuangFangzhi on 2016/12/20.
  */
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
+public class BookDetailAdapter extends RecyclerView.Adapter<BookDetailAdapter.ViewHolder> {
 
     private List<RollCallBean> detailList;
     private DetailFragment context;
@@ -35,20 +35,20 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     private RollCallBean rollcall;
     private String remark = "", state = "1";
 
-    public DetailAdapter(DetailFragment context, List<RollCallBean> detailList) {
+    public BookDetailAdapter(DetailFragment context, List<RollCallBean> detailList) {
         this.context = context;
         this.detailList = detailList;
     }
 
     @Override
-    public DetailAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public BookDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.detail_item, viewGroup, false);
-        return new DetailAdapter.ViewHolder(v);
+        return new BookDetailAdapter.ViewHolder(v);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onBindViewHolder(DetailAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(BookDetailAdapter.ViewHolder viewHolder, int position) {
         if (detailList.get(position) != null) {
             rollcall = detailList.get(position);
             viewHolder.tvName.setText(detailList.get(position).getRollCallCourseName());
@@ -82,6 +82,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                         }
                     });
                 }
+            } else {
+                viewHolder.btnAppeal.setVisibility(View.GONE);
+                viewHolder.btnState.setText("待签");
+                viewHolder.btnState.setBackgroundTintList(context.getResources().getColorStateList(R.color.yellow));
             }
         }
     }

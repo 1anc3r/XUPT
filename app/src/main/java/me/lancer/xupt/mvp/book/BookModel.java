@@ -9,11 +9,19 @@ import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import me.lancer.xupt.mvp.course.CourseBean;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
@@ -44,6 +52,66 @@ public class BookModel {
         } catch (Exception e) {
             presenter.searchFailure("搜索失败!捕获异常:" + e.toString());
             Log.e("search", "搜索失败!捕获异常:" + e.toString());
+        }
+    }
+
+    public void reviewer(int type, int pager) {
+        String url = "";
+        switch (type) {
+            case 1:
+                url = "https://book.douban.com/review/best/?start=" + pager;
+                break;//最受欢迎书评
+            case 2:
+                url = "https://book.douban.com/review/latest/?start=" + pager;
+                break;//最新书评
+            case 3:
+                url = "https://movie.douban.com/review/best/?start=" + pager;
+                break;//最受欢迎影评
+            case 4:
+                url = "https://movie.douban.com/review/latest/?start=" + pager;
+                break;//最新影评
+            case 5:
+                url = "https://music.douban.com/review/pop/?start=" + pager;
+                break;//流行音乐
+            case 6:
+                url = "https://music.douban.com/review/latest/?start=" + pager;
+                break;//最新乐评
+            default:
+                url = "https://book.douban.com/review/best/?start=" + pager;
+                break;//最受欢迎书评
+        }
+        List<BookReviewer> list;
+        String content;
+        try {
+            if (!(content = getContentFromHtml(url)).contains("失败!")) {
+                list = getReviewerFromContent(content);
+                presenter.reviewerSuccess(list);
+                Log.e("reviewer", "获取书评成功!");
+            } else {
+                presenter.reviewerFailure(content);
+                Log.e("reviewer", "获取书评失败!");
+            }
+        } catch (Exception e) {
+            presenter.reviewerFailure("获取书评失败!捕获异常:" + e.toString());
+            Log.e("reviewer", "获取书评失败!");
+        }
+    }
+
+    public void view(String url) {
+        BookReviewer item;
+        String content;
+        try {
+            if (!(content = getContentFromHtml(url)).contains("失败!")) {
+                item = getViewFromContent(content);
+                presenter.viewSuccess(item);
+                Log.e("reviewer", "获取书评成功!");
+            } else {
+                presenter.viewFailure(content);
+                Log.e("reviewer", "获取书评失败!");
+            }
+        } catch (Exception e) {
+            presenter.viewFailure("获取书评失败!捕获异常:" + e.toString());
+            Log.e("reviewer", "获取书评失败!");
         }
     }
 
@@ -199,6 +267,59 @@ public class BookModel {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private String getContentFromHtml(String url) {
+        StringBuilder content = new StringBuilder();
+        OkHttpClient client = new OkHttpClient();
+        client.setFollowRedirects(false);
+        Request request = new Request.Builder().url(url).build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code() == 200) {
+                BufferedReader reader = new BufferedReader(response.body().charStream());
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line);
+                }
+                reader.close();
+                Log.e("reviewe.fromHtml", "加载成功!");
+                return content.toString();
+            } else {
+                Log.e("reviewe.fromHtml", "加载失败!状态码:" + response.code());
+                return "加载失败!状态码:" + response.code();
+            }
+        } catch (IOException e) {
+            Log.e("reviewe.fromHtml", "加载失败!捕获异常:" + e.toString());
+            return "加载失败!捕获异常:" + e.toString();
+        }
+    }
+
+    private List<BookReviewer> getReviewerFromContent(String content) {
+        List<BookReviewer> revieweList = new ArrayList<>();
+        Document document = Jsoup.parse(content);
+        Element element = document.getElementById("content");
+        Elements elements = element.getElementsByClass("main review-item");
+        for (int i = 0; i < elements.size(); i++) {
+            BookReviewer brItem = new BookReviewer();
+            brItem.setImg(elements.get(i).getElementsByTag("img").attr("src"));
+            brItem.setHref(elements.get(i).getElementsByClass("title-link").attr("href"));
+            brItem.setTitle(elements.get(i).getElementsByClass("title-link").text());
+            brItem.setContent(elements.get(i).getElementsByClass("short-content").text());
+            revieweList.add(brItem);
+        }
+        return revieweList;
+    }
+
+    private BookReviewer getViewFromContent(String content) {
+        BookReviewer brItem = new BookReviewer();
+        Document document = Jsoup.parse(content);
+        Element element = document.getElementById("content");
+        Log.e("element", element.text());
+        brItem.setRating(element.getElementsByClass("main-title-hide").text());
+        brItem.setTime(element.getElementsByClass("main-meta").text());
+        brItem.setDetail(element.getElementsByClass("review-content clearfix").text());
+        return brItem;
     }
 
     private List<BookBean> getRankFromContent(String content) {

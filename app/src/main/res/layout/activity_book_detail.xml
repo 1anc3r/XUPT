@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fadeScrollbars="true">
 
         <LinearLayout
             android:id="@+id/ll_detail"
@@ -42,6 +43,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="8dp"
+                        android:background="@mipmap/ic_pictures_no"
                         android:scaleType="centerCrop" />
 
                     <LinearLayout

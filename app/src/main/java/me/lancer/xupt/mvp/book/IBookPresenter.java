@@ -13,6 +13,14 @@ public interface IBookPresenter {
 
     void searchFailure(String log);
 
+    void reviewerSuccess(List<BookReviewer> list);
+
+    void reviewerFailure(String log);
+
+    void viewSuccess(BookReviewer item);
+
+    void viewFailure(String log);
+
     void rankSuccess(List<BookBean> list);
 
     void rankFailure(String log);

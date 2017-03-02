@@ -1,8 +1,6 @@
 package me.lancer.xupt.ui.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +32,7 @@ import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.rollcall.IRollCallView;
 import me.lancer.xupt.mvp.rollcall.RollCallBean;
 import me.lancer.xupt.mvp.rollcall.RollCallPresenter;
-import me.lancer.xupt.ui.adapter.DetailAdapter;
+import me.lancer.xupt.ui.adapter.BookDetailAdapter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 
 public class DetailFragment extends PresenterFragment<RollCallPresenter> implements IRollCallView {
@@ -73,7 +71,7 @@ public class DetailFragment extends PresenterFragment<RollCallPresenter> impleme
                 case 3:
                     detailList = (List<RollCallBean>) msg.obj;
                     if (detailList!=null) {
-                        DetailAdapter adapter = new DetailAdapter(DetailFragment.this, detailList);
+                        BookDetailAdapter adapter = new BookDetailAdapter(DetailFragment.this, detailList);
                         rvDetail.setAdapter(adapter);
                         srlDetail.setRefreshing(false);
                     }else {
@@ -141,7 +139,7 @@ public class DetailFragment extends PresenterFragment<RollCallPresenter> impleme
         rvDetail.setLayoutManager(llm);
         rvDetail.setItemAnimator(new DefaultItemAnimator());
         rvDetail.setHasFixedSize(true);
-        DetailAdapter adapter = new DetailAdapter(this, detailList);
+        BookDetailAdapter adapter = new BookDetailAdapter(this, detailList);
         rvDetail.setAdapter(adapter);
         srlDetail.setRefreshing(true);
 //        pdLogin = new ProgressDialog(getActivity());

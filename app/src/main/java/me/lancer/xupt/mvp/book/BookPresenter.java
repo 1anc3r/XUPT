@@ -52,6 +52,50 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
         }
     }
 
+    public void reviewer(int type, int pager) {
+        if (view != null) {
+            model.reviewer(type, pager);
+        }
+    }
+
+    @Override
+    public void reviewerSuccess(List<BookReviewer> list) {
+        if (view != null) {
+            view.reviewer(list);
+            view.hideLoad();
+        }
+    }
+
+    @Override
+    public void reviewerFailure(String log) {
+        if (log != null && log.length() > 0 && view != null) {
+            view.showMsg(log);
+            view.hideLoad();
+        }
+    }
+
+    public void view(String url) {
+        if (view != null) {
+            model.view(url);
+        }
+    }
+
+    @Override
+    public void viewSuccess(BookReviewer item) {
+        if (view != null) {
+            view.view(item);
+            view.hideLoad();
+        }
+    }
+
+    @Override
+    public void viewFailure(String log) {
+        if (log != null && log.length() > 0 && view != null) {
+            view.showMsg(log);
+            view.hideLoad();
+        }
+    }
+
     public void rank(String type, String size) {
         if (view != null) {
             view.showLoad();
