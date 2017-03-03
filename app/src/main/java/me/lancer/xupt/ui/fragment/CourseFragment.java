@@ -22,7 +22,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
 
     private ApplicationInstance app;
 
-    private ScheduleView scheduleView;
+    private ScheduleView svCourse;
     ProgressDialog pdLogin;
 
     List<CourseBean> courseList;
@@ -46,7 +46,8 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                     if (msg.obj != null) {
                         app.setCourse(false);
                         courseList = (List<CourseBean>) msg.obj;
-                        scheduleView.updateSchedule(courseList);
+                        app.setCourseList(courseList);
+                        svCourse.updateSchedule(courseList);
                     }
                     break;
             }
@@ -75,7 +76,7 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
     }
 
     private void initView(View view) {
-        scheduleView = (ScheduleView) view.findViewById(R.id.sv_course);
+        svCourse = (ScheduleView) view.findViewById(R.id.sv_course);
         pdLogin = new ProgressDialog(getActivity());
         pdLogin.setMessage(getString(R.string.course_loading));
         pdLogin.setCancelable(false);

@@ -6,7 +6,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import java.util.List;
+
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.course.CourseBean;
 
 /**
  * Created by HuangFangzhi on 2016/12/15.
@@ -17,6 +20,7 @@ public class ApplicationInstance extends Application {
     private String number, name;
     public static String eduCookie, libCookie, CardCookie0, CardCookie1;
     private boolean course, score, user, lib, rollcall;
+    private List<CourseBean> courseList;
 
     @Override
     public void onCreate() {
@@ -117,5 +121,13 @@ public class ApplicationInstance extends Application {
 
     public void setRollcall(boolean rollcall) {
         this.rollcall = rollcall;
+    }
+
+    public List<CourseBean> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<CourseBean> courseList) {
+        this.courseList = courseList;
     }
 }

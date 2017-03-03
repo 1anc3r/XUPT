@@ -119,6 +119,7 @@ public class ReviewerDetailActivity extends PresenterActivity<BookPresenter> imp
                 finish();
             }
         });
+        llReviewerDetail = (LinearLayout) findViewById(R.id.ll_reviewer_detail);
         ivBook = (ImageView) findViewById(R.id.iv_book);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvTime = (TextView) findViewById(R.id.tv_time);
