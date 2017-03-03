@@ -16,6 +16,10 @@
 3. 图书馆: 检索图书，查看当前借阅、历史借阅和收藏, 也可以(取消)收藏、续借
 4. 四六级: 查询英语四六级考试成绩, 包括听力、阅读、写作和总分
 
+### 更新
+5. 桌面组件：展示课表
+6. 接入豆瓣书评、影评、乐评
+
 ## 常见问题:
 1. 教务处: 请使用西邮教务管理系统的账号和密码登录
 2. 考勤表: 请使用一卡通账号和密码登录, 密码默认是学号后六位
@@ -30,6 +34,9 @@
 <img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413051.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413060.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482463522.png" width = "288" height = "512" alt=""/>
 <img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412937.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412941.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412960.png" width = "288" height = "512" alt=""/>
 <img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412967.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413167.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413036.png" width = "288" height = "512" alt=""/>
+
+### 更新
+<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525520.png" width = "288" height = "512" alt="" /><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525625.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525503.png" width = "288" height = "512" alt=""/>
 
 ## 关于
 ### 组织
