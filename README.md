@@ -2,7 +2,7 @@
 <img src="http://o7gy5l0ax.bkt.clouddn.com/ic_launcher-web.png" width = "96" height = "96" alt="icon"/>
 
 ## 应用简介:
-    西邮记是一款教务信息查询应用（已上线），应用实现了课表、成绩查询，考勤记 录查询、统计及申诉，图书借阅查询、续借及收藏，英语四六级查询。 
+西邮记是一款教务信息查询应用（已上线），应用实现了课表、成绩查询，考勤记 录查询、统计及申诉，图书借阅查询、续借及收藏，英语四六级查询。 
 
 ## 相关链接:
 * Github: [https://github.com/1anc3r](https://github.com/1anc3r)
