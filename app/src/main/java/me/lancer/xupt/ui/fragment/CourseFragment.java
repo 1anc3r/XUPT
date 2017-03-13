@@ -46,7 +46,6 @@ public class CourseFragment extends PresenterFragment<CoursePresenter> implement
                     if (msg.obj != null) {
                         app.setCourse(false);
                         courseList = (List<CourseBean>) msg.obj;
-                        app.setCourseList(courseList);
                         svCourse.updateSchedule(courseList);
                     }
                     break;

@@ -20,7 +20,6 @@ public class ApplicationInstance extends Application {
     private String number, name;
     public static String eduCookie, libCookie, CardCookie0, CardCookie1;
     private boolean course, score, user, lib, rollcall;
-    private List<CourseBean> courseList;
 
     @Override
     public void onCreate() {
@@ -121,13 +120,5 @@ public class ApplicationInstance extends Application {
 
     public void setRollcall(boolean rollcall) {
         this.rollcall = rollcall;
-    }
-
-    public List<CourseBean> getCourseList() {
-        return courseList;
-    }
-
-    public void setCourseList(List<CourseBean> courseList) {
-        this.courseList = courseList;
     }
 }
