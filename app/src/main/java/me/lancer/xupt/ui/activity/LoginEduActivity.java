@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import java.io.File;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterActivity;
 import me.lancer.xupt.mvp.loginedu.ILoginEduView;
 import me.lancer.xupt.mvp.loginedu.LoginEduPresenter;
 import me.lancer.xupt.ui.application.ApplicationInstance;

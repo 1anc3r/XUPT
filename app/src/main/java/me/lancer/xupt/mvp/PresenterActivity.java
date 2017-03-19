@@ -1,8 +1,9 @@
-package me.lancer.xupt.ui.activity;
+package me.lancer.xupt.mvp;
 
 import android.os.Bundle;
 
 import me.lancer.xupt.mvp.base.IBasePresenter;
+import me.lancer.xupt.ui.activity.BaseActivity;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.

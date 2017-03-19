@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterActivity;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
 import me.lancer.xupt.mvp.book.BookReviewer;

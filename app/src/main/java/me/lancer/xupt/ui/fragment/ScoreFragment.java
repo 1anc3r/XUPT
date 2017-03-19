@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.score.IScoreView;
 import me.lancer.xupt.mvp.score.ScoreBean;
 import me.lancer.xupt.mvp.score.ScorePresenter;

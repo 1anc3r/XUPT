@@ -29,6 +29,7 @@ import java.util.List;
 
 import me.lancer.xupt.R;
 
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.rollcall.IRollCallView;
 import me.lancer.xupt.mvp.rollcall.RollCallBean;
 import me.lancer.xupt.mvp.rollcall.RollCallPresenter;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.io.File;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.user.IUserView;
 import me.lancer.xupt.mvp.user.UserBean;
 import me.lancer.xupt.mvp.user.UserPresenter;

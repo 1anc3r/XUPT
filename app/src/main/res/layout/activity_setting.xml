@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_setting"
+
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="me.lancer.xupt.ui.fragment.SettingFragment">
+    tools:context="me.lancer.xupt.ui.activity.SettingActivity">
 
     <include layout="@layout/toolbar" />
 

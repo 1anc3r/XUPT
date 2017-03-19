@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.logincard.ILoginCardView;
 import me.lancer.xupt.mvp.logincard.LoginCardPresenter;
 import me.lancer.xupt.ui.activity.MainActivity;

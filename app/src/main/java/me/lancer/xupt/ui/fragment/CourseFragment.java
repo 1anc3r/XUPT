@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.course.CourseBean;
 import me.lancer.xupt.mvp.course.CoursePresenter;
 import me.lancer.xupt.mvp.course.ICourseView;

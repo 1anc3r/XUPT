@@ -1,4 +1,4 @@
-package me.lancer.xupt.ui.fragment;
+package me.lancer.xupt.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.lancer.xupt.mvp.base.IBasePresenter;
+import me.lancer.xupt.ui.fragment.BaseFragment;
 
 /**
  * Created by HuangFangzhi on 2016/12/15.

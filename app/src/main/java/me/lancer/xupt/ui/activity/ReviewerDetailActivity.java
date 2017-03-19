@@ -6,12 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,17 +20,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterActivity;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
 import me.lancer.xupt.mvp.book.BookReviewer;
 import me.lancer.xupt.mvp.book.IBookView;
-import me.lancer.xupt.ui.adapter.CircleAdapter;
-import me.lancer.xupt.ui.adapter.SearchAdapter;
 import me.lancer.xupt.ui.application.ApplicationInstance;
 
 public class ReviewerDetailActivity extends PresenterActivity<BookPresenter> implements IBookView {

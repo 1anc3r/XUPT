@@ -1,6 +1,5 @@
 package me.lancer.xupt.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.PresenterFragment;
 import me.lancer.xupt.mvp.book.BookBean;
 import me.lancer.xupt.mvp.book.BookPresenter;
 import me.lancer.xupt.mvp.book.BookReviewer;
