@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.lancer.xupt.mvp.base.IBasePresenter;
+import me.lancer.xupt.mvp.reviewer.bean.ReviewerBean;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
@@ -59,7 +60,7 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
     }
 
     @Override
-    public void reviewerSuccess(List<BookReviewer> list) {
+    public void reviewerSuccess(List<ReviewerBean> list) {
         if (view != null) {
             view.reviewer(list);
             view.hideLoad();
@@ -81,7 +82,7 @@ public class BookPresenter implements IBasePresenter<IBookView>, IBookPresenter 
     }
 
     @Override
-    public void viewSuccess(BookReviewer item) {
+    public void viewSuccess(ReviewerBean item) {
         if (view != null) {
             view.view(item);
             view.hideLoad();

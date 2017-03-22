@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import me.lancer.xupt.ui.application.ApplicationInstance;
-
 /**
  * Created by HuangFangzhi on 2016/12/13.
  */

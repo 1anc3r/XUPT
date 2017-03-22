@@ -3,6 +3,8 @@ package me.lancer.xupt.mvp.book;
 import java.util.List;
 import java.util.Map;
 
+import me.lancer.xupt.mvp.reviewer.bean.ReviewerBean;
+
 /**
  * Created by HuangFangzhi on 2016/12/13.
  */
@@ -13,11 +15,11 @@ public interface IBookPresenter {
 
     void searchFailure(String log);
 
-    void reviewerSuccess(List<BookReviewer> list);
+    void reviewerSuccess(List<ReviewerBean> list);
 
     void reviewerFailure(String log);
 
-    void viewSuccess(BookReviewer item);
+    void viewSuccess(ReviewerBean item);
 
     void viewFailure(String log);
 

@@ -12,7 +12,7 @@ import android.widget.RemoteViews;
 import java.util.Calendar;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.ui.activity.LoginEduActivity;
+import me.lancer.xupt.mvp.loginedu.activity.LoginEduActivity;
 
 /**
  * Created by HuangFangzhi on 2017/3/3.

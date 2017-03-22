@@ -13,13 +13,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,17 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.mvp.book.BookBean;
-import me.lancer.xupt.ui.adapter.CurrentAdapter;
-import me.lancer.xupt.ui.adapter.FavoriteAdapter;
-import me.lancer.xupt.ui.adapter.HistoryAdapter;
-import me.lancer.xupt.ui.adapter.StringAdapter;
-import me.lancer.xupt.ui.application.ApplicationInstance;
-import me.lancer.xupt.ui.application.ApplicationParameter;
+import me.lancer.xupt.mvp.base.activity.BaseActivity;
+import me.lancer.xupt.mvp.loginedu.activity.LoginEduActivity;
+import me.lancer.xupt.ui.adapter.SettingAdapter;
+import me.lancer.xupt.ui.application.mApp;
+import me.lancer.xupt.ui.application.mParams;
 
 public class SettingActivity extends BaseActivity {
 
-    ApplicationInstance app;
+    mApp app;
 
     LinearLayout llNight, llFunc, llProblem, llFeedback, llAboutUs;
     Button btnLoginOut;
@@ -81,10 +77,10 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void initData() {
-        app = (ApplicationInstance) getApplication();
+        app = (mApp) getApplication();
         sharedPreferences = getSharedPreferences(getString(R.string.spf_user), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        isNight = sharedPreferences.getBoolean(ApplicationParameter.ISNIGHT, false);
+        isNight = sharedPreferences.getBoolean(mParams.ISNIGHT, false);
         scNight.setChecked(isNight);
         scNight.setClickable(false);
         funcList.add("教务处 : 查询课表、成绩和个人信息");
@@ -102,13 +98,13 @@ public class SettingActivity extends BaseActivity {
         public void onClick(View v) {
             if (v == llNight){
                 if (!isNight) {
-                    editor.putBoolean(ApplicationParameter.ISNIGHT, true);
+                    editor.putBoolean(mParams.ISNIGHT, true);
                     editor.apply();
                     scNight.setChecked(true);
                     getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     recreate();
                 } else {
-                    editor.putBoolean(ApplicationParameter.ISNIGHT, false);
+                    editor.putBoolean(mParams.ISNIGHT, false);
                     editor.apply();
                     scNight.setChecked(false);
                     getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -176,7 +172,7 @@ public class SettingActivity extends BaseActivity {
         RecyclerView rvList = (RecyclerView) listDialogView.findViewById(R.id.rv_list);
         rvList.setItemAnimator(new DefaultItemAnimator());
         rvList.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        RecyclerView.Adapter adapter = new StringAdapter(list);
+        RecyclerView.Adapter adapter = new SettingAdapter(list);
         rvList.setAdapter(adapter);
 
         listDialog = new BottomSheetDialog(mActivity);

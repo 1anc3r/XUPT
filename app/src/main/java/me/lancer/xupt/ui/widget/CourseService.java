@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
-import android.os.IBinder;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -16,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -25,7 +21,6 @@ import java.util.List;
 
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.course.CourseBean;
-import me.lancer.xupt.ui.application.ApplicationInstance;
 import me.lancer.xupt.util.ContentGetterSetter;
 
 /**

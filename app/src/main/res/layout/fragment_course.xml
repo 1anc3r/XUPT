@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.fragment.CourseFragment">
+    tools:context=".mvp.course.fragment.CourseFragment">
 
     <me.lancer.xupt.ui.view.ScheduleView
         android:id="@+id/sv_course"

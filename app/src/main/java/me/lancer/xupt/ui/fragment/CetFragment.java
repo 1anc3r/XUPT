@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import me.lancer.xupt.R;
+import me.lancer.xupt.mvp.base.fragment.BaseFragment;
 import me.lancer.xupt.ui.activity.MainActivity;
 import me.lancer.xupt.ui.view.ClearEditText;
 import me.lancer.xupt.util.NetworkDiagnosis;

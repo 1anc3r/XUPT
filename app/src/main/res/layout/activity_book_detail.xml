@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="me.lancer.xupt.ui.activity.BookDetailActivity">
+    tools:context="me.lancer.xupt.mvp.book.activity.BookDetailActivity">
 
     <include layout="@layout/toolbar" />
 

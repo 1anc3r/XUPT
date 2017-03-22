@@ -19,17 +19,19 @@ import android.widget.TextView;
 import java.io.File;
 
 import me.lancer.xupt.R;
-import me.lancer.xupt.ui.application.ApplicationInstance;
-import me.lancer.xupt.ui.application.ApplicationParameter;
+import me.lancer.xupt.mvp.base.activity.BaseActivity;
+import me.lancer.xupt.mvp.loginedu.activity.LoginEduActivity;
+import me.lancer.xupt.ui.application.mApp;
+import me.lancer.xupt.ui.application.mParams;
 import me.lancer.xupt.ui.fragment.CetFragment;
-import me.lancer.xupt.ui.fragment.XuptRollCallFragment;
-import me.lancer.xupt.ui.fragment.XuptEduFragment;
-import me.lancer.xupt.ui.fragment.XuptLibFragment;
+import me.lancer.xupt.mvp.logincard.fragment.XuptRollCallFragment;
+import me.lancer.xupt.mvp.loginedu.fragment.XuptEduFragment;
+import me.lancer.xupt.mvp.loginlib.fragment.XuptLibFragment;
 import me.lancer.xupt.ui.view.CircleImageView;
 
 public class MainActivity extends BaseActivity {
 
-    ApplicationInstance app = new ApplicationInstance();
+    mApp app = new mApp();
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -45,7 +47,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        app = (ApplicationInstance) this.getApplication();
+        app = (mApp) this.getApplication();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         initNavigationViewHeader();
         initFragment(savedInstanceState);
@@ -59,7 +61,7 @@ public class MainActivity extends BaseActivity {
             currentFragment.setArguments(bundle);
             switchContent(currentFragment);
         } else {
-            currentIndex = savedInstanceState.getInt(ApplicationParameter.CURRENT_INDEX);
+            currentIndex = savedInstanceState.getInt(mParams.CURRENT_INDEX);
             currentFragment = new XuptEduFragment();
             switch (this.currentIndex) {
                 case 0:
@@ -196,7 +198,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(ApplicationParameter.CURRENT_INDEX, currentIndex);
+        outState.putInt(mParams.CURRENT_INDEX, currentIndex);
         super.onSaveInstanceState(outState);
     }
 

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.lancer.xupt.mvp.course.CourseBean;
+import me.lancer.xupt.mvp.reviewer.bean.ReviewerBean;
 
 /**
  * Created by HuangFangzhi on 2016/12/13.
@@ -80,7 +80,7 @@ public class BookModel {
                 url = "https://book.douban.com/review/best/?start=" + pager;
                 break;//最受欢迎书评
         }
-        List<BookReviewer> list;
+        List<ReviewerBean> list;
         String content;
         try {
             if (!(content = getContentFromHtml(url)).contains("失败!")) {
@@ -98,7 +98,7 @@ public class BookModel {
     }
 
     public void view(String url) {
-        BookReviewer item;
+        ReviewerBean item;
         String content;
         try {
             if (!(content = getContentFromHtml(url)).contains("失败!")) {
@@ -295,13 +295,13 @@ public class BookModel {
         }
     }
 
-    private List<BookReviewer> getReviewerFromContent(String content) {
-        List<BookReviewer> revieweList = new ArrayList<>();
+    private List<ReviewerBean> getReviewerFromContent(String content) {
+        List<ReviewerBean> revieweList = new ArrayList<>();
         Document document = Jsoup.parse(content);
         Element element = document.getElementById("content");
         Elements elements = element.getElementsByClass("main review-item");
         for (int i = 0; i < elements.size(); i++) {
-            BookReviewer brItem = new BookReviewer();
+            ReviewerBean brItem = new ReviewerBean();
             brItem.setImg(elements.get(i).getElementsByTag("img").attr("src"));
             brItem.setHref(elements.get(i).getElementsByClass("title-link").attr("href"));
             brItem.setTitle(elements.get(i).getElementsByClass("title-link").text());
@@ -311,8 +311,8 @@ public class BookModel {
         return revieweList;
     }
 
-    private BookReviewer getViewFromContent(String content) {
-        BookReviewer brItem = new BookReviewer();
+    private ReviewerBean getViewFromContent(String content) {
+        ReviewerBean brItem = new ReviewerBean();
         Document document = Jsoup.parse(content);
         Element element = document.getElementById("content");
         Log.e("element", element.text());
