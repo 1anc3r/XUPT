@@ -3,9 +3,11 @@ package me.lancer.xupt.ui.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import me.lancer.xupt.R;
@@ -16,6 +18,8 @@ import me.lancer.xupt.mvp.course.CourseBean;
  */
 
 public class ApplicationInstance extends Application {
+
+    public static Typeface TypeFace;
 
     private String number, name;
     public static String eduCookie, libCookie, CardCookie0, CardCookie1;
@@ -31,6 +35,16 @@ public class ApplicationInstance extends Application {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        TypeFace = Typeface.createFromAsset(getAssets(), "fonts/MaterialIcons_Regular.ttf");
+        try {
+            Field field = Typeface.class.getDeclaredField("SERIF");
+            field.setAccessible(true);
+            field.set(null, TypeFace);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 

@@ -52,19 +52,19 @@
                         android:id="@+id/tv_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
+                        android:ellipsize="end"
                         android:maxLines="1"
-                        android:text=""
-                        android:textSize="20sp" />
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_title"
-                        android:ellipsize="marquee"
-                        android:maxLines="3"
-                        android:text="" />
+                        android:ellipsize="end"
+                        android:textSize="14sp"
+                        android:maxLines="3"/>
 
                 </LinearLayout>
 
