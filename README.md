@@ -8,7 +8,7 @@
 * Github: [https://github.com/1anc3r](https://github.com/1anc3r)
 * 我的博客: [1anc3r.me](http://www.1anc3r.me/)
 * 实验室主页: [xiyoumobile](http://www.xiyoumobile.com/)
-* 下载链接: [download](http://o7gy5l0ax.bkt.clouddn.com/xupt.apk)
+* 下载链接: [download](https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/xupt.apk)
 
 ## 功能介绍:
 1. 教务处: 查询课表、成绩和个人信息
