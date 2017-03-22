@@ -8,7 +8,7 @@
 * Github: [https://github.com/1anc3r](https://github.com/1anc3r)
 * 我的博客: [1anc3r.me](http://www.1anc3r.me/)
 * 实验室主页: [xiyoumobile](http://www.xiyoumobile.com/)
-* 下载链接: [download](http://o7gy5l0ax.bkt.clouddn.com/xupt.apk)
+* 下载链接: [download](https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/xupt.apk)
 
 ## 功能介绍:
 1. 教务处: 查询课表、成绩和个人信息
@@ -28,15 +28,12 @@
 
 ## 应用界面:
 
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413083.png" width = "288" height = "512" alt="" /><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413086.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413092.png" width = "288" height = "512" alt=""/>
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413096.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413101.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413109.png" width = "288" height = "512" alt=""/>
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413113.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413118.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413145.png" width = "288" height = "512" alt=""/>
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413051.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413060.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482463522.png" width = "288" height = "512" alt=""/>
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412937.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412941.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412960.png" width = "288" height = "512" alt=""/>
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482412967.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413167.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1482413036.png" width = "288" height = "512" alt=""/>
-
-    更新
-<img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525520.png" width = "288" height = "512" alt="" /><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525625.png" width = "288" height = "512" alt=""/><img src="http://o7gy5l0ax.bkt.clouddn.com/Screenshot_1488525503.png" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412931.gif" width = "288" height = "512" alt="" /><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412932.gif" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412933.gif" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413083.png" width = "288" height = "512" alt="" /><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413086.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413089.png" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1488525520.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413145.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413115.png" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413092.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413096.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413101.png" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482463522.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413051.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413060.png" width = "288" height = "512" alt=""/>
+<img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412937.png" width = "288" height = "512" alt="夜间模式课表"/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412941.png" width = "288" height = "512" alt="夜间模式成绩"/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1488525503.png" width = "288" height = "512" alt="桌面小组件"/>
 
 ## 关于
 ### 组织
