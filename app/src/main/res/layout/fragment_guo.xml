@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_guo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="ui.fragment.CetFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/t_guo"
+        android:elevation="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <WebView
+        android:id="@+id/wv_guo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</LinearLayout>

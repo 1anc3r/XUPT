@@ -23,11 +23,15 @@
             android:icon="@mipmap/ic_class_black_24dp"
             android:title="@string/lib_title" />
 
-
         <item
             android:id="@+id/navigation_item_4"
             android:icon="@mipmap/ic_extension_black_24dp"
             android:title="四六级" />
+
+        <item
+            android:id="@+id/navigation_item_5"
+            android:icon="@mipmap/ic_send_black_24dp"
+            android:title="查快递" />
 
     </group>
 

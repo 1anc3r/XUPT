@@ -27,6 +27,7 @@ import me.lancer.xupt.ui.fragment.CetFragment;
 import me.lancer.xupt.mvp.logincard.fragment.XuptRollCallFragment;
 import me.lancer.xupt.mvp.loginedu.fragment.XuptEduFragment;
 import me.lancer.xupt.mvp.loginlib.fragment.XuptLibFragment;
+import me.lancer.xupt.ui.fragment.GuoFragment;
 import me.lancer.xupt.ui.view.CircleImageView;
 
 public class MainActivity extends BaseActivity {
@@ -176,6 +177,14 @@ public class MainActivity extends BaseActivity {
                     currentIndex = 0;
                     menuItem.setChecked(true);
                     currentFragment = new CetFragment();
+                    bundle.putInt(getString(R.string.index), currentIndex);
+                    currentFragment.setArguments(bundle);
+                    switchContent(currentFragment);
+                    return true;
+                case R.id.navigation_item_5:
+                    currentIndex = 0;
+                    menuItem.setChecked(true);
+                    currentFragment = new GuoFragment();
                     bundle.putInt(getString(R.string.index), currentIndex);
                     currentFragment.setArguments(bundle);
                     switchContent(currentFragment);
