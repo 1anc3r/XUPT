@@ -1,11 +1,14 @@
 package me.lancer.xupt.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -21,34 +24,86 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import me.lancer.xupt.R;
 import me.lancer.xupt.mvp.base.activity.BaseActivity;
-import me.lancer.xupt.mvp.loginedu.activity.LoginEduActivity;
+import me.lancer.xupt.mvp.repository.RepositoryBean;
+import me.lancer.xupt.mvp.repository.adapter.RepositoryAdapter;
 import me.lancer.xupt.ui.adapter.SettingAdapter;
 import me.lancer.xupt.ui.application.mApp;
 import me.lancer.xupt.ui.application.mParams;
+import me.lancer.xupt.util.ContentGetterSetter;
 
 public class SettingActivity extends BaseActivity {
 
-    mApp app;
+    private mApp app;
 
-    LinearLayout llNight, llFunc, llProblem, llFeedback, llDownload, llAboutUs;
-    Button btnLoginOut;
-    SwitchCompat scNight;
-    BottomSheetDialog listDialog;
-    AlertDialog aboutDialog, downloadDialog;
+    private LinearLayout llNight, llFunc, llProblem, llFeedback, llDownload, llAboutUs;
+    private Button btnLoginOut;
+    private SwitchCompat scNight;
+    private BottomSheetDialog listDialog;
+    private AlertDialog aboutDialog;
+    private ProgressDialog progressDialog;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    boolean isNight = false;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private boolean isNight = false;
 
-    List<String> funcList = new ArrayList<>(), problemList = new ArrayList<>();
-
+    private List<String> funcList = new ArrayList<>(), problemList = new ArrayList<>();
+    private List<RepositoryBean> reList = new ArrayList<>();
+    ContentGetterSetter contentGetterSetter = new ContentGetterSetter();
     private final String root = Environment.getExternalStorageDirectory() + "/";
+
+    private Runnable repository = new Runnable() {
+        @Override
+        public void run() {
+            String content = contentGetterSetter.getContentFromHtm1("repository", "https://raw.githubusercontent.com/1anc3r/1anc3r-s-Android-App-List/master/AppLink.md");
+            if (!content.contains("获取失败!")) {
+                try {
+                    List<RepositoryBean> list = new ArrayList<>();
+                    JSONObject jsonObj = new JSONObject(content);
+                    JSONArray jsonArr = jsonObj.getJSONArray("apps");
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        RepositoryBean bean = new RepositoryBean();
+                        JSONObject jsonItem = jsonArr.getJSONObject(i);
+                        bean.setImg(jsonItem.getString("img"));
+                        bean.setName(jsonItem.getString("name"));
+                        bean.setDescription(jsonItem.getString("description"));
+                        bean.setDownload(jsonItem.getString("download"));
+                        bean.setBlog(jsonItem.getString("blog"));
+                        list.add(bean);
+                    }
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = list;
+                    handler.sendMessage(msg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (msg.obj != null) {
+                        reList = (List<RepositoryBean>) msg.obj;
+                        showRepositoryDialog(reList);
+                        progressDialog.dismiss();
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +130,10 @@ public class SettingActivity extends BaseActivity {
         btnLoginOut = (Button) findViewById(R.id.btn_login_out);
         btnLoginOut.setOnClickListener(vOnClickListener);
         scNight = (SwitchCompat) findViewById(R.id.sc_night);
+        progressDialog = new ProgressDialog(SettingActivity.this);
+        progressDialog.setMessage("正在加载，请稍后...");
+        progressDialog.setCancelable(false);
         showAboutDialog();
-        showDownloadDialog();
     }
 
     private void initData() {
@@ -86,20 +143,19 @@ public class SettingActivity extends BaseActivity {
         isNight = sharedPreferences.getBoolean(mParams.ISNIGHT, false);
         scNight.setChecked(isNight);
         scNight.setClickable(false);
-        funcList.add("教务处 : 查询课表、成绩和个人信息");
-        funcList.add("考勤表 : 查看考勤记录明细和统计, 也可以申诉");
-        funcList.add("图书馆 : 检索图书，查看当前借阅、历史借阅和收藏, 也可以(取消)收藏、续借");
-        funcList.add("四六级 : 查询英语四六级考试成绩, 包括听力、阅读、综合、写作和总分");
-        problemList.add("教务处 : 请使用西邮教务管理系统的账号和密码登录");
-        problemList.add("考勤表 : 使用西邮一卡通账号密码登录, 密码默认是学号后六位");
-        problemList.add("图书馆 : 使用西邮图书馆账号密码登录, 密码默认是123456");
-        problemList.add("应用内意见反馈通道尚未开启, 遇到Bug请发送邮件至huangfangzhi0@foxmail.com");
+        funcList.add("教务处 : \n\t\t\t\t查询课表、成绩和个人信息\n\t\t\t\t请使用西邮教务管理系统的账号和密码登录");
+        funcList.add("考勤表 : \n\t\t\t\t查看考勤记录明细和统计, 也可以申诉\n\t\t\t\t使用西邮一卡通账号密码登录, 密码默认是学号后六位");
+        funcList.add("图书馆 : \n\t\t\t\t检索图书，查看当前借阅、历史借阅和收藏, 也可以(取消)收藏、续借\n\t\t\t\t使用西邮图书馆账号密码登录, 密码默认是123456");
+        funcList.add("四六级 : \n\t\t\t\t查询英语四六级考试成绩, 包括听力、阅读、综合、写作和总分");
+        funcList.add("查快递 : \n\t\t\t\t根据快递单号查询物流");
+        problemList.add("遇到Bug可以憋在心里∑(っ°Д°)っ");
+        problemList.add("遇到Bug也可以发送邮件至huangfangzhi0@foxmail.com");
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v == llNight){
+            if (v == llNight) {
                 if (!isNight) {
                     editor.putBoolean(mParams.ISNIGHT, true);
                     editor.apply();
@@ -113,17 +169,18 @@ public class SettingActivity extends BaseActivity {
                     getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     recreate();
                 }
-            } else if (v == llFunc){
+            } else if (v == llFunc) {
                 showListDialog(1, funcList);
-            } else if (v == llProblem){
+            } else if (v == llProblem) {
                 showListDialog(2, problemList);
-            } else if (v == llFeedback){
+            } else if (v == llFeedback) {
 
-            } else if (v == llDownload){
-                downloadDialog.show();
-            } else if (v == llAboutUs){
+            } else if (v == llDownload) {
+                new Thread(repository).start();
+                progressDialog.show();
+            } else if (v == llAboutUs) {
                 aboutDialog.show();
-            } else if (v == btnLoginOut){
+            } else if (v == btnLoginOut) {
                 finish();
             }
         }
@@ -131,7 +188,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent().setClass(mActivity, MainActivity.class));
             finish();
         }
@@ -139,8 +196,8 @@ public class SettingActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             startActivity(new Intent().setClass(SettingActivity.this, MainActivity.class));
             finish();
             return true;
@@ -170,7 +227,7 @@ public class SettingActivity extends BaseActivity {
         listDialog.show();
     }
 
-    private void showAboutDialog(){
+    private void showAboutDialog() {
         View aboutDialogView = LayoutInflater.from(mActivity).inflate(R.layout.about_dialog, null);
         TextView tvOrganization = (TextView) aboutDialogView.findViewById(R.id.tv_organization);
         tvOrganization.setOnClickListener(new View.OnClickListener() {
@@ -201,118 +258,17 @@ public class SettingActivity extends BaseActivity {
         aboutDialog = builder.create();
     }
 
-    private void showDownloadDialog(){
-        View downloadDialogView = LayoutInflater.from(mActivity).inflate(R.layout.download_dialog, null);
-        TextView tvAirFreeDownload = (TextView) downloadDialogView.findViewById(R.id.tv_airfree_download);
-        tvAirFreeDownload.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("http://o7gy5l0ax.bkt.clouddn.com/AirFree-Client.apk");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvAirFreeBlog = (TextView) downloadDialogView.findViewById(R.id.tv_airfree_blog);
-        tvAirFreeBlog.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://www.1anc3r.me/airfree-android-to-pc-remote/");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvAirFreeGithub = (TextView) downloadDialogView.findViewById(R.id.tv_airfree_github);
-        tvAirFreeGithub.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://github.com/1anc3r/AirFree-Client");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvXuptDownload = (TextView) downloadDialogView.findViewById(R.id.tv_xupt_download);
-        tvXuptDownload.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/xupt.apk");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvXuptBlog = (TextView) downloadDialogView.findViewById(R.id.tv_xupt_blog);
-        tvXuptBlog.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://www.1anc3r.me/%E8%A5%BF%E9%82%AE%E8%AE%B0xupt/");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvXuptGithub = (TextView) downloadDialogView.findViewById(R.id.tv_xupt_github);
-        tvXuptGithub.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://github.com/1anc3r/XUPT");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvSevenPoundsDownload = (TextView) downloadDialogView.findViewById(R.id.tv_sevenpounds_download);
-        tvSevenPoundsDownload.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://raw.githubusercontent.com/1anc3r/SevenPounds/master/screenshot/sevenpounds.apk");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvSevenPoundsBlog = (TextView) downloadDialogView.findViewById(R.id.tv_sevenpounds_blog);
-        tvSevenPoundsBlog.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://www.1anc3r.me/%E4%B8%83%E7%A3%85sevenpounds/");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        TextView tvSevenPoundsGithub = (TextView) downloadDialogView.findViewById(R.id.tv_sevenpounds_github);
-        tvSevenPoundsGithub.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://github.com/1anc3r/AirFree-Client");
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        builder.setView(downloadDialogView);
-        downloadDialog = builder.create();
+    private void showRepositoryDialog(List<RepositoryBean> list) {
+        View listDialogView = View.inflate(mActivity, R.layout.list_dialog, null);
+        TextView tvType = (TextView) listDialogView.findViewById(R.id.tv_type);
+        tvType.setText("我的作品");
+        RecyclerView rvList = (RecyclerView) listDialogView.findViewById(R.id.rv_list);
+        rvList.setItemAnimator(new DefaultItemAnimator());
+        rvList.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        RecyclerView.Adapter adapter = new RepositoryAdapter(this, list);
+        rvList.setAdapter(adapter);
+        listDialog = new BottomSheetDialog(mActivity);
+        listDialog.setContentView(listDialogView);
+        listDialog.show();
     }
 }

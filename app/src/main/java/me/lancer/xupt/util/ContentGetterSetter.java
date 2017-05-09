@@ -20,6 +20,9 @@ public class ContentGetterSetter {
 
     String key, number;
 
+    public ContentGetterSetter() {
+    }
+
     public ContentGetterSetter(String key, String number) {
         this.key = key;
         this.number = number;
@@ -100,6 +103,32 @@ public class ContentGetterSetter {
             Log.e("gettersetter.toFile", "配置文件成功!");
         } catch (Exception e) {
             Log.e("gettersetter.toFile", "配置文件失败!捕获异常:" + e.toString());
+        }
+    }
+
+    public String getContentFromHtm1(String log, String url) {
+        StringBuilder content = new StringBuilder();
+        OkHttpClient client = new OkHttpClient();
+        client.setFollowRedirects(false);
+        Request request = new Request.Builder().url(url).build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.code() == 200) {
+                BufferedReader reader = new BufferedReader(response.body().charStream());
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line);
+                }
+                reader.close();
+                Log.e(log, "获取成功!");
+                return content.toString();
+            } else {
+                Log.e(log, "获取失败!状态码:" + response.code());
+                return "获取失败!状态码:" + response.code();
+            }
+        } catch (IOException e) {
+            Log.e(log, "获取失败!捕获异常:" + e.toString());
+            return "获取失败!捕获异常:" + e.toString();
         }
     }
 }
