@@ -148,8 +148,7 @@ public class SettingActivity extends BaseActivity {
         funcList.add("图书馆 : \n\t\t\t\t检索图书，查看当前借阅、历史借阅和收藏, 也可以(取消)收藏、续借\n\t\t\t\t使用西邮图书馆账号密码登录, 密码默认是123456");
         funcList.add("四六级 : \n\t\t\t\t查询英语四六级考试成绩, 包括听力、阅读、综合、写作和总分");
         funcList.add("查快递 : \n\t\t\t\t根据快递单号查询物流");
-        problemList.add("遇到Bug可以憋在心里∑(っ°Д°)っ");
-        problemList.add("遇到Bug也可以发送邮件至huangfangzhi0@foxmail.com");
+        problemList.add("遇到Bug不要憋在心里∑(っ°Д°)っ\n请发送邮件至huangfangzhi0@foxmail.com");
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
