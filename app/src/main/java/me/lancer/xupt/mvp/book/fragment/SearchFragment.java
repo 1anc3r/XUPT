@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -38,16 +39,14 @@ import me.lancer.xupt.mvp.book.adapter.SearchAdapter;
 public class SearchFragment extends PresenterFragment<BookPresenter> implements IBookView {
 
     EditText etSearch;
-    FloatingActionButton fabBestBook, fabLatestBook, fabBestMovie, fabLatestMovie, fabBestMusic, fabLatestMusic;
-    SwipeRefreshLayout srlResult, srlReviewer;
-    RecyclerView rvResult, rvReviewer;
+    SwipeRefreshLayout srlResult;
+    RecyclerView rvResult;
+    LinearLayout llLibary;
 
     SearchAdapter searchAdapter;
-    ReviewerAdapter reviewerAdapter;
 
-    LinearLayoutManager llm0, llm1;
+    LinearLayoutManager llm0;
     List<BookBean> resultList = new ArrayList<>();
-    List<ReviewerBean> reviewerList = new ArrayList<>();
 
     String keyword;
     int type = 1, pager = 0, last = 0;
@@ -69,30 +68,27 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
                         searchAdapter = new SearchAdapter(resultList);
                         rvResult.setAdapter(searchAdapter);
                         srlResult.setVisibility(View.VISIBLE);
-                        srlReviewer.setVisibility(View.GONE);
+                        llLibary.setVisibility(View.GONE);
                     }
                     srlResult.setRefreshing(false);
-                    srlReviewer.setRefreshing(false);
                     break;
-                case 4:
-                    if (msg.obj != null) {
-                        if (pager == 0) {
-                            resultList.clear();
-                            reviewerList = (List<ReviewerBean>) msg.obj;
-                            reviewerAdapter = new ReviewerAdapter(getActivity(), reviewerList);
-                            rvReviewer.setAdapter(reviewerAdapter);
-                        } else {
-                            reviewerList.addAll((List<ReviewerBean>) msg.obj);
-                            for (int i = 0; i < 10; i++) {
-                                reviewerAdapter.notifyItemInserted(pager + i);
-                            }
-                        }
-                        srlReviewer.setVisibility(View.VISIBLE);
-                        srlResult.setVisibility(View.GONE);
-                    }
-                    srlResult.setRefreshing(false);
-                    srlReviewer.setRefreshing(false);
-                    break;
+//                case 4:
+//                    if (msg.obj != null) {
+//                        if (pager == 0) {
+//                            resultList.clear();
+//                            reviewerList = (List<ReviewerBean>) msg.obj;
+//                            reviewerAdapter = new ReviewerAdapter(getActivity(), reviewerList);
+//                        } else {
+//                            reviewerList.addAll((List<ReviewerBean>) msg.obj);
+//                            for (int i = 0; i < 10; i++) {
+//                                reviewerAdapter.notifyItemInserted(pager + i);
+//                            }
+//                        }
+//                        llLibary.setVisibility(View.VISIBLE);
+//                        srlResult.setVisibility(View.GONE);
+//                    }
+//                    srlResult.setRefreshing(false);
+//                    break;
             }
         }
     };
@@ -146,30 +142,18 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
                 keyword = etSearch.getText().toString();
                 if (keyword != null && !keyword.equals("")) {
                     srlResult.setVisibility(View.VISIBLE);
-                    srlReviewer.setVisibility(View.GONE);
+                    llLibary.setVisibility(View.GONE);
                     srlResult.setRefreshing(true);
                     new Thread(search).start();
                 } else {
                     srlResult.setVisibility(View.GONE);
-                    srlReviewer.setVisibility(View.VISIBLE);
+                    llLibary.setVisibility(View.VISIBLE);
                     srlResult.setRefreshing(false);
                 }
             }
         });
 
-        fabBestBook = (FloatingActionButton) view.findViewById(R.id.fab_best_book);
-        fabLatestBook = (FloatingActionButton) view.findViewById(R.id.fab_latest_book);
-        fabBestMovie = (FloatingActionButton) view.findViewById(R.id.fab_best_movie);
-        fabLatestMovie = (FloatingActionButton) view.findViewById(R.id.fab_latest_movie);
-        fabBestMusic = (FloatingActionButton) view.findViewById(R.id.fab_best_music);
-        fabLatestMusic = (FloatingActionButton) view.findViewById(R.id.fab_latest_music);
-        fabBestBook.setOnClickListener(vOnClickListener);
-        fabLatestBook.setOnClickListener(vOnClickListener);
-        fabBestMovie.setOnClickListener(vOnClickListener);
-        fabLatestMovie.setOnClickListener(vOnClickListener);
-        fabBestMusic.setOnClickListener(vOnClickListener);
-        fabLatestMusic.setOnClickListener(vOnClickListener);
-
+        llLibary = (LinearLayout) view.findViewById(R.id.ll_libary);
         srlResult = (SwipeRefreshLayout) view.findViewById(R.id.srl_result);
         srlResult.setColorSchemeResources(R.color.blue, R.color.teal, R.color.green, R.color.yellow, R.color.orange, R.color.red, R.color.pink, R.color.purple);
         srlResult.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -178,13 +162,12 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
                 keyword = etSearch.getText().toString();
                 if (keyword != null && !keyword.equals("")) {
                     srlResult.setVisibility(View.VISIBLE);
-                    srlReviewer.setVisibility(View.GONE);
+                    llLibary.setVisibility(View.GONE);
                     srlResult.setRefreshing(true);
                     new Thread(search).start();
                 } else {
                     srlResult.setVisibility(View.GONE);
-                    srlReviewer.setVisibility(View.VISIBLE);
-                    srlReviewer.setRefreshing(true);
+                    llLibary.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -196,68 +179,13 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
         rvResult.setHasFixedSize(true);
         searchAdapter = new SearchAdapter(resultList);
         rvResult.setAdapter(searchAdapter);
-
-        srlReviewer = (SwipeRefreshLayout) view.findViewById(R.id.srl_reviewer);
-        srlReviewer.setColorSchemeResources(R.color.blue, R.color.teal, R.color.green, R.color.yellow, R.color.orange, R.color.red, R.color.pink, R.color.purple);
-        srlReviewer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pager = 0;
-                srlResult.setVisibility(View.GONE);
-                srlReviewer.setVisibility(View.VISIBLE);
-                srlReviewer.setRefreshing(true);
-                new Thread(reviewer).start();
-            }
-        });
-        rvReviewer = (RecyclerView) view.findViewById(R.id.rv_reviewer);
-        llm1 = new LinearLayoutManager(getContext());
-        rvReviewer.setLayoutManager(llm1);
-        rvReviewer.setItemAnimator(new DefaultItemAnimator());
-        rvReviewer.setHasFixedSize(true);
-        reviewerAdapter = new ReviewerAdapter(getActivity(), reviewerList);
-        rvReviewer.setAdapter(reviewerAdapter);
-        rvReviewer.setOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && last + 1 == reviewerAdapter.getItemCount()) {
-                    pager += 20;
-                    srlResult.setVisibility(View.GONE);
-                    srlReviewer.setVisibility(View.VISIBLE);
-                    srlReviewer.setRefreshing(true);
-                    new Thread(reviewer).start();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                last = llm1.findLastVisibleItemPosition();
-            }
-        });
     }
 
     private View.OnClickListener vOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v == fabBestBook) {
-                type = 1;
-            } else if (v == fabLatestBook) {
-                type = 2;
-            } else if (v == fabBestMovie) {
-                type = 3;
-            } else if (v == fabLatestMovie) {
-                type = 4;
-            } else if (v == fabBestMusic) {
-                type = 5;
-            } else if (v == fabLatestMusic) {
-                type = 6;
-            }
             srlResult.setVisibility(View.GONE);
-            srlReviewer.setVisibility(View.VISIBLE);
-            srlReviewer.setRefreshing(true);
+            llLibary.setVisibility(View.VISIBLE);
             new Thread(reviewer).start();
         }
     };
@@ -277,10 +205,10 @@ public class SearchFragment extends PresenterFragment<BookPresenter> implements 
 
     @Override
     public void reviewer(List<ReviewerBean> list) {
-        Message msg = new Message();
-        msg.what = 4;
-        msg.obj = list;
-        handler.sendMessage(msg);
+//        Message msg = new Message();
+//        msg.what = 4;
+//        msg.obj = list;
+//        handler.sendMessage(msg);
     }
 
     @Override
