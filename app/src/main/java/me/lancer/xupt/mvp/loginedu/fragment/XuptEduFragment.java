@@ -1,5 +1,6 @@
 package me.lancer.xupt.mvp.loginedu.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +23,7 @@ import me.lancer.xupt.mvp.base.fragment.PresenterFragment;
 import me.lancer.xupt.mvp.loginedu.ILoginEduView;
 import me.lancer.xupt.mvp.loginedu.LoginEduPresenter;
 import me.lancer.xupt.mvp.user.fragment.UserEduFragment;
+import me.lancer.xupt.ui.activity.AboutActivity;
 import me.lancer.xupt.ui.activity.MainActivity;
 import me.lancer.xupt.mvp.course.fragment.CourseFragment;
 import me.lancer.xupt.mvp.score.fragment.ScoreFragment;
@@ -124,7 +127,24 @@ public class XuptEduFragment extends PresenterFragment<LoginEduPresenter> implem
 
     private void inflateMenu() {
         toolbar.inflateMenu(R.menu.menu_search);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_about:
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), AboutActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
+//    private void inflateMenu() {
+//        toolbar.inflateMenu(R.menu.menu_search);
+//    }
 
     private void initSearchView() {
         final SearchView searchView = (SearchView) toolbar.getMenu()

@@ -2,6 +2,7 @@ package me.lancer.xupt.mvp.logincard.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +22,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,6 +38,7 @@ import me.lancer.xupt.mvp.base.fragment.PresenterFragment;
 import me.lancer.xupt.mvp.logincard.ILoginCardView;
 import me.lancer.xupt.mvp.logincard.LoginCardPresenter;
 import me.lancer.xupt.mvp.rollcall.fragment.DetailFragment;
+import me.lancer.xupt.ui.activity.AboutActivity;
 import me.lancer.xupt.ui.activity.MainActivity;
 import me.lancer.xupt.ui.application.mApp;
 import me.lancer.xupt.mvp.rollcall.fragment.StatisticFragment;
@@ -191,7 +194,24 @@ public class XuptRollCallFragment extends PresenterFragment<LoginCardPresenter> 
 
     private void inflateMenu() {
         toolbar.inflateMenu(R.menu.menu_search);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_about:
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), AboutActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
+//    private void inflateMenu() {
+//        toolbar.inflateMenu(R.menu.menu_search);
+//    }
 
     private void initSearchView() {
         final SearchView searchView = (SearchView) toolbar.getMenu()

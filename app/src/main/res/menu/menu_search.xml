@@ -1,11 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.MainActivity">
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search_24dp"
         android:title="search"
+        android:visible="false"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="Github"
+        app:showAsAction="never" />
+
 </menu>
