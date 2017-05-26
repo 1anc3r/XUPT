@@ -63,7 +63,7 @@ public class SettingActivity extends BaseActivity {
     private Runnable repository = new Runnable() {
         @Override
         public void run() {
-            String content = contentGetterSetter.getContentFromHtm1("repository", "https://raw.githubusercontent.com/1anc3r/1anc3r-s-Android-App-List/master/AppLink.md");
+            String content = contentGetterSetter.getContentFromHtm1("repository", "https://raw.githubusercontent.com/1anc3r/1anc3r-s-Programming-Journey/master/AppLink.md");
             if (!content.contains("获取失败!")) {
                 try {
                     List<RepositoryBean> list = new ArrayList<>();
