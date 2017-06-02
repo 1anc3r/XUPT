@@ -16,12 +16,16 @@ public class AboutActivity extends AppCompatActivity {
     Toolbar toolbar;
     WebView webView;
 
+    String link, title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        link = getIntent().getStringExtra("link");
+        title = getIntent().getStringExtra("title");
         setContentView(R.layout.activity_about);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Github");
+        toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -41,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
             }
 
         });
-        webView.loadUrl("https://github.com/1anc3r");
+        webView.loadUrl(link);
     }
 
     @Override
