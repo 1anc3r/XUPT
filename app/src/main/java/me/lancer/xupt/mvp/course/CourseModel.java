@@ -36,7 +36,7 @@ public class CourseModel {
         this.name = name;
         this.cookie = cookie;
         ContentGetterSetter contentGetterSetter = new ContentGetterSetter("course_", number);
-        String url = "http://222.24.19.201/xskbcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121603";
+        String url = "http://222.24.62.120/xskbcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121603";
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         List<CourseBean> list;

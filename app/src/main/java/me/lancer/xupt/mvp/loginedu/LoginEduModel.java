@@ -32,7 +32,7 @@ public class LoginEduModel {
     }
 
     public void loadCheckCode() {
-        String url = "http://222.24.19.201/CheckCode.aspx";
+        String url = "http://222.24.62.120/CheckCode.aspx";
         String path = Environment.getExternalStorageDirectory().toString();
         OkHttpClient client = new OkHttpClient();
         client.setFollowRedirects(false);
@@ -60,6 +60,7 @@ public class LoginEduModel {
                 if (response.header("Set-Cookie") != null) {
                     String rawCookie = response.header("Set-Cookie");
                     String cookie = rawCookie.substring(0, rawCookie.indexOf(';'));
+                    Log.e("cookie", cookie);
                     presenter.loadCheckCodeSuccess(cookie);
                     Log.e("loadCheckCode", "加载验证码成功!");
                 } else {
@@ -77,11 +78,11 @@ public class LoginEduModel {
     }
 
     public void login(String number, String password, String checkcode, String cookie) {
-        String url = "http://222.24.19.201/default2.aspx";
+        String url = "http://222.24.62.120/default2.aspx";
         OkHttpClient client = new OkHttpClient();
         client.setFollowRedirects(false);
         FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("__VIEWSTATE", "dDwtNTE2MjI4MTQ7Oz61IGQDPAm6cyppI+uTzQcI8sEH6Q==")
+        builder.add("__VIEWSTATE", "dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==")
                 .add("txtUserName", number)
                 .add("TextBox2", password)
                 .add("txtSecretCode", checkcode)
@@ -91,7 +92,7 @@ public class LoginEduModel {
                 .add("hidPdrs", "")
                 .add("hidsc", "");
         Request request = new Request.Builder().url(url).addHeader("Cookie", cookie)
-                .addHeader("Referer", "http://222.24.19.201").post(builder.build()).build();
+                .addHeader("Referer", "http://222.24.62.120").post(builder.build()).build();
         try {
             Response response = client.newCall(request).execute();
             if (response.code() == 302) {
@@ -113,7 +114,7 @@ public class LoginEduModel {
     }
 
     public void home(String number, String cookie) {
-        String url = "http://222.24.19.201/xs_main.aspx?xh=" + number;
+        String url = "http://222.24.62.120/xs_main.aspx?xh=" + number;
         StringBuilder content = new StringBuilder();
         OkHttpClient client = new OkHttpClient();
         client.setFollowRedirects(false);

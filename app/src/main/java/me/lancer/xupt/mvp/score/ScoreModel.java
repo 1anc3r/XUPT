@@ -45,7 +45,7 @@ public class ScoreModel {
         this.name = name;
         this.cookie = cookie;
         ContentGetterSetter contentGetterSetter = new ContentGetterSetter("score_", number);
-        String url = "http://222.24.19.201/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
+        String url = "http://222.24.62.120/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         List<ScoreBean> list;
@@ -91,8 +91,8 @@ public class ScoreModel {
     }
 
     public Bundle getTermBundleWithYearBundle(Bundle yearBundle) {
-        Bundle termBundle = new Bundle();
-        String url = "http://222.24.19.201/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
+        termBundle = new Bundle();
+        String url = "http://222.24.62.120/xscjcx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121605";
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setFollowRedirects(false);
         for (int i = 0; i < yearBundle.size(); i++) {

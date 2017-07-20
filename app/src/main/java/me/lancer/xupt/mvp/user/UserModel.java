@@ -30,7 +30,7 @@ public class UserModel {
         this.name = name;
         this.cookie = cookie;
         ContentGetterSetter contentGetterSetter = new ContentGetterSetter("user_", number);
-        String url = "http://222.24.19.201/xsgrxx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121501";
+        String url = "http://222.24.62.120/xsgrxx.aspx?xh=" + number + "&xm=" + name + "&gnmkdm=N121501";
         String path = Environment.getExternalStorageDirectory().toString();
         String content;
         UserBean bean;
@@ -67,7 +67,7 @@ public class UserModel {
         bean.setUserCollege(colleague.text());
         bean.setUserMajor(major.text());
         bean.setUserClass(classes.text());
-        bean.setUserImage("http://222.24.19.201/" + imageSuffix);
+        bean.setUserImage("http://222.24.62.120/" + imageSuffix);
         return bean;
     }
 
