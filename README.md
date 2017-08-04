@@ -33,6 +33,9 @@
 <img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482463522.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413051.png" width = "288" height = "512" alt=""/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482413060.png" width = "288" height = "512" alt=""/>
 <img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412937.png" width = "288" height = "512" alt="夜间模式课表"/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1482412941.png" width = "288" height = "512" alt="夜间模式成绩"/><img src="https://raw.githubusercontent.com/1anc3r/XUPT/master/screenshot/Screenshot_1488525503.png" width = "288" height = "512" alt="桌面小组件"/>
 
+## 技术要点
+项目采用 MVP 架构，通过 Fiddler 抓包并分析，模拟网络数据请求；使用自定义 View 实现课表布局；使用 RemoteView 实现课表桌面小组件。通过此项目熟悉了 MVP 设计 思想，学习了如何抓包，掌握了基于HTTP的网络编程，掌握了自定义View。 
+
 ## 关于
 ### 组织
 <img src="http://o7gy5l0ax.bkt.clouddn.com/ic_xiyoumobile.png" width = "100" height = "100" alt=""/>
