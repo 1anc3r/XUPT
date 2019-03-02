@@ -26,17 +26,17 @@
 
 ## 应用界面:
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/动图1.gif" width = "288" height = "512" alt="" /><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/动图2.gif" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/动图3.gif" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/动图1.gif?raw=true" width = "288" height = "512" alt="" /><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/动图2.gif?raw=true" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/动图3.gif?raw=true" width = "288" height = "512" alt=""/>
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/课表.jpeg" width = "288" height = "369" alt="" /><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/成绩单.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/个人信息.jpeg" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/课表.jpeg?raw=true" width = "288" height = "369" alt="" /><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/成绩单.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/个人信息.jpeg?raw=true" width = "288" height = "369" alt=""/>
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/成绩单_夜间.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/课表_夜间.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/课表_桌面.jpeg" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/成绩单_夜间.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/课表_夜间.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/课表_桌面.jpeg?raw=true" width = "288" height = "369" alt=""/>
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/图书馆_检索.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/图书馆_详情.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/图书馆_我的.jpeg" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/图书馆_检索.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/图书馆_详情.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/图书馆_我的.jpeg?raw=true" width = "288" height = "369" alt=""/>
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/考勤表_明细.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/考勤表_申诉.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/考勤表_统计.jpeg" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/考勤表_明细.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/考勤表_申诉.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/考勤表_统计.jpeg?raw=true" width = "288" height = "369" alt=""/>
 
-<img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/侧边栏.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/设置.jpeg" width = "288" height = "512" alt=""/><img src="https://github.com/1anc3r/XUPT/master/blob/master/Screenshots/应用信息.jpeg" width = "288" height = "512" alt=""/>
+<img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/侧边栏.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/设置.jpeg?raw=true" width = "288" height = "369" alt=""/><img src="https://github.com/1anc3r/XUPT/blob/master/Screenshots/应用信息.jpeg?raw=true" width = "288" height = "369" alt=""/>
 
 ## 技术要点
 项目采用 MVP 架构，通过 Fiddler 抓包并分析，模拟网络数据请求；使用自定义 View 实现课表布局；使用 RemoteView 实现课表桌面小组件。通过此项目熟悉了 MVP 设计 思想，学习了如何抓包，掌握了基于HTTP的网络编程，掌握了自定义View。 
